@@ -13,73 +13,80 @@
 #ifndef SO_LONG_H
 
 # define SO_LONG_H
-# define DEFAULT_HEIGHT 1080
-# define DEFAULT_WIDTH 1920
+# define WINDOW_HEIGHT 500
+# define WINDOW_WIDTH 1000
+# define WINDOW_TITLE "The legend of zelda : Link to Bengurir"
+# define KEYS_TOTAL 256
 
-# include "key.h"
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-typedef unsigned int	t_color;
-typedef unsigned char	t_byte;
+#include "color.h"
+#include "player.h"
+#include "data.h"
+# include "key.h"
+# include "libft/libft.h"
 
 typedef enum e_event
 {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
+    ON_KEYDOWN = 2,
+    ON_KEYUP = 3,
+    ON_MOUSEDOWN = 4,
+    ON_MOUSEUP = 5,
+    ON_MOUSEMOVE = 6,
+    ON_EXPOSE = 12,
+    ON_DESTROY = 17
 }						t_event;
 
-typedef struct s_data
+
+typedef struct s_sprite
 {
-	void				*img;
-	char				*addr;
-	int					bpp;
-	int					line_length;
-	int					endian;
-}						t_data;
+    int width;
+    int height;
+    t_image * image;
+} t_sprite;
 
-typedef struct s_window
+typedef struct s_enemy {
+
+    int x;
+    int y;
+    t_state statue;
+    t_way way;
+} t_enemy;
+
+typedef struct s_frame
 {
-	void				*mlx;
-	void				*addr;
-	size_t				width;
-	size_t				height;
-	char				*title;
-}						t_window;
+    t_image * curr;
+    t_image * next;
 
-typedef struct s_image
+} t_frame;
+
+typedef struct s_engine
 {
-	void				*mlx;
-	t_data				*data;
-	size_t				height;
-	size_t				width;
-}						t_image;
+    char keys[KEYS_TOTAL];
+    void * window;
+    void * mlx;
+    t_player *player;
+    char ** map;
+} t_engine;
 
-void					*ft_data_address(t_data *data);
-int						ft_data_offset(t_data *data, int x, int y);
 
-void					ft_data_putpixel(t_data *data, int x, int y, int color);
-void					ft_image_putpixel(t_image *image, int x, int y,
-							int color);
-void					ft_window_putimage(t_window *window, t_image *image,
-							int x, int y);
+typedef struct s_game
+{
+    t_engine * engine;
+    t_frame *frame;
+} t_game;
 
-t_data					*ft_data_new(void *mlx, size_t width, size_t height);
-t_image					*ft_image_new(void *mlx, size_t width, size_t height);
-t_window				*ft_window_new(char *title, size_t width,
-							size_t height);
 
-t_byte					ft_color_opacity(t_color color);
-t_byte					ft_color_red(t_color color);
-t_byte					ft_color_green(t_color color);
-t_byte					ft_color_blue(t_color color);
-t_color					ft_color_rgba(t_byte red, t_byte green, t_byte blue,
-							t_byte opacity);
+t_frame* ft_frame_new(char * title,int width,int height);
+void ft_frame_putimage(t_frame *frame,t_image * img,int x , int y);
+void ft_frame_display(t_frame *frame);
+void ft_frame_clear(t_frame * frame);
+
+void ft_player_destroy(t_player ** player);
+
+void ft_engine_destroy(t_engine** engine);
+t_engine * ft_engine_new(void);
+
 #endif

@@ -13,15 +13,18 @@ ARFLAGS = -crs
 SRCS = $(wildcard ./*.c)
 DEPS = $(wildcard ./*.h)
 OBJS = $(SRCS:.c=.o)
+LIBFT = libft/libft.a
 NAME = so_long 
 
-all : $(NAME) 
+all :  $(LIBFT) $(NAME) 
 
-$(NAME) : $(OBJS)
-	$(CC) $(CCFLAGS) $^ -o $@  -lmlx_Linux -lXext -lX11 -lm
+$(NAME) :  $(OBJS) 
+	$(CC) $(CCFLAGS) $^ -o $@   -lmlx_Linux -Lminilibx-linux/ -lXext -lX11 -lm -I./minilibx-linux/ -lft -Llibft
 
+$(LIBFT) : 
+	make -C libft --no-print-directory
 %.o : %.c
-	$(CC) $(CCFLAGS) $< -o $@ -c 
+	$(CC) $(CCFLAGS) $< -o $@ -c -lmlx_Linux -Lminilibx-linux/ -lXext -lX11 -lm -I./minilibx-linux/ -lft -Llibft
 
 clean : 
 	$(RM) $(RMFLAGS) $(OBJS)

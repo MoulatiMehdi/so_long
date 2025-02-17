@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "color.h"
 
 t_byte	ft_color_opacity(t_color color)
 {
