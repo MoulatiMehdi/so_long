@@ -21,11 +21,11 @@ typedef enum e_key
 	KEY_S = 's',
 	KEY_W = 'w',
 	KEY_D = 'd',
-    KEY_UP = 65362,
-    KEY_DOWN = 65364,
-    KEY_LEFT = 65361,
-    KEY_RIGHT = 65363,
-    KEY_SPACE = ' ',
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363,
+	KEY_SPACE = ' ',
 }	t_key;
 
-#endif 
+#endif

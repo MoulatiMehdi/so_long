@@ -4,28 +4,37 @@ RM = rm
 AR = ar
 
 # flags 
+CCLIBS  = -lmlx_Linux -Lminilibx-linux/ -lft -Llibft -lXext -lX11 -lm 
 CCDEBUG = -g -fsanitize=address
 CCFLAGS = -Wall -Wextra $(CCDEBUG) 
+
 RMFLAGS = -rf 
-ARFLAGS = -crs
+
+DIR_OBJS = objs
+DIR_SRCS = .
+DIR_DEPS = .
 
 # files
-SRCS = $(wildcard ./*.c)
-DEPS = $(wildcard ./*.h)
-OBJS = $(SRCS:.c=.o)
+SRCS = $(wildcard *.c)
+DEPS = $(wildcard *.h)
+OBJS = $(addprefix $(DIR_OBJS)/,$(SRCS:.c=.o))
+
 LIBFT = libft/libft.a
 NAME = so_long 
 
 all :  $(LIBFT) $(NAME) 
 
 $(NAME) :  $(OBJS) 
-	$(CC) $(CCFLAGS) $^ -o $@   -lmlx_Linux -Lminilibx-linux/ -lXext -lX11 -lm -I./minilibx-linux/ -lft -Llibft
+	$(CC) $(CCFLAGS) $^ -o $@ -I./minilibx-linux/  $(CCLIBS)
+
+$(DIR_OBJS)/%.o : %.c $(DIR_OBJS)
+	$(CC) $(CCFLAGS) $< -o $@ -c  -I./minilibx-linux/  $(CCLIBS)
+
+$(DIR_OBJS) : 
+	mkdir $(DIR_OBJS)
 
 $(LIBFT) : 
 	make -C libft --no-print-directory
-%.o : %.c
-	$(CC) $(CCFLAGS) $< -o $@ -c -lmlx_Linux -Lminilibx-linux/ -lXext -lX11 -lm -I./minilibx-linux/ -lft -Llibft
-
 clean : 
 	$(RM) $(RMFLAGS) $(OBJS)
 
