@@ -63,6 +63,7 @@ t_image	*ft_image_from_xpm(void *mlx, char *filename)
 	data->pixels = ft_image_pixels(data);
 	data->width = width;
 	data->height = height;
+	data->mlx = mlx;
 	return (data);
 }
 
@@ -79,20 +80,21 @@ t_image	*ft_image_new(void *mlx, int width, int height)
 	data->pixels = ft_image_pixels(data);
 	data->height = height;
 	data->width = width;
+	data->mlx = mlx;
 	return (data);
 }
 
-void	ft_image_clear(void *mlx, t_image **data)
+void	ft_image_clear(t_image **data)
 {
-	if (data == NULL || *data == NULL)
+	if (!data || !*data)
 		return ;
-	if (mlx)
-		mlx_destroy_image(mlx, (*data)->address);
+	if ((*data)->mlx && (*data)->address)
+		mlx_destroy_image((*data)->mlx, (*data)->address);
 	free(*data);
 	*data = NULL;
 }
 
-void	ft_image_toimage(t_image *dest, t_image *src, int x, int y)
+void ft_image_dup(t_image * dest,t_image * src, int x , int y)
 {
 	int	dy;
 	int	dx;
@@ -106,7 +108,7 @@ void	ft_image_toimage(t_image *dest, t_image *src, int x, int y)
 		width = dest->width - x;
 	if (src->height + y > dest->height)
 		height = dest->height - y;
-	dy = (y < 0) * (-y);
+	dy = (y < 0) * (- y);
 	while (dy < height)
 	{
 		dx = (x < 0) * (-x);
@@ -114,6 +116,35 @@ void	ft_image_toimage(t_image *dest, t_image *src, int x, int y)
 		{
 			color = ft_image_getcolor(src, dx, dy);
 			ft_image_putpixel(dest, x + dx, y + dy, color);
+			dx++;
+		}
+		dy++;
+	}
+
+}
+
+void	ft_image_toimage(t_image * dest,t_image *src,t_rect rect)
+{
+	int	dy;
+	int	dx;
+	int	color;
+	int	height;
+	int	width;
+
+	height = src->height;
+	width = src->width;
+	if (src->width + rect.x > dest->width)
+		width = dest->width - rect.x;
+	if (src->height + rect.y > dest->height)
+		height = dest->height - rect.y;
+	dy = (rect.y < 0) * (- rect.y);
+	while (dy < height)
+	{
+		dx = (rect.x < 0) * (-rect.x);
+		while (dx < width)
+		{
+			color = ft_image_getcolor(src, dx, dy);
+			ft_image_putpixel(dest, rect.x + dx, rect.y + dy, color);
 			dx++;
 		}
 		dy++;

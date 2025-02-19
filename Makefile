@@ -39,6 +39,7 @@ clean :
 	$(RM) $(RMFLAGS) $(OBJS)
 
 fclean : clean 
+	make fclean -C libft --no-print-directory
 	$(RM) $(RMFLAGS) $(NAME)
 
 re : fclean all

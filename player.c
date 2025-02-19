@@ -1,151 +1,146 @@
+#include "image.h"
+#include "key.h"
 #include "so_long.h"
 #include <stdlib.h>
 #define DEBUG "  \033[1;36m[..DEBUG..]\033[0m\t"
 
 void	ft_player_debug(t_player *player)
 {
-	char	*state[5];
-	char	*way[5];
+    char	*state[5];
+    char	*way[5];
 
-	state[STATE_IDLE] = "IDLE";
-	state[STATE_WALK] = "WALK";
-	state[STATE_SWIM] = "SWIM";
-	state[STATE_GRAB] = "SWIM";
-	way[WAY_LEFT] = "LEFT";
-	way[WAY_RIGHT] = "RIGHT";
-	way[WAY_UP] = "UP";
-	way[WAY_DOWN] = "DOWN";
-	printf(DEBUG "x     : %d\n", player->x);
-	printf(DEBUG "y     : %d\n", player->y);
-	printf(DEBUG "state : %s\n", state[player->state]);
-	printf(DEBUG "way   : %s\n\n", way[player->way]);
+    state[STATE_IDLE] = "IDLE";
+    state[STATE_WALK] = "WALK";
+    state[STATE_SWIM] = "SWIM";
+    state[STATE_GRAB] = "SWIM";
+    way[WAY_LEFT] = "LEFT";
+    way[WAY_RIGHT] = "RIGHT";
+    way[WAY_UP] = "UP";
+    way[WAY_DOWN] = "DOWN";
+    printf(DEBUG "x     : %d\n", player->x);
+    printf(DEBUG "y     : %d\n", player->y);
+    printf(DEBUG "state : %s\n", state[player->state]);
+    printf(DEBUG "way   : %s\n\n", way[player->way]);
 }
 
 t_player	*ft_player_new(void)
 {
-	t_player	*player;
+    t_player	*player;
 
-	player = malloc(sizeof(t_player));
-	if (player == NULL)
-		return (NULL);
-	player->speed = 3;
-	player->state = STATE_IDLE;
-	player->way = WAY_DOWN;
-	player->x = 0;
-	player->y = 0;
-	return (player);
+    player = malloc(sizeof(t_player));
+    if (player == NULL)
+        return (NULL);
+    player->speed = 3;
+    player->state = STATE_IDLE;
+    player->way = WAY_DOWN;
+    player->width = 48;
+    player->sprite = NULL;
+    player->height = 64;
+    player->x = 0;
+    player->y = 0;
+    return (player);
 }
 
 void	ft_player_destroy(t_player **player)
 {
-	free(*player);
-	*player = NULL;
+    if ((*player)->sprite != NULL)
+        ft_image_clear(&(*player)->sprite);
+    free(*player);
+    *player = NULL;
 }
 
-void	ft_player_rect(t_image *dest, t_image *src, int src_x, int src_y,
-		int dest_x, int dest_y)
+void	ft_player_rect(t_player *player, t_image *dest, int fac_x)
 {
-	int	width;
-	int	height;
-	int	color;
-	int	i;
-	int	j;
+    int	color;
+    int	i;
+    int	j;
+    int	fac_y;
 
-	width = 48;
-	height = 64;
-	i = 0;
-	while (i < width)
-	{
-		j = 0;
-		while (j < height)
-		{
-			color = ft_image_getcolor(src, src_x + i, src_y + j);
-			ft_image_putpixel(dest, dest_x + i, dest_y + j, color);
-			j++;
-		}
-		i++;
-	}
+    fac_y = player->way;
+    i = 0;
+    while (i < player->width)
+    {
+        j = 0;
+        while (j < player->height)
+        {
+            color = ft_image_getcolor(player->sprite, player->width * fac_x + i,
+                                      player->height * fac_y + j);
+            ft_image_putpixel(dest, player->x + i, player->y + j, color);
+            j++;
+        }
+        i++;
+    }
 }
 
-void	ft_player_way(t_engine *engine)
+void	ft_player_state(t_player *player, char keys[256])
 {
-	char		*keys;
-	t_player	*player;
-	int			total;
+    int	total;
 
-	keys = engine->keys;
-	player = engine->player;
-	total = keys[KEY_A] + keys[KEY_D] + keys[KEY_S] + keys[KEY_W];
-	if (total == 0)
-	{
-		player->state = STATE_IDLE;
-		return ;
-	}
-	player->state = STATE_WALK;
-	if (total == 1)
-	{
-		if (keys[KEY_A] == 1)
-			player->way = WAY_LEFT;
-		if (keys[KEY_D] == 1)
-			player->way = WAY_RIGHT;
-		if (keys[KEY_W] == 1)
-			player->way = WAY_UP;
-		if (keys[KEY_S] == 1)
-			player->way = WAY_DOWN;
-		return ;
-	}
-	if (keys[KEY_S] == 1 && player->way != WAY_LEFT)
-		player->way = WAY_DOWN;
-	if (keys[KEY_W] == 1 && player->way != WAY_LEFT)
-		player->way = WAY_UP;
+    total = (keys[KEY_A] != keys[KEY_D]) + (keys[KEY_S] != keys[KEY_W]);
+    if (total == 0)
+        player->state = STATE_IDLE;
+    else
+        player->state = STATE_WALK;
 }
 
-void	ft_player_move(t_engine *engine)
+void	ft_player_way(t_player *player, char keys[256])
 {
-	if (engine->keys[KEY_D] == 1)
-	{
-		if (engine->player->x + engine->player->speed < WINDOW_WIDTH - 48)
-			engine->player->x += engine->player->speed;
-		else
-			engine->player->x = WINDOW_WIDTH - 48;
-	}
-	if (engine->keys[KEY_A] == 1)
-	{
-		if (engine->player->x >= engine->player->speed)
-			engine->player->x -= engine->player->speed;
-		else
-			engine->player->x = 0;
-	}
-	if (engine->keys[KEY_S] == 1)
-	{
-		if (engine->player->y + engine->player->speed < WINDOW_HEIGHT - 64)
-			engine->player->y += engine->player->speed;
-		else
-			engine->player->y = WINDOW_HEIGHT - 64;
-	}
-	if (engine->keys[KEY_W] == 1)
-	{
-		if (engine->player->y > engine->player->speed)
-			engine->player->y -= engine->player->speed;
-		else
-			engine->player->y = 0;
-	}
+    int	total;
+
+    total = (keys[KEY_A] != keys[KEY_D]) + (keys[KEY_S] != keys[KEY_W]);
+    if (total == 0)
+        return ;
+    if (total == 1)
+    {
+        if (keys[KEY_A] == 1 && keys[KEY_D] == 0)
+            player->way = WAY_LEFT;
+        if (keys[KEY_A] == 0 && keys[KEY_D] == 1)
+            player->way = WAY_RIGHT;
+        if (keys[KEY_W] == 1 && keys[KEY_S] == 0)
+            player->way = WAY_UP;
+        if (keys[KEY_W] == 0 && keys[KEY_S] == 1)
+            player->way = WAY_DOWN;
+        return ;
+    }
+    if (keys[KEY_S] == 1 && player->way != WAY_LEFT && player->way != WAY_RIGHT)
+        player->way = WAY_DOWN;
+    if (keys[KEY_W] == 1 && player->way != WAY_LEFT && player->way != WAY_RIGHT)
+        player->way = WAY_UP;
+}
+
+void	ft_player_move(t_player *player, char keys[256])
+{
+    if (keys[KEY_A] == 0 && keys[KEY_D] == 1)
+        player->x = ft_min(player->x + player->speed, WINDOW_WIDTH
+                           - player->width);
+    if (keys[KEY_A] == 1 && keys[KEY_D] == 0)
+        player->x = ft_max(player->x - player->speed, 0);
+    if (keys[KEY_W] == 0 && keys[KEY_S] == 1)
+        player->y = ft_min(player->y + player->speed, WINDOW_HEIGHT
+                           - player->height);
+    if (keys[KEY_W] == 1 && keys[KEY_S] == 0)
+        player->y = ft_max(player->y - player->speed, 0);
 }
 
 void	ft_player_render(t_animation *animation)
 {
-	static int	n = 0;
-	t_player	*player;
-	t_render	*render;
+    static int	n = 0;
+    t_player	*player;
+    t_render	*render;
+    t_engine	*engine;
+    char		*keys;
 
-	render = animation->render;
-	player = animation->engine->player;
-	ft_player_way(animation->engine);
-	ft_player_move(animation->engine);
-	if (player->state == STATE_IDLE)
-		n = 0;
-	ft_player_rect(render->curr, animation->square, 48 * (n / 3), 64
-		* player->way, player->x, player->y);
-	ft_player_debug(player);
-	n = (n + 1) % (8 * 3);
+    engine = animation->engine;
+    render = animation->render;
+    player = engine->player;
+    keys = engine->keys;
+
+    ft_player_state(player, keys);
+    ft_player_way(player, keys);
+    ft_player_move(player, keys);
+    if (player->state == STATE_IDLE)
+        n = 0;
+    ft_player_rect(player, render->curr, n / 3);
+    if(!engine->paused)
+        n = (n + 1) % (8 * 3);
 }

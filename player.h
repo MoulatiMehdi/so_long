@@ -2,6 +2,8 @@
 
 #define PLAYER_H
 
+#include "image.h"
+
 typedef enum e_way
 {
 	WAY_RIGHT = 0,
@@ -22,9 +24,12 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	int		speed;
-	t_way	way;
+    int		speed;
+	int width;
+    int height;
+    t_way	way;
 	t_state	state;
+	t_image * sprite;
 
 }			t_player;
 

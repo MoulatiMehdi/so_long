@@ -12,8 +12,8 @@ t_render	*ft_render_new(void *mlx, void *window)
 		return (NULL);
 	render->window = window;
 	render->mlx = mlx;
-	render->curr = ft_image_new(mlx, WINDOW_WIDTH + 1, WINDOW_HEIGHT + 1);
-	render->next = ft_image_new(mlx, WINDOW_WIDTH + 1, WINDOW_HEIGHT + 1);
+	render->curr = ft_image_new(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	render->next = ft_image_new(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	return (render);
 }
 
@@ -32,7 +32,7 @@ void	ft_render_display(t_render *render)
 
 void	ft_render_clear(t_render *render)
 {
-	ft_image_clear(render->mlx, &render->curr);
-	ft_image_clear(render->mlx, &render->next);
+	ft_image_clear(&render->curr);
+	ft_image_clear(&render->next);
 	free(render);
 }
