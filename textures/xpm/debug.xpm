@@ -1,0 +1,28 @@
+/* XPM */
+static const char *debug_commands[] = {
+/* columns rows colors chars-per-pixel */
+"144 16 6 1 ",
+"  c black",
+". c #006D00",
+"X c #DB0000",
+"o c blue",
+"O c #B6B6B6",
+"+ c None",
+/* pixels */
+"++++++++  ++++++++++++    ++++++++++++  ++++++++++++++    ++++++++++oooooooo++++++++++++++++....++XXXX++++XXXX++++++++OOOO++++++++OOOOOOOOOO++++",
+"++++++++  ++++++++++++    ++++++++++++  ++++++++++++++    ++++++++++oooooooo++++++++++++++++....++XXXX++++XXXX++++++++OOOO++++++++OOOOOOOOOO++++",
+"++++++++    ++++++++        ++++++++    ++++++++++++++    ++++++++oooooooooooo++++++++++++......++XXXX++++XXXX++++++OOOOOO++++++++OOOOOOOOOOOO++",
+"++++++++    ++++++++        ++++++++    ++++++++++++++    ++++++++oooooooooooo++++++++++++......++XXXX++++XXXX++++++OOOOOO++++++++OOOOOOOOOOOO++",
+"++++++++      ++++            ++++      ++++++++++++++    ++++++++oooo++++oooo++++++++++......++++XXXX++++XXXX++++OOOOOOOO++++++++++++++++OOOO++",
+"++++++++      ++++            ++++      ++++++++++++++    ++++++++oooo++++oooo++++++++++......++++XXXX++++XXXX++++OOOOOOOO++++++++++++++++OOOO++",
+"                                                ++++++    ++++++++oooo++++oooo++++++++......++++++XXXX++++XXXX++++OO++OOOO++++++++++OOOOOOOOOO++",
+"                                                ++++++    ++++++++oooo++++oooo++++++++......++++++XXXX++++XXXX++++OO++OOOO++++++++++OOOOOOOOOO++",
+"                ++++++    ++++++                                ++oooooooooooo++++++......++++++++XXXX++++XXXX++++++++OOOO++++++++OOOOOOOOOO++++",
+"                ++++++    ++++++                                ++oooooooooooo++++++......++++++++XXXX++++XXXX++++++++OOOO++++++++OOOOOOOOOO++++",
+"++++++++      ++++++++    ++++++++      ++++++++++            ++++oooooooooooo++..++....++++++++++XXXX++++XXXX++++++++OOOO++++++++OOOO++++++++++",
+"++++++++      ++++++++    ++++++++      ++++++++++            ++++oooooooooooo++..++....++++++++++XXXX++++XXXX++++++++OOOO++++++++OOOO++++++++++",
+"++++++++    ++++++++++    ++++++++++    ++++++++++++        ++++++oooo++++oooo++++..++++++++++++++XXXX++++XXXX++++OOOOOOOOOOOO++++OOOOOOOOOOOO++",
+"++++++++    ++++++++++    ++++++++++    ++++++++++++        ++++++oooo++++oooo++++..++++++++++++++XXXX++++XXXX++++OOOOOOOOOOOO++++OOOOOOOOOOOO++",
+"++++++++  ++++++++++++    ++++++++++++  ++++++++++++++    ++++++++oooo++++oooo++..++..++++++++++++XXXX++++XXXX++++OOOOOOOOOOOO++++OOOOOOOOOOOO++",
+"++++++++  ++++++++++++    ++++++++++++  ++++++++++++++    ++++++++oooo++++oooo++..++..++++++++++++XXXX++++XXXX++++OOOOOOOOOOOO++++OOOOOOOOOOOO++"
+};

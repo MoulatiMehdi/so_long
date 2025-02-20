@@ -1,0 +1,26 @@
+/* XPM */
+static const char *hearts[] = {
+/* columns rows colors chars-per-pixel */
+"48 16 4 1 ",
+"  c black",
+". c #E02020",
+"X c #F8F8F8",
+"o c None",
+/* pixels */
+"ooooXXXXooXXXXoooooo    oo    ooooooXXXXooXXXXoo",
+"ooooXXXXooXXXXoooooo    oo    ooooooXXXXooXXXXoo",
+"ooXX....XX....XXoo    XX  XX    ooXX    XX    XX",
+"ooXX....XX....XXoo    XX  XX    ooXX    XX    XX",
+"ooXX..........XXoo  XX..XX..XX  ooXX          XX",
+"ooXX..........XXoo  XX..XX..XX  ooXX          XX",
+"ooXX..........XXoo  XX......XX  ooXX          XX",
+"ooXX..........XXoo  XX......XX  ooXX          XX",
+"ooooXX......XXoooooo  XX..XX  ooooooXX      XXoo",
+"ooooXX......XXoooooo  XX..XX  ooooooXX      XXoo",
+"ooooooXX..XXoooooooooo  XX  ooooooooooXX  XXoooo",
+"ooooooXX..XXoooooooooo  XX  ooooooooooXX  XXoooo",
+"ooooooooXXoooooooooooooo  ooooooooooooooXXoooooo",
+"ooooooooXXoooooooooooooo  ooooooooooooooXXoooooo",
+"oooooooooooooooooooooooooooooooooooooooooooooooo",
+"oooooooooooooooooooooooooooooooooooooooooooooooo"
+};

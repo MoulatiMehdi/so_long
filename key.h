@@ -13,6 +13,9 @@
 #ifndef KEY_H
 
 # define KEY_H
+#define  KEY_DEBUG_X (WINDOW_WIDTH - 16*9)
+#define  KEY_DEBUG_Y (WINDOW_HEIGHT - 32)
+#define  KEY_TRACK "dwascx"
 
 typedef enum e_key
 {

@@ -1,46 +1,29 @@
 #include "key.h"
 #include "so_long.h"
 
-void	ft_debug_rect(t_image *dest, t_image *src, int x, int y, int dest_x,
-		int dest_y)
-{
-	int	width;
-	int	height;
-	int	color;
-	int	i;
-	int	j;
-
-	width = 16;
-	height = 16;
-	i = 0;
-	while (i < width)
-	{
-		j = 0;
-		while (j < height)
-		{
-			color = ft_image_getcolor(src, x + i, y + j);
-			ft_image_putpixel(dest, dest_x + i, dest_y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	ft_key_debug(t_animation *animation)
 {
 	t_render	*render;
-	char		*keys;
     int i;
-    char * pressed;
+    t_sprite sprite;
+    t_point o_dest;
 
-    pressed = "dwascx ";
-	keys = animation->engine->keys;
+    sprite.height = 16;
+    sprite.width = 16;
+    sprite.x = 0;
+    sprite.y = 0;
+    o_dest.y = KEY_DEBUG_Y; 
+    o_dest.x = KEY_DEBUG_X; 
 	render = animation->render;
 	i = 0;
-    while(pressed[i])
+    while(KEY_TRACK[i])
     {
-        if (keys[(int)pressed[i]] == 1)
-		    ft_debug_rect(render->curr, animation->debug, 16 * i, 0, 16 * i,16);
+        if (animation->engine->keys[(int)KEY_TRACK[i]] == 1)
+            ft_sprite_toimage(render->back, animation->sprite_debug, &sprite, &o_dest);
+        o_dest.x += sprite.width;
+        sprite.x += sprite.width;
         i++;
     }
+    if (animation->engine->paused)
+        ft_sprite_toimage(render->back, animation->sprite_debug, &sprite, &o_dest);
 }

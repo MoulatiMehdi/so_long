@@ -2,7 +2,6 @@
 #include "key.h"
 #include "so_long.h"
 #include <stdlib.h>
-#define DEBUG "  \033[1;36m[..DEBUG..]\033[0m\t"
 
 void	ft_player_debug(t_player *player)
 {
@@ -30,11 +29,14 @@ t_player	*ft_player_new(void)
     player = malloc(sizeof(t_player));
     if (player == NULL)
         return (NULL);
-    player->speed = 3;
+    player->hearts = 0;
+    player->speed = 6;
     player->state = STATE_IDLE;
     player->way = WAY_DOWN;
     player->width = 48;
     player->sprite = NULL;
+    player->coins = 0;
+    player->moves = 0;
     player->height = 64;
     player->x = 0;
     player->y = 0;
@@ -111,15 +113,27 @@ void	ft_player_way(t_player *player, char keys[256])
 void	ft_player_move(t_player *player, char keys[256])
 {
     if (keys[KEY_A] == 0 && keys[KEY_D] == 1)
+    {
         player->x = ft_min(player->x + player->speed, WINDOW_WIDTH
                            - player->width);
-    if (keys[KEY_A] == 1 && keys[KEY_D] == 0)
+        player->moves ++;
+    }
+        if (keys[KEY_A] == 1 && keys[KEY_D] == 0)
+    {
         player->x = ft_max(player->x - player->speed, 0);
+        player->moves ++;
+    }
     if (keys[KEY_W] == 0 && keys[KEY_S] == 1)
+    {
         player->y = ft_min(player->y + player->speed, WINDOW_HEIGHT
                            - player->height);
+        player->moves ++;
+    }
     if (keys[KEY_W] == 1 && keys[KEY_S] == 0)
+    {
         player->y = ft_max(player->y - player->speed, 0);
+        player->moves ++;
+    }
 }
 
 void	ft_player_render(t_animation *animation)
@@ -135,12 +149,47 @@ void	ft_player_render(t_animation *animation)
     player = engine->player;
     keys = engine->keys;
 
-    ft_player_state(player, keys);
-    ft_player_way(player, keys);
-    ft_player_move(player, keys);
-    if (player->state == STATE_IDLE)
-        n = 0;
-    ft_player_rect(player, render->curr, n / 3);
     if(!engine->paused)
-        n = (n + 1) % (8 * 3);
+    {
+        ft_player_state(player, keys);
+        ft_player_way(player, keys);
+        ft_player_move(player, keys);
+        if (player->state == STATE_IDLE)
+        n = 0;
+    }
+    ft_player_rect(player, render->back, n / PLAYER_FRAME_NBR);
+    if(!engine->paused)
+        n = (n + 1) % (8 * PLAYER_FRAME_NBR);
 }
+
+/*void ft_player_dead_in(t_animation * animation)*/
+/*{*/
+/*    t_sprite sprite;*/
+/*    t_point point;*/
+/*    static int n = 0;*/
+/**/
+/*    sprite.width = 1280;*/
+/*    sprite.height = 960;*/
+/*    point.x = animation->engine->player->x - sprite.width /2+ animation->engine->player->width / 2;*/
+/*    point.y = animation->engine->player->y - sprite.height/2 + animation->engine->player->height / 2;*/
+/*    sprite.x = (n/PLAYER_FRAME_NBR) * sprite.width ;*/
+/*    sprite.y = 0;*/
+/*    ft_sprite_toimage(animation->render->back,animation->sprite_fade,&sprite, &point);*/
+/*    n = ft_min(n + 1,6 * PLAYER_FRAME_NBR - 1);*/
+/*}*/
+/**/
+/*void ft_player_dead_out(t_animation * animation)*/
+/*{*/
+/*    t_sprite sprite;*/
+/*    t_point point;*/
+/*    static int n = 0;*/
+/**/
+/*    sprite.width = 1280;*/
+/*    sprite.height = 960;*/
+/*    point.x = animation->engine->player->x - sprite.width /2+ animation->engine->player->width / 2;*/
+/*    point.y = animation->engine->player->y - sprite.height/2 + animation->engine->player->height / 2;*/
+/*    sprite.x = (n/PLAYER_FRAME_NBR) * sprite.width ;*/
+/*    sprite.y = sprite.height;*/
+/*    ft_sprite_toimage(animation->render->back,animation->sprite_fade,&sprite, &point);*/
+/*    n = ft_min(n + 1,6 * PLAYER_FRAME_NBR);*/
+/*}*/

@@ -1,6 +1,9 @@
 #ifndef PLAYER_H
 
 #define PLAYER_H
+#define DEBUG "  \033[1;36m[..DEBUG..]\033[0m\t"
+#define PLAYER_SPRITE_WALK "./textures/xpm/walk.xpm"
+#define PLAYER_FRAME_NBR 2 
 
 #include "image.h"
 
@@ -25,7 +28,10 @@ typedef struct s_player
 	int		x;
 	int		y;
     int		speed;
-	int width;
+    unsigned int coins;
+    unsigned int moves;
+    unsigned int hearts;
+    int width;
     int height;
     t_way	way;
 	t_state	state;

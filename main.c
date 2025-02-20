@@ -1,121 +1,143 @@
 #include "color.h"
 #include "image.h"
-#include "key.h"
+#include "libft/libft.h"
 #include "mlx.h"
 #include "so_long.h"
-#include <bits/pthreadtypes.h>
-#include <stdio.h>
 #include <unistd.h>
+#include "player.h"
 
-void	draw_rectangle(t_image *img, int x, int y, t_color color)
+#define PLAYER_HEARTS_TOTAL 6
+#define PLAYER_STATUS_X (WINDOW_WIDTH / 2 - 128)
+
+void ft_number_render(t_animation* animation,t_point * point,int nbr,int digits)
 {
-    int	width;
-    int	height;
-    int	i;
-    int	j;
-
-    width = img->width;
-    height = img->height;
-    if (x + width > img->width)
-        width = img->width - x;
-    if (y + height > img->height)
-        height = img->height - y;
-    i = x;
-    while (i < x + width)
+    int i;
+    t_sprite sprite;
+    
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.width = 16;
+    sprite.height = 16;
+    i = 0;
+    while(i < digits)
     {
-        j = y;
-        while (j < y + height)
-        {
-            ft_image_putpixel(img, i, j, color);
-            j++;
-        }
+        sprite.x =(nbr % 10)* sprite.width; 
+        ft_sprite_toimage(animation->render->back,animation->sprite_digits, &sprite, point);
+        point->x -= sprite.width;
+        nbr /=10;
         i++;
     }
 }
 
-void ft_gui_render(t_animation * animation)
+void ft_coin_render(t_animation * animation)
 {
-    t_render	*render;
-    t_engine	*engine;
-    t_gui * gui;
-    char		*keys;
+    t_sprite sprite;
+    t_point point;
+    int coin;
 
-    engine = animation->engine;
-    render = animation->render;
-    keys = engine->keys;
-    gui = engine->gui;
-
-    if(!engine->paused && gui->y == -WINDOW_HEIGHT)
-        return ;
-    if(engine->paused && gui->y == 0)
-        return ;
-
-    draw_rectangle(animation->render->curr, 0, 0, 0X0000FFFF);
-    if(!engine->paused)
-        gui->y -= 32;
-    else
-        gui->y += 32;
-    if(gui->y > 0)
-        gui->y = 0;
-    if(gui->y < -WINDOW_HEIGHT)
-        gui->y = -WINDOW_HEIGHT;
-    ft_image_dup(render->curr, gui->menu,0,gui->y);
+    point.x = PLAYER_STATUS_X ;
+    point.y = 32;
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.width = 16;
+    sprite.height = 16;
+    ft_sprite_toimage(animation->render->back,animation->sprite_coin,&sprite, &point);
+    point.y += sprite.height + 8;
+    point.x += sprite.width;
+    coin = animation->engine->player->coins;
+    if(coin > 999)
+        coin = 999;
+    ft_number_render(animation, &point,coin , 3);
 }
 
+void ft_moves_render(t_animation * animation)
+{
+    t_sprite sprite;
+    t_point point;
+    int coin;
+
+    point.x = PLAYER_STATUS_X + 6 * 16;
+    point.y = 32;
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.width = 16;
+    sprite.height = 16;
+    ft_sprite_toimage(animation->render->back,animation->sprite_shoes,&sprite, &point);
+    point.y += sprite.height + 8;
+    point.x += sprite.width * 3;
+    coin = animation->engine->player->moves;
+    if(coin > 9999999)
+        coin = 9999999;
+    ft_number_render(animation, &point ,coin,7);
+}
+
+void ft_player_dead(t_animation * animation)
+{
+    t_sprite sprite;
+    t_point point;
+    static int n = 0;
+    
+    /*sprite.width = 1280;*/
+    /*sprite.height = 960;*/
+    /*point.x = animation->engine->player->x - sprite.width /2+ animation->engine->player->width / 2;*/
+    /*point.y = animation->engine->player->y - sprite.height/2 + animation->engine->player->height / 2;*/
+    /*sprite.x = (n/PLAYER_FRAME_NBR) * sprite.width ;*/
+    /*sprite.y = 0;*/
+    /*ft_sprite_toimage(animation->render->back,animation->sprite_fade,&sprite, &point);*/
+    /*n = (n + 1) %(8 * PLAYER_FRAME_NBR);*/
+    point.x = animation->engine->player->x + animation->engine->player->width /2; 
+    point.y = animation->engine->player->y + animation->engine->player->height /2;
+    sprite.width = (6 - n / PLAYER_FRAME_NBR - 1) * animation->engine->player->width;
+    sprite.height = (6 - n / PLAYER_FRAME_NBR - 1) * animation->engine->player->height/2;
+    ft_image_ellipse(animation->render->back,&sprite,&point, 0X0000FF00);    
+    n = ft_min(n + 1,6 * PLAYER_FRAME_NBR - 1);
+}
+
+void ft_hearts_render(t_animation * animation)
+{
+    t_sprite sprite;
+    t_point point;
+    int heart;
+    int i;
+
+    heart = animation->engine->player->hearts;
+    point.x = WINDOW_WIDTH / 2 + 48 * 3;
+    point.y = 48;
+    sprite.width = 16;
+    sprite.height = 16;
+    sprite.y = 0;
+    i = 0; 
+    while(i < PLAYER_HEARTS_TOTAL/2)
+    {
+
+        sprite.x = sprite.width* (2 - ft_min(2,heart));
+        ft_sprite_toimage(animation->render->back,animation->sprite_hearts,&sprite, &point);
+        point.x +=sprite.width;
+        heart = ft_max(heart - 2,0);
+        i ++;
+    }
+}
 int	ft_animation_update(t_animation *animation)
 {
-    t_image * tmp;
 
-    ft_gui_render(animation);
-    if(!animation->engine->paused && animation->engine->gui->y == -WINDOW_HEIGHT)
-    {
-        draw_rectangle(animation->render->curr, 0, 0, 0X0000FFFF);
-        ft_key_debug(animation);
-        ft_player_render(animation);
-        ft_player_debug(animation->engine->player);
-    }
-    ft_image_towindow(animation->render->curr, animation->render, 0, 0);
+    ft_image_fill(animation->render->back, 0X00FFFFFF);
+    
+    ft_player_dead(animation);
+    ft_player_render(animation);
+    ft_hearts_render(animation);
+    ft_coin_render(animation);
+    ft_moves_render(animation);
+    ft_key_debug(animation);
+    ft_image_grid(animation->render->back, 16,16, 0x0000FF00);
+    ft_render_display(animation->render);
     return (0);
 }
 
-void ft_grid(t_image * image,int stepx,int stepy,t_color color)
-{
-    int i;
-    int j;
-
-    i = 48;
-    while(i < WINDOW_HEIGHT)
-    {
-        j = 0;
-        while(j < WINDOW_WIDTH)
-        {
-            ft_image_putpixel(image, j, i, color);
-            j++;
-        }
-
-        i+= stepy;
-    }
-    
-    j = 32;
-    while(j < WINDOW_WIDTH)
-    {
-        i = 0;
-        while(i < WINDOW_HEIGHT)
-        {
-            ft_image_putpixel(image, j, i, color);
-            i++;
-        }
-
-        j+= stepx;
-    }
-
-}
 
 
 int	main(void)
 {
     t_animation	animation;
-    t_gui gui;
     t_engine	*engine;
     t_render	*render;
 
@@ -123,17 +145,12 @@ int	main(void)
     render = ft_render_new(engine->mlx, engine->window);
     animation.render = render;
     animation.engine = engine;
-    engine->player->sprite = ft_image_from_xpm(engine->mlx,"./textures/xpm/walk.xpm");
-    animation.debug = ft_image_from_xpm(engine->mlx,"./textures/xpm/debug.xpm");
-    gui.sprite_square = ft_image_from_xpm(engine->mlx, "./textures/xpm/gui.xpm"); 
-    gui.sprite_cursor = ft_image_from_xpm(engine->mlx, "./textures/xpm/item_cursor.xpm"); 
-    gui.menu = ft_image_new(engine->mlx, WINDOW_WIDTH, WINDOW_HEIGHT); 
-    gui.item_x = 0;
-    gui.item_y = 0;
-    gui.y = -WINDOW_HEIGHT;
-    engine->gui = &gui;
-    draw_rectangle(gui.menu, 0, 0, 0X0000FFFF);
-    ft_gui_draw(&gui);
+    animation.sprite_debug = ft_image_from_xpm(engine->mlx,"./textures/xpm/debug.xpm");
+    animation.sprite_coin = ft_image_from_xpm(engine->mlx,"./textures/xpm/coin.xpm");
+    animation.sprite_digits = ft_image_from_xpm(engine->mlx,"./textures/xpm/digits.xpm");
+    animation.sprite_shoes = ft_image_from_xpm(engine->mlx,"./textures/xpm/cape.xpm");
+    animation.sprite_hearts = ft_image_from_xpm(engine->mlx,"./textures/xpm/hearts.xpm");
+    animation.sprite_fade = ft_image_from_xpm(engine->mlx,"./textures/xpm/fade.xpm");
     mlx_loop_hook(engine->mlx, ft_animation_update,&animation);
     mlx_loop(engine->mlx);
 }
