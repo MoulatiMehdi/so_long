@@ -1,5 +1,5 @@
 /* XPM */
-static const char *debug_commands[] = {
+static const char *debug[] = {
 /* columns rows colors chars-per-pixel */
 "144 16 6 1 ",
 "  c black",
