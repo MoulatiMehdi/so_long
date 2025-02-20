@@ -18,6 +18,7 @@
 # define WINDOW_TITLE "The Legend Of Zelda"
 # define KEYS_TOTAL 256
 
+#include "image.h"
 # include "stdbool.h"
 # include "color.h"
 # include "image.h"
@@ -40,6 +41,24 @@ typedef enum e_event
 	ON_DESTROY = 17
 }				t_event;
 
+enum e_sprite
+{
+    SPRITE_SPINNING = 0,
+    SPRITE_LOADING = 1,
+    SPRITE_IDLE,
+    SPRITE_VICTORY,
+    SPRITE_WALKING,
+    SPRITE_ATTACKING,
+    SPRITE_DYING,
+    SPRITE_HURT,
+    SPRITE_DEBUG,
+    SPRITE_COIN,
+    SPRITE_DIGITS,
+    SPRITE_CAPE,
+    SPRITE_HEARTS,
+    SPRITE_TOTAL,
+};
+
 typedef struct s_point
 {
     int x;
@@ -49,19 +68,16 @@ typedef struct s_point
 
 typedef struct s_sprite
 {
-	int			width;
-	int			height;
     int x;
     int y;
+	int			frame_width;
+	int			frame_height;
+    unsigned int loop;
+    unsigned int row;
+    unsigned int col;
+    t_image * image;
+    
 }				t_sprite;
-
-typedef struct s_enemy
-{
-	int			x;
-	int			y;
-	t_way		way;
-	t_state		statue;
-}				t_enemy;
 
 typedef struct s_render
 {
@@ -69,7 +85,7 @@ typedef struct s_render
 	void		*window;
 	t_image		*back;
 	t_image		*front;
-
+    t_sprite ** sprites;
 }				t_render;
 
 typedef struct s_engine
@@ -86,13 +102,9 @@ typedef struct s_animation
 {
 	t_engine	*engine;
 	t_render	*render;
-	t_image		*sprite_debug;
-    t_image   *sprite_coin;
-    t_image   *sprite_digits;
-    t_image *sprite_shoes;
-    t_image *sprite_hearts;
-    t_image *sprite_fade;
 }				t_animation;
+
+
 
 void			ft_player_destroy(t_player **player);
 void			ft_engine_destroy(t_engine **engine);
@@ -103,8 +115,9 @@ t_render		*ft_render_new(void *mlx, void *window);
 void			ft_render_display(t_render *render);
 void			ft_player_render(t_animation *animation);
 void			ft_key_debug(t_animation *animation);
-void	ft_sprite_toimage(t_image *dst,t_image *src,t_sprite *sprite,t_point *o_dest);
+void	ft_sprite_toimage(t_image *dst,t_sprite *sprite,t_point *o_dest);
 void ft_image_grid(t_image * image,int stepx,int stepy,t_color color);
 void	ft_image_ellipse(t_image *img,t_sprite * sprite, t_point * point,t_color color);
+t_sprite *ft_sprite_new(void * mlx,char * path,unsigned int col,unsigned int row);
 
 #endif

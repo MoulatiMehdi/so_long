@@ -19,8 +19,14 @@ typedef enum e_state
 {
 	STATE_IDLE = 0,
 	STATE_WALK = 1,
-	STATE_SWIM = 2,
-	STATE_GRAB = 3,
+	STATE_SWIM ,
+	STATE_GRAB ,
+	STATE_DYING ,
+	STATE_DEAD ,
+    STATE_ATTACK,
+    STATE_SPIN,
+    STATE_VICTORY,
+    STATE_TOTAL
 }			t_state;
 
 typedef struct s_player
@@ -28,14 +34,13 @@ typedef struct s_player
 	int		x;
 	int		y;
     int		speed;
-    unsigned int coins;
-    unsigned int moves;
-    unsigned int hearts;
     int width;
     int height;
     t_way	way;
 	t_state	state;
-	t_image * sprite;
+    unsigned int coins;
+    unsigned int moves;
+    unsigned int hearts;
 
 }			t_player;
 
