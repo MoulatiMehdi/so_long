@@ -14,7 +14,6 @@ void ft_engine_init(t_engine * engine)
 			WINDOW_TITLE);
 	engine->map = NULL;
 	engine->player = ft_player_new();
-	engine->player->sprite = ft_image_from_xpm(engine->mlx,PLAYER_SPRITE_WALK);
     engine->paused = false;
     ft_bzero(engine->keys, KEYS_TOTAL);
 }

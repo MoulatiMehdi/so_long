@@ -164,7 +164,7 @@ void	ft_image_ellipse(t_image *img,t_sprite * sprite, t_point * point,t_color co
         j = 0;
         while (j < height)
         {
-            if(sprite->width == 0 || sprite->height == 0 || pow(i - point->x,2) /pow(sprite->width,2) + pow(j - point->y,2) / pow(sprite->height,2) >= 1 )
+            if(sprite->frame_width == 0 || sprite->frame_height == 0 || pow(i - point->x,2) /pow(sprite->frame_width,2) + pow(j - point->y,2) / pow(sprite->frame_height,2) >= 1 )
                 ft_image_putpixel(img, i, j, color);
             j++;
         }

@@ -18,7 +18,9 @@ int	ft_handler_key_press(int keycode, t_engine *engine)
     }
 
     if(keycode == KEY_SPACE)
-        engine->paused = !engine->paused;  
+        engine->paused = !engine->paused;   
+    if(engine->player->state == STATE_DEAD || engine->player->state == STATE_DYING)
+        engine->paused = false;
     if (keycode < KEYS_TOTAL && keycode >= 0)
         engine->keys[keycode] = 1;
     if (keycode == KEY_LEFT)
