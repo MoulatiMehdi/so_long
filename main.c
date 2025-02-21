@@ -121,9 +121,10 @@ void ft_hearts_render(t_animation * animation)
 int	ft_animation_update(t_animation *animation)
 {
 
-    ft_image_fill(animation->render->back, 0X00FFFFFF);
-    
-    ft_player_dead(animation);
+
+    ft_image_fill(animation->render->back, 0X00FF00FF);
+    if(animation->engine->player->moves > 200)
+        animation->engine->player->hearts = 0;
     ft_player_render(animation);
     ft_player_debug(animation->engine->player);
     ft_hearts_render(animation);

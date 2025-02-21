@@ -2,6 +2,7 @@
 #include "image.h"
 #include "key.h"
 #include "so_long.h"
+#include <stdbool.h>
 #include <stdlib.h>
 
 void	ft_player_debug(t_player *player)
@@ -18,15 +19,26 @@ void	ft_player_debug(t_player *player)
     state[STATE_SPIN] = "SPINING";
     state[STATE_VICTORY] = "POSING";
     state[STATE_DEAD] = "DEAD";
+    state[STATE_LOADING] = "LOADING";
+    state[STATE_LOADED] = "LOADED";
     way[WAY_LEFT] = "LEFT";
     way[WAY_RIGHT] = "RIGHT";
     way[WAY_UP] = "UP";
     way[WAY_DOWN] = "DOWN";
-    printf(DEBUG "x     : %d\n", player->x);
-    printf(DEBUG "y     : %d\n", player->y);
-    printf(DEBUG "state : %s\n", state[player->state]);
-    printf(DEBUG "way   : %s\n", way[player->way]);
-    printf(DEBUG "count : %d\n\n", player->moves);
+    printf(DEBUG "(x,y)      : (%d,%d)\n", player->x, player->y);
+    printf(DEBUG "state      : %s\n", state[player->state]);
+    printf(DEBUG "direction  : %s\n", way[player->way]);
+    printf(DEBUG "fixed      : %s\n", player->is_state_fixed? "Yes" : "No");
+    printf(DEBUG "loaded     : %s\n\n", player->is_loaded? "Yes" : "No");
+}
+
+void ft_player_set_state(t_player* player,t_state state)
+{
+    if(player->is_state_fixed && state != STATE_DYING)
+        return ;
+    player->state = state;
+    player->frame_on_loop = 0;
+
 }
 
 t_player	*ft_player_new(void)
@@ -38,14 +50,18 @@ t_player	*ft_player_new(void)
         return (NULL);
     player->hearts = 6;
     player->speed = 6;
-    player->state = STATE_IDLE;
     player->way = WAY_DOWN;
     player->width = 48;
     player->coins = 0;
     player->moves = 0;
     player->height = 64;
-    player->x = 0;
-    player->y = 0;
+    player->is_moving = false;
+    player->is_loaded= false;
+    player->is_dead= false;
+    player->is_state_fixed = false;
+    player->x = WINDOW_WIDTH / 2;
+    player->y = WINDOW_HEIGHT / 2 ;
+    ft_player_set_state(player, STATE_IDLE);
     return (player);
 }
 
@@ -55,45 +71,33 @@ void	ft_player_destroy(t_player **player)
     *player = NULL;
 }
 
-/*void	ft_player_rect(t_player *player, t_image *dest, int fac_x)*/
-/*{*/
-/*    int	color;*/
-/*    int	i;*/
-/*    int	j;*/
-/*    int	fac_y;*/
-/**/
-/*    fac_y = player->way;*/
-/*    i = 0;*/
-/*    while (i < player->width)*/
-/*    {*/
-/*        j = 0;*/
-/*        while (j < player->height)*/
-/*        {*/
-/*            color = ft_image_getcolor(player->sprite, player->width * fac_x + i,*/
-/*                                      player->height * fac_y + j);*/
-/*            ft_image_putpixel(dest, player->x + i, player->y + j, color);*/
-/*            j++;*/
-/*        }*/
-/*        i++;*/
-/*    }*/
-/*}*/
 
-int	ft_player_state(t_player *player, char keys[256])
+void	ft_player_state(t_player *player, char keys[256])
 {
     int	total;
 
     if(player->state == STATE_DEAD || player->state == STATE_DYING )
-        return 0;
+        return ;
     if(player->hearts <= 0)
-        return player->state = STATE_DYING;
+        return ft_player_set_state(player, STATE_DYING);
+    if(player->is_state_fixed)
+        return ;
+    if(keys[KEY_X] == 1 && player->state == STATE_ATTACK)
+        return ft_player_set_state(player,STATE_LOADING);
+    if(keys[KEY_X] == 1 && player->state != STATE_LOADING)
+    {
+        ft_player_set_state(player,STATE_ATTACK);
+        player->is_state_fixed = true;
+        return ;
+    }
     if(keys[KEY_X] == 1)
-        return player->state = STATE_ATTACK;
+        return ;
     total = (keys[KEY_A] != keys[KEY_D]) + (keys[KEY_S] != keys[KEY_W]);
     if (total == 0)
-        player->state = STATE_IDLE;
+        return ft_player_set_state(player,STATE_IDLE);
     else
-        player->state = STATE_WALK;
-    return 0;
+        return ft_player_set_state(player,STATE_WALK);
+    return;
 }
 
 void	ft_player_way(t_player *player, char keys[256])
@@ -125,6 +129,7 @@ void	ft_player_way(t_player *player, char keys[256])
 
 void	ft_player_move(t_player *player, char keys[256])
 {
+    player->is_moving = false;
     if(player->state == STATE_DYING || player->state == STATE_DEAD)
         return ;
     if (keys[KEY_A] == 0 && keys[KEY_D] == 1)
@@ -132,22 +137,26 @@ void	ft_player_move(t_player *player, char keys[256])
         player->x = ft_min(player->x + player->speed, WINDOW_WIDTH
                            - player->width);
         player->moves ++;
+        player->is_moving = true;
     }
     if (keys[KEY_A] == 1 && keys[KEY_D] == 0)
     {
         player->x = ft_max(player->x - player->speed, 0);
         player->moves ++;
+        player->is_moving = true;
     }
     if (keys[KEY_W] == 0 && keys[KEY_S] == 1)
     {
         player->y = ft_min(player->y + player->speed, WINDOW_HEIGHT
                            - player->height);
         player->moves ++;
+        player->is_moving = true;
     }
     if (keys[KEY_W] == 1 && keys[KEY_S] == 0)
     {
         player->y = ft_max(player->y - player->speed, 0);
         player->moves ++;
+        player->is_moving = true;
     }
 }
 
@@ -183,67 +192,86 @@ void ft_player_idle(t_player * player,t_render * render)
 
 void ft_player_attack(t_player * player,t_render * render)
 {
-    static int n = 0;
+    int repeat;
     t_sprite * sprite;
     t_point point;
-   
-    point.x = player->x;
+  
+    repeat = 1;
+    point.x = player->x - 8;
     point.y = player->y;
     sprite = render->sprites[SPRITE_ATTACKING];
-    sprite->x = sprite->frame_width * n;
+    sprite->x = sprite->frame_width * (player->frame_on_loop / repeat);
     sprite->y = sprite->frame_height * player->way;
 
     ft_sprite_toimage(render->back, sprite, &point);
-    n = (n + 1) % sprite->col;
+    if(player->frame_on_loop == sprite->col * repeat - 1)
+        player->is_state_fixed = false;
+    player->frame_on_loop = (player->frame_on_loop + 1) % (sprite->col * repeat);
+
 }
 
 void ft_player_spinning(t_player * player,t_render * render)
 {
-    static int n = 0;
     t_sprite * sprite;
     t_point point;
+    int repeat ;
    
+    repeat = 1;
     point.x = player->x;
-    point.y = player->y;
+    point.y = player->y + 16;
     sprite = render->sprites[SPRITE_SPINNING];
-    sprite->x = sprite->frame_width * n;
+    sprite->x = sprite->frame_width * (player->frame_on_loop/repeat);
     sprite->y = sprite->frame_height * player->way;
 
     ft_sprite_toimage(render->back, sprite, &point);
-    n = (n + 1) % sprite->col;
+    if(player->frame_on_loop + 1 == sprite->col * repeat)
+    {
+        player->is_state_fixed = false;
+        player->is_loaded = false;
+    }
+    player->frame_on_loop= (player->frame_on_loop+ 1) % (sprite->col * repeat);
 
 }
 void ft_player_loading(t_player * player,t_render * render)
 {
-    static int n = 0;
+    
     t_sprite * sprite;
     t_point point;
-   
+    int repeat;
+
+    repeat = 3;
     point.x = player->x;
     point.y = player->y;
     sprite = render->sprites[SPRITE_LOADING];
-    sprite->x = sprite->frame_width * n;
+    sprite->x = sprite->frame_width * (player->frame_on_loop/repeat) * player->is_moving;
     sprite->y = sprite->frame_height * player->way;
-
+   
+    if(sprite->col * repeat- 1 == player->frame_on_loop )
+        player->is_loaded = true;
     ft_sprite_toimage(render->back, sprite, &point);
-    n = (n + 1) % sprite->col;
+    player->frame_on_loop = (player->frame_on_loop + 1) % (sprite->col * repeat);
 
 }
 
 void ft_player_dying(t_player * player,t_render * render)
 {
-    static int n = 0;
     t_sprite * sprite;
     t_point point;
+    int repeat;
    
+    repeat = 8;
     point.x = player->x;
     point.y = player->y;
     sprite = render->sprites[SPRITE_DYING];
-    sprite->x = 0;
+    sprite->x = sprite->frame_width * (player->frame_on_loop/ repeat);
+    if(player->is_dead)
+        sprite->x = (sprite->col - 1) * sprite->frame_width;
     sprite->y = 0; 
 
+    if(player->frame_on_loop + 1 == sprite->col * repeat) 
+        player->is_dead = true;
     ft_sprite_toimage(render->back, sprite, &point);
-    n = (n + 1) % sprite->col;
+    player->frame_on_loop= (player->frame_on_loop+ 1) % (sprite->col * repeat);
 }
 
 void ft_player_victory(t_player * player,t_render * render)
@@ -264,7 +292,6 @@ void ft_player_victory(t_player * player,t_render * render)
 
 void	ft_player_render(t_animation *animation)
 {
-    static int	n = 0;
     t_player	*player;
     t_render	*render;
     t_engine	*engine;
@@ -277,10 +304,12 @@ void	ft_player_render(t_animation *animation)
     {
         ft_player_state(player, engine->keys);
         ft_player_way(player, engine->keys);
+        if(engine->keys[KEY_X] == 0 && player->is_loaded)
+        {
+                ft_player_set_state(player, STATE_SPIN);
+                player->is_state_fixed = true;
+        }
         ft_player_move(player, engine->keys);
-        n = (n + 1) % (8 * PLAYER_FRAME_NBR);
-        if (player->state == STATE_IDLE || player->state == STATE_DEAD)
-            n = 0;
     }
     if(player->state == STATE_WALK)
         ft_player_walking(player,render);
@@ -294,6 +323,8 @@ void	ft_player_render(t_animation *animation)
         ft_player_spinning(player, render);
     if(player->state == STATE_VICTORY)
         ft_player_victory(player, render);
+    if(player->state == STATE_LOADING)
+        ft_player_loading(player, render);
     /*if(player->state == STATE_DYING && n + 1 == PLAYER_FRAME_NBR * 8)*/
     /*    player->state = STATE_DEAD;*/
 }

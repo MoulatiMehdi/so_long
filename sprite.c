@@ -13,7 +13,7 @@ t_sprite *ft_sprite_new(void * mlx,char * path,unsigned int col,unsigned int row
     sprite->x = 0;
     sprite->y = 0;
     sprite->row = row;
-    sprite->col = row;
+    sprite->col = col;
     return sprite;
 }
 

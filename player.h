@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 
 #define PLAYER_H
+#include <stdbool.h>
 #define DEBUG "  \033[1;36m[..DEBUG..]\033[0m\t"
 #define PLAYER_SPRITE_WALK "./textures/xpm/walk.xpm"
 #define PLAYER_FRAME_NBR 2 
@@ -26,6 +27,8 @@ typedef enum e_state
     STATE_ATTACK,
     STATE_SPIN,
     STATE_VICTORY,
+    STATE_LOADING,
+    STATE_LOADED,
     STATE_TOTAL
 }			t_state;
 
@@ -41,7 +44,11 @@ typedef struct s_player
     unsigned int coins;
     unsigned int moves;
     unsigned int hearts;
-
+    unsigned int frame_on_loop;
+    bool is_moving;
+    bool is_state_fixed;
+    bool is_loaded;
+    bool is_dead;
 }			t_player;
 
 t_player	*ft_player_new(void);

@@ -10,7 +10,7 @@ void ft_render_sprites(t_render* render)
     render->sprites = malloc(sizeof(t_sprite*) * (SPRITE_TOTAL + 1));
    if(render->sprites == NULL)
         return ;
-    render->sprites[SPRITE_SPINNING] = ft_sprite_new(render->mlx,"./textures/xpm/link.spinning.xpm",22,1);
+    render->sprites[SPRITE_SPINNING] = ft_sprite_new(render->mlx,"./textures/xpm/link.spinning.xpm",22,4);
     render->sprites[SPRITE_LOADING] = ft_sprite_new(render->mlx,"./textures/xpm/link.loading.xpm",6,4);
     render->sprites[SPRITE_VICTORY] = ft_sprite_new(render->mlx,"./textures/xpm/link.victory.xpm",18,1);
     render->sprites[SPRITE_WALKING] = ft_sprite_new(render->mlx,"./textures/xpm/link.walking.xpm",8,4);
