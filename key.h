@@ -13,15 +13,13 @@
 #ifndef KEY_H
 
 # define KEY_H
-#define  KEY_DEBUG_X (WINDOW_WIDTH - 16*9)
-#define  KEY_DEBUG_Y (WINDOW_HEIGHT - 32)
 
 typedef enum e_key
 {
 	KEY_ESC = 65307,
 	KEY_X = 'x',
 	KEY_C = 'c',
-    KEY_A = 'a',
+	KEY_A = 'a',
 	KEY_S = 's',
 	KEY_W = 'w',
 	KEY_D = 'd',

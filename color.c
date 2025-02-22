@@ -34,16 +34,15 @@ t_byte	ft_color_blue(t_color color)
 
 t_color	ft_color_rgba(t_byte red, t_byte green, t_byte blue, t_byte opacity)
 {
-	int	color;
+	t_color	color;
 
 	color = 0;
-	color += opacity;
+	color += opacity & 0XFF;
 	color <<= 8;
-	color += red;
+	color += red & 0XFF;
 	color <<= 8;
-	color += green;
+	color += green & 0XFF;
 	color <<= 8;
-	color += blue;
-	color <<= 8;
+	color += blue & 0XFF;
 	return (color);
 }
