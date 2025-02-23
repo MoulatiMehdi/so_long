@@ -1,6 +1,7 @@
 #include "key.h"
 #include "player.h"
 #include "so_long.h"
+#include <stdio.h>
 
 int	ft_handler_close(t_engine *engine)
 {
@@ -11,12 +12,8 @@ int	ft_handler_close(t_engine *engine)
 
 int	ft_handler_key_press(int keycode, t_engine *engine)
 {
-	printf("%d Pressed\n", keycode);
 	if (keycode == KEY_ESC)
-	{
 		ft_handler_close(engine);
-		return (1);
-	}
 	if (keycode == KEY_X && (engine->player->state == STATE_LOADING
 			|| engine->player->state == STATE_ATTACK))
 	{
@@ -43,7 +40,6 @@ int	ft_handler_key_press(int keycode, t_engine *engine)
 
 int	ft_handler_key_release(int keycode, t_engine *engine)
 {
-	printf("%d Released\n", keycode);
 	if (keycode < KEYS_TOTAL && keycode >= 0)
 		engine->keys[keycode] = 0;
 	if (keycode == KEY_LEFT)

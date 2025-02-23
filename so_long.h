@@ -29,10 +29,7 @@
 # include "libft/libft.h"
 # include "player.h"
 # include "stdbool.h"
-# include <math.h>
 # include <mlx.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 typedef enum e_event
 {
@@ -66,15 +63,8 @@ typedef enum e_sprite_idx
 	SPRITE_GAMEOVER,
 	SPRITE_STAR_LOADING_H,
 	SPRITE_STAR_LOADING_V,
-    SPRITE_TOTAL,
+	SPRITE_TOTAL,
 }					t_sprite_idx;
-
-typedef struct s_point
-{
-	int				x;
-	int				y;
-
-}					t_point;
 
 typedef struct s_sprite
 {
@@ -115,13 +105,6 @@ typedef struct s_animation
 	t_render		*render;
 }					t_animation;
 
-typedef struct s_ellipse
-{
-	t_point			center;
-	int				raduis_x;
-	int				raduis_y;
-}					t_ellipse;
-
 void				ft_player_destroy(t_player **player);
 void				ft_engine_destroy(t_engine **engine);
 
@@ -159,5 +142,8 @@ void				ft_counter_render(t_animation *animation);
 void				ft_coin_render(t_animation *animation);
 void				ft_number_render(t_animation *animation, t_point *point,
 						int nbr, int digits);
-void ft_player_star(t_player *player, t_render *render);
+void				ft_player_star(t_player *player, t_render *render);
+void				ft_render_clear(t_render **render);
+t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
+						t_sprite_idx type);
 #endif

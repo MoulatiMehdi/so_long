@@ -76,9 +76,8 @@ void	ft_player_dying(t_player *player, t_render *render)
 				/ sprite->loop);
 		if (player->frame_on_loop + 1 == sprite->col * sprite->loop)
 			player->is_dead = true;
-		if (!player->is_dead)
-			player->frame_on_loop = (player->frame_on_loop + 1) % (sprite->col
-					* sprite->loop);
+		if (player->is_dead)
+			sprite->x = sprite->frame_width * (sprite->col - 1);
 		n += player->is_dead && n <= FRAME_FADE_OUT + FRAME_FADE_IN;
 		ft_render_sprite(render, sprite, &point);
 	}

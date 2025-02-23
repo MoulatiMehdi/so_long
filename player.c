@@ -18,8 +18,6 @@ void	ft_player_debug(t_player *player)
 		return ;
 	state[STATE_IDLE] = "STOPING";
 	state[STATE_WALK] = "WALKING";
-//	state[STATE_SWIM] = "SWIMING";
-//	state[STATE_GRAB] = "GRABING";
 	state[STATE_DYING] = "DYING";
 	state[STATE_ATTACK] = "ATTACKING";
 	state[STATE_SPIN] = "SPINING";
@@ -65,16 +63,13 @@ t_player	*ft_player_new(void)
 	player->speed = 3;
 	player->width = 48;
 	player->height = 64;
-	
-    player->way = WAY_DOWN;
+	player->way = WAY_DOWN;
 	ft_player_state_set(player, STATE_IDLE);
-	
-    player->is_moving = false;
+	player->is_moving = false;
 	player->is_loaded = false;
 	player->is_dead = false;
 	player->is_state_fixed = false;
-	
-    player->x = WINDOW_WIDTH / 2;
+	player->x = WINDOW_WIDTH / 2;
 	player->y = WINDOW_HEIGHT / 2;
 	return (player);
 }

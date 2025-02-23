@@ -20,12 +20,8 @@ void	ft_player_walking(t_player *player, t_render *render)
 
 	point.x = player->x;
 	point.y = player->y;
-	sprite = render->sprites[SPRITE_LINK_WALKING];
-	sprite->x = sprite->frame_width * (player->frame_on_loop / sprite->loop);
-	sprite->y = sprite->frame_height * player->way;
+	sprite = ft_sprite_coor_way(player, render, SPRITE_LINK_WALKING);
 	ft_render_sprite(render, sprite, &point);
-	player->frame_on_loop = (player->frame_on_loop + 1) % (sprite->col
-			* sprite->loop);
 }
 
 void	ft_player_victory(t_player *player, t_render *render)

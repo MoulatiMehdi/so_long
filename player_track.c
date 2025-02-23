@@ -1,7 +1,10 @@
 #include "player.h"
 #include "so_long.h"
 
-void	ft_player_state(t_player *player, char keys[256])
+void	ft_player_coor(t_player *player, int dx, int dy);
+bool	ft_player_state_attack(t_player *player, bool is_attack);
+
+static void	ft_player_state(t_player *player, char keys[256])
 {
 	int	total;
 
@@ -16,31 +19,16 @@ void	ft_player_state(t_player *player, char keys[256])
 		return (ft_player_state_set(player, STATE_DYING));
 	if (player->is_state_fixed)
 		return ;
-	if (keys[KEY_X] == 1 && player->state == STATE_ATTACK)
-		return (ft_player_state_set(player, STATE_LOADING));
-	if (keys[KEY_X] == 1 && player->state != STATE_LOADING)
-	{
-		ft_player_state_set(player, STATE_ATTACK);
-		player->is_state_fixed = true;
+	if (ft_player_state_attack(player, keys[KEY_X] == 1))
 		return ;
-	}
-	if (keys[KEY_X] == 1)
-		return ;
-	if (keys[KEY_X] == 0 && player->is_loaded)
-	{
-		ft_player_state_set(player, STATE_SPIN);
-		player->is_state_fixed = true;
-		return ;
-	}
 	total = (keys[KEY_A] != keys[KEY_D]) + (keys[KEY_S] != keys[KEY_W]);
 	if (total == 0)
 		return (ft_player_state_set(player, STATE_IDLE));
 	else
 		return (ft_player_state_set(player, STATE_WALK));
-	return ;
 }
 
-void	ft_player_way(t_player *player, char keys[256])
+static void	ft_player_way(t_player *player, char keys[256])
 {
 	int	total;
 
@@ -67,23 +55,10 @@ void	ft_player_way(t_player *player, char keys[256])
 		player->way = WAY_UP;
 }
 
-void	ft_player_coor(t_player *player, int dx, int dy)
-{
-	player->x += dx * player->speed;
-	player->y += dy * player->speed;
-	if (player->x > WINDOW_WIDTH - player->width)
-		player->x = WINDOW_WIDTH - player->width;
-	if (player->y > WINDOW_HEIGHT - player->height)
-		player->y = WINDOW_HEIGHT - player->height;
-	if (dx != 0 || dy != 0)
-	{
-		player->moves++;
-		player->is_moving = true;
-	}
-}
-
 void	ft_player_move(t_player *player, char keys[256])
 {
+	ft_player_state(player, keys);
+	ft_player_way(player, keys);
 	player->is_moving = false;
 	if (player->state != STATE_WALK && player->state != STATE_LOADING)
 		return ;
@@ -107,11 +82,7 @@ void	ft_player_render(t_animation *animation)
 	render = animation->render;
 	player = engine->player;
 	if (!engine->paused)
-	{
-		ft_player_state(player, engine->keys);
-		ft_player_way(player, engine->keys);
 		ft_player_move(player, engine->keys);
-    }
 	if (player->state == STATE_WALK)
 		ft_player_walking(player, render);
 	if (player->state == STATE_IDLE)
@@ -126,4 +97,5 @@ void	ft_player_render(t_animation *animation)
 		ft_player_victory(player, render);
 	if (player->state == STATE_LOADING)
 		ft_player_loading(player, render);
+	player->frame_on_loop += !engine->paused;
 }
