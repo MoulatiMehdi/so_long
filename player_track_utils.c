@@ -8,6 +8,10 @@ void	ft_player_coor(t_player *player, int dx, int dy)
 		player->x = WINDOW_WIDTH - player->width;
 	if (player->y > WINDOW_HEIGHT - player->height)
 		player->y = WINDOW_HEIGHT - player->height;
+	if (player->y < 0)
+		player->y = 0;
+	if (player->x < 0)
+		player->x = 0;
 	if (dx != 0 || dy != 0)
 	{
 		player->moves++;

@@ -48,6 +48,8 @@ static void	ft_render_sprite_objects(t_render *render)
 			SPRITE_SRC "sword.attack.xpm", 12, 4);
 	sprites[SPRITE_SWORD_LOADING] = ft_sprite_new(mlx,
 			SPRITE_SRC "sword.loading.xpm", 6, 4);
+	sprites[SPRITE_SWORD_VICTORY] = ft_sprite_new(mlx,
+			SPRITE_SRC "sword_red_victory.xpm", 9, 2);
 	sprites[SPRITE_STAR_LOADING_H] = ft_sprite_new(mlx,
 			SPRITE_SRC "stars.loading.horizontal.xpm", 28, 4);
 	sprites[SPRITE_STAR_LOADING_V] = ft_sprite_new(mlx,
@@ -63,11 +65,12 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_LINK_LOADING]->loop = 4;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1;
 	sprites[SPRITE_LINK_DYING]->loop = 5;
-	sprites[SPRITE_LINK_VICTORY]->loop = 4;
+	sprites[SPRITE_LINK_VICTORY]->loop = 6;
 	sprites[SPRITE_LINK_WALKING]->loop = 4;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
 	sprites[SPRITE_SWORD_LOADING]->loop = sprites[SPRITE_LINK_LOADING]->loop;
+	sprites[SPRITE_SWORD_VICTORY]->loop = sprites[SPRITE_LINK_VICTORY]->loop;
 	sprites[SPRITE_STAR_LOADING_H]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_STAR_LOADING_V]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_CAPE]->loop = 1;
@@ -97,25 +100,29 @@ static void	ft_render_sprites_init(t_render *render)
 	render->sprites[SPRITE_TOTAL] = NULL;
 }
 
-t_render	*ft_render_new(void *mlx, void *window)
+t_render	*ft_render_new(void)
 {
+	void		*mlx;
+	void		*window;
 	t_render	*render;
 
-	if (window == NULL || mlx == NULL)
+	mlx = mlx_init();
+	if (mlx == NULL)
 		return (NULL);
+	window = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	render = malloc(sizeof(t_render));
 	if (render == NULL)
 		return (NULL);
+	render->stop = false;
 	render->window = window;
 	render->mlx = mlx;
-	render->back = ft_image_new(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	render->front = ft_image_new(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	render->back = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	render->front = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (render->back == NULL || render->front == NULL)
 	{
 		ft_render_clear(&render);
 		return (NULL);
 	}
 	ft_render_sprites_init(render);
-	render->stop = false;
 	return (render);
 }

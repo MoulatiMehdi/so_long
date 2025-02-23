@@ -1,19 +1,36 @@
 #include "key.h"
 #include "player.h"
 #include "so_long.h"
-#include <stdio.h>
 
-int	ft_handler_close(t_engine *engine)
+static void	ft_handler_key_set(int keycode, char keys[256], bool is_pressed)
 {
-	ft_engine_destroy(&engine);
+	if (keycode < KEYS_TOTAL && keycode >= 0)
+		keys[keycode] = is_pressed;
+	if (keycode == KEY_LEFT)
+		keys[KEY_A] = is_pressed;
+	if (keycode == KEY_RIGHT)
+		keys[KEY_D] = is_pressed;
+	if (keycode == KEY_UP)
+		keys[KEY_W] = is_pressed;
+	if (keycode == KEY_DOWN)
+		keys[KEY_S] = is_pressed;
+}
+
+int	ft_handler_close(t_animation *animation)
+{
+	ft_engine_destroy(&animation->engine);
+	ft_render_clear(&animation->render);
 	exit(1);
 	return (1);
 }
 
-int	ft_handler_key_press(int keycode, t_engine *engine)
+int	ft_handler_key_press(int keycode, t_animation *animation)
 {
+	t_engine	*engine;
+
+	engine = animation->engine;
 	if (keycode == KEY_ESC)
-		ft_handler_close(engine);
+		ft_handler_close(animation);
 	if (keycode == KEY_X && (engine->player->state == STATE_LOADING
 			|| engine->player->state == STATE_ATTACK))
 	{
@@ -25,30 +42,12 @@ int	ft_handler_key_press(int keycode, t_engine *engine)
 		engine->paused = !engine->paused;
 	if (engine->player->state == STATE_DYING)
 		engine->paused = false;
-	if (keycode < KEYS_TOTAL && keycode >= 0)
-		engine->keys[keycode] = 1;
-	if (keycode == KEY_LEFT)
-		engine->keys[KEY_A] = 1;
-	if (keycode == KEY_RIGHT)
-		engine->keys[KEY_D] = 1;
-	if (keycode == KEY_UP)
-		engine->keys[KEY_W] = 1;
-	if (keycode == KEY_DOWN)
-		engine->keys[KEY_S] = 1;
+	ft_handler_key_set(keycode, engine->keys, true);
 	return (0);
 }
 
 int	ft_handler_key_release(int keycode, t_engine *engine)
 {
-	if (keycode < KEYS_TOTAL && keycode >= 0)
-		engine->keys[keycode] = 0;
-	if (keycode == KEY_LEFT)
-		engine->keys[KEY_A] = 0;
-	if (keycode == KEY_RIGHT)
-		engine->keys[KEY_D] = 0;
-	if (keycode == KEY_UP)
-		engine->keys[KEY_W] = 0;
-	if (keycode == KEY_DOWN)
-		engine->keys[KEY_S] = 0;
+	ft_handler_key_set(keycode, engine->keys, false);
 	return (0);
 }

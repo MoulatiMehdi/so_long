@@ -30,6 +30,7 @@ void	ft_sprites_clear(t_sprite ***sprites)
 	{
 		ft_image_clear(&(*sprites)[i]->image);
 		free((*sprites)[i]);
+		i++;
 	}
 	free(*sprites);
 	*sprites = NULL;
@@ -42,6 +43,9 @@ void	ft_render_clear(t_render **render)
 	ft_image_clear(&(*render)->back);
 	ft_image_clear(&(*render)->front);
 	ft_sprites_clear(&(*render)->sprites);
+	mlx_destroy_window((*render)->mlx, (*render)->window);
+	mlx_destroy_display((*render)->mlx);
+	free((*render)->mlx);
 	free(*render);
 	*render = NULL;
 }

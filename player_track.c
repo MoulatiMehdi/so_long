@@ -1,14 +1,14 @@
 #include "player.h"
 #include "so_long.h"
 
-void	ft_player_coor(t_player *player, int dx, int dy);
-bool	ft_player_state_attack(t_player *player, bool is_attack);
+void		ft_player_coor(t_player *player, int dx, int dy);
+bool		ft_player_state_attack(t_player *player, bool is_attack);
 
 static void	ft_player_state(t_player *player, char keys[256])
 {
 	int	total;
 
-	if (player->state == STATE_DYING)
+	if (player->state == STATE_DYING || player->state == STATE_VICTORY)
 		return ;
 	if (player->state == STATE_HURT && player->is_loaded)
 	{
@@ -32,7 +32,7 @@ static void	ft_player_way(t_player *player, char keys[256])
 {
 	int	total;
 
-	if (player->state == STATE_DYING)
+	if (player->state == STATE_DYING || player->state == STATE_VICTORY)
 		return ;
 	total = (keys[KEY_A] != keys[KEY_D]) + (keys[KEY_S] != keys[KEY_W]);
 	if (total == 0)
