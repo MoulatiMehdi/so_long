@@ -5,7 +5,7 @@ AR = ar
 
 # flags 
 CCLIBS  = -lmlx_Linux -Lminilibx-linux/ -lft -Llibft -lXext -lX11 -lm 
-CCDEBUG = -g -fsanitize=address
+CCDEBUG = -g 
 CCFLAGS = -Wall -Wextra $(CCDEBUG) 
 
 RMFLAGS = -rf 

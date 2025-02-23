@@ -63,7 +63,8 @@ typedef enum e_sprite_idx
 	SPRITE_GAMEOVER,
 	SPRITE_STAR_LOADING_H,
 	SPRITE_STAR_LOADING_V,
-	SPRITE_TOTAL,
+	SPRITE_SWORD_VICTORY,
+    SPRITE_TOTAL,
 }					t_sprite_idx;
 
 typedef struct s_sprite
@@ -92,11 +93,9 @@ typedef struct s_render
 typedef struct s_engine
 {
 	bool			paused;
-	void			*window;
-	void			*mlx;
 	char			**map;
-	t_player		*player;
 	char			keys[KEYS_TOTAL];
+	t_player		*player;
 }					t_engine;
 
 typedef struct s_animation
@@ -109,7 +108,7 @@ void				ft_player_destroy(t_player **player);
 void				ft_engine_destroy(t_engine **engine);
 
 t_engine			*ft_engine_new(void);
-t_render			*ft_render_new(void *mlx, void *window);
+t_render			*ft_render_new(void);
 
 void				ft_player_render(t_animation *animation);
 void				ft_key_debug(t_animation *animation);
