@@ -42,21 +42,30 @@ void	ft_render_sprites(t_render *render)
 			"./textures/xpm/digits.xpm", 10, 2);
 	render->sprites[SPRITE_GAMEOVER] = ft_sprite_new(render->mlx,
 			"./textures/xpm/gameover.xpm", 1, 1);
+	render->sprites[SPRITE_STAR_LOADING_H] = ft_sprite_new(render->mlx,
+			"./textures/xpm/stars.loading.horizontal.xpm", 28, 4);
+	render->sprites[SPRITE_STAR_LOADING_V] = ft_sprite_new(render->mlx,
+			"./textures/xpm/starts.loading.vertical.xpm", 19, 6);
 	render->sprites[SPRITE_TOTAL] = NULL;
 }
 
 void	ft_render_sprites_loop(t_render *render)
 {
 	render->sprites[SPRITE_LINK_SPIN]->loop = 2;
-	render->sprites[SPRITE_LINK_LOADING]->loop = 4;
+	render->sprites[SPRITE_LINK_LOADING]->loop = 6;
 	render->sprites[SPRITE_LINK_ATTACKING]->loop = 1;
 	render->sprites[SPRITE_LINK_DYING]->loop = 5;
 	render->sprites[SPRITE_LINK_VICTORY]->loop = 4;
 	render->sprites[SPRITE_LINK_WALKING]->loop = 4;
-	render->sprites[SPRITE_SWORD_SPIN]->loop = render->sprites[SPRITE_LINK_SPIN]->loop;
+	
+    render->sprites[SPRITE_SWORD_SPIN]->loop = render->sprites[SPRITE_LINK_SPIN]->loop;
 	render->sprites[SPRITE_SWORD_ATTACK]->loop = render->sprites[SPRITE_LINK_ATTACKING]->loop;
 	render->sprites[SPRITE_SWORD_LOADING]->loop = render->sprites[SPRITE_LINK_LOADING]->loop;
-	render->sprites[SPRITE_CAPE]->loop = 1;
+
+    render->sprites[SPRITE_STAR_LOADING_H]->loop = render->sprites[SPRITE_LINK_LOADING]->loop;
+	render->sprites[SPRITE_STAR_LOADING_V]->loop = render->sprites[SPRITE_LINK_LOADING]->loop;
+
+    render->sprites[SPRITE_CAPE]->loop = 1;
 	render->sprites[SPRITE_COIN]->loop = 1;
 	render->sprites[SPRITE_DEBUG]->loop = 1;
 	render->sprites[SPRITE_DIGITS]->loop = 1;

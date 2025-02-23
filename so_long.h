@@ -64,7 +64,9 @@ typedef enum e_sprite_idx
 	SPRITE_CAPE,
 	SPRITE_HEARTS,
 	SPRITE_GAMEOVER,
-	SPRITE_TOTAL,
+	SPRITE_STAR_LOADING_H,
+	SPRITE_STAR_LOADING_V,
+    SPRITE_TOTAL,
 }					t_sprite_idx;
 
 typedef struct s_point
@@ -157,4 +159,5 @@ void				ft_counter_render(t_animation *animation);
 void				ft_coin_render(t_animation *animation);
 void				ft_number_render(t_animation *animation, t_point *point,
 						int nbr, int digits);
+void ft_player_star(t_player *player, t_render *render);
 #endif

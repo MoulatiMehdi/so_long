@@ -14,6 +14,13 @@
 
 # define KEY_H
 
+typedef enum e_key_state
+{
+    KEY_STATE_RELEASE = 0,
+    KEY_STATE_PRESS = 1,
+    KEY_STATE_HOLD,
+} t_key_state;
+
 typedef enum e_key
 {
 	KEY_ESC = 65307,

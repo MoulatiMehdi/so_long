@@ -1,27 +1,24 @@
-#include "color.h"
 #include "image.h"
-#include "libft/libft.h"
 #include "mlx.h"
 #include "player.h"
 #include "so_long.h"
-#include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 
 int	ft_animation_update(t_animation *animation)
 {
 	if (animation->render->stop)
 		return (0);
-	ft_image_fill(animation->render->back, 0X00FFFFFF);
+	ft_image_fill(animation->render->back, 0X0000FF00);
 	if (animation->engine->keys['p'] == 1)
 		animation->engine->player->hearts = 0;
-	ft_player_render(animation);
+    ft_player_render(animation);
 	ft_player_debug(animation->engine->player);
-	ft_hearts_render(animation);
-	ft_coin_render(animation);
-	ft_counter_render(animation);
-	ft_key_debug(animation);
+	/*ft_hearts_render(animation);*/
+	/*ft_coin_render(animation);*/
+	/*ft_counter_render(animation);*/
+    ft_key_debug(animation);
 	ft_render_display(animation->render);
-	return (0);
+    return (0);
 }
 
 int	main(void)

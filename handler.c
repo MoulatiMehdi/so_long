@@ -20,9 +20,9 @@ int	ft_handler_key_press(int keycode, t_engine *engine)
 	if (keycode == KEY_X && (engine->player->state == STATE_LOADING
 			|| engine->player->state == STATE_ATTACK))
 	{
-		ft_player_state_set(engine->player, STATE_IDLE);
 		engine->player->is_loaded = false;
 		engine->player->is_state_fixed = false;
+		ft_player_state_set(engine->player, STATE_IDLE);
 	}
 	if (keycode == KEY_SPACE)
 		engine->paused = !engine->paused;

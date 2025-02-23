@@ -1,3 +1,4 @@
+#include "player.h"
 #include "so_long.h"
 
 void	ft_player_state(t_player *player, char keys[256])
@@ -84,7 +85,7 @@ void	ft_player_coor(t_player *player, int dx, int dy)
 void	ft_player_move(t_player *player, char keys[256])
 {
 	player->is_moving = false;
-	if (player->state == STATE_DYING)
+	if (player->state != STATE_WALK && player->state != STATE_LOADING)
 		return ;
 	if (keys[KEY_A] == 0 && keys[KEY_D] == 1)
 		ft_player_coor(player, 1, 0);
@@ -110,7 +111,7 @@ void	ft_player_render(t_animation *animation)
 		ft_player_state(player, engine->keys);
 		ft_player_way(player, engine->keys);
 		ft_player_move(player, engine->keys);
-	}
+    }
 	if (player->state == STATE_WALK)
 		ft_player_walking(player, render);
 	if (player->state == STATE_IDLE)

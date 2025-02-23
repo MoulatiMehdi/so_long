@@ -18,16 +18,14 @@ typedef enum e_way
 
 typedef enum e_state
 {
-	STATE_IDLE = 0,
-	STATE_WALK = 1,
-	STATE_SWIM,
-	STATE_GRAB,
-	STATE_DYING,
-	STATE_ATTACK,
-	STATE_SPIN,
-	STATE_VICTORY,
-	STATE_LOADING,
-	STATE_HURT,
+	STATE_IDLE = 0, // no 
+	STATE_WALK = 1, // yes
+	STATE_DYING, // no 
+	STATE_ATTACK, // no 
+	STATE_SPIN, // no 
+	STATE_VICTORY, // no
+	STATE_LOADING, // yes 
+	STATE_HURT, // no
 	STATE_TOTAL
 }					t_state;
 
