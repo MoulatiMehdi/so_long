@@ -1,6 +1,6 @@
 #include "image.h"
 #include "libft/libft.h"
-#include "mlx.h"
+#include <mlx.h>
 #include "player.h"
 #include "so_long.h"
 
@@ -8,7 +8,7 @@ int	ft_animation_update(t_animation *animation)
 {
 	if (animation->render->stop)
 		return (0);
-	ft_image_fill(animation->render->back, 0X0000FF00);
+	ft_image_fill(animation->render->back, 0X00FFFFFF);
 	if (animation->engine->keys['p'] == 1)
 		animation->engine->player->hearts = 0;
 	if (animation->engine->keys['v'] == 1)

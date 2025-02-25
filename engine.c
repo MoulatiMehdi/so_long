@@ -1,7 +1,5 @@
 #include "libft/libft.h"
-#include "mlx.h"
 #include "so_long.h"
-#include <stdlib.h>
 
 void	ft_engine_init(t_engine *engine)
 {

@@ -18,6 +18,7 @@ static void	ft_handler_key_set(int keycode, char keys[256], bool is_pressed)
 
 int	ft_handler_close(t_animation *animation)
 {
+	mlx_do_key_autorepeaton(animation->render->mlx);
 	ft_engine_destroy(&animation->engine);
 	ft_render_clear(&animation->render);
 	exit(1);

@@ -2,6 +2,7 @@
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
+#define FRAME_REPETE 3
 
 static void	ft_render_sprite_player(t_render *render)
 {
@@ -61,12 +62,12 @@ static void	ft_render_sprites_loop(t_render *render)
 	t_sprite	**sprites;
 
 	sprites = render->sprites;
-	sprites[SPRITE_LINK_SPIN]->loop = 2;
-	sprites[SPRITE_LINK_LOADING]->loop = 4;
-	sprites[SPRITE_LINK_ATTACKING]->loop = 1;
-	sprites[SPRITE_LINK_DYING]->loop = 5;
-	sprites[SPRITE_LINK_VICTORY]->loop = 6;
-	sprites[SPRITE_LINK_WALKING]->loop = 4;
+	sprites[SPRITE_LINK_SPIN]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_LOADING]->loop = 4* FRAME_REPETE;
+	sprites[SPRITE_LINK_ATTACKING]->loop = 1* FRAME_REPETE;
+	sprites[SPRITE_LINK_DYING]->loop = 5* FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 4* FRAME_REPETE;
+	sprites[SPRITE_LINK_WALKING]->loop = 4* FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
 	sprites[SPRITE_SWORD_LOADING]->loop = sprites[SPRITE_LINK_LOADING]->loop;

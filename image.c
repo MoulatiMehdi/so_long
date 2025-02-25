@@ -1,5 +1,5 @@
 #include "image.h"
-#include "mlx.h"
+#include <mlx.h>
 #include "so_long.h"
 
 void	ft_image_ellipse(t_image *img, t_ellipse *ellipse, t_color color)

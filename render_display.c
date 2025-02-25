@@ -6,7 +6,7 @@ void	ft_render_display(t_render *render)
 
 	if (render == NULL)
 		return ;
-	mlx_clear_window(render->mlx, render->window);
+	//mlx_clear_window(render->mlx, render->window);
 	mlx_put_image_to_window(render->mlx, render->window, render->back->address,
 		0, 0);
 	tmp = render->front;
