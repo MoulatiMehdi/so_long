@@ -29,6 +29,21 @@ static void	ft_render_sprite_player(t_render *render)
 			SPRITE_SRC "link.attack.xpm", 12, 4);
 }
 
+static void	ft_render_sprite_tiles(t_render *render)
+{
+	t_sprite	**sprites;
+	void		*mlx;
+
+	sprites = render->sprites;
+	mlx = render->mlx;
+	sprites[SPRITE_FLOOR] = ft_sprite_new(mlx, SPRITE_SRC "floor.xpm", 3, 4);
+	/*sprites[SPRITE_CAPE] = ft_sprite_new(mlx, SPRITE_SRC "cape.xpm", 2, 1);*/
+	/*sprites[SPRITE_DEBUG] = ft_sprite_new(mlx, SPRITE_SRC "debug.xpm", 9, 1);*/
+	/*sprites[SPRITE_HEARTS] = ft_sprite_new(mlx, SPRITE_SRC "hearts.xpm", 3, 1);*/
+	/*sprites[SPRITE_DIGITS] = ft_sprite_new(mlx, SPRITE_SRC "digits.xpm", 10, 2);*/
+
+}
+
 static void	ft_render_sprite_objects(t_render *render)
 {
 	t_sprite	**sprites;
@@ -97,6 +112,7 @@ static void	ft_render_sprites_init(t_render *render)
 	ft_bzero(render->sprites, size);
 	ft_render_sprite_player(render);
 	ft_render_sprite_objects(render);
+	ft_render_sprite_tiles(render);
 	ft_render_sprites_loop(render);
 	render->sprites[SPRITE_TOTAL] = NULL;
 }

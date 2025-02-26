@@ -15,7 +15,7 @@
 # define SO_LONG_H
 # define KEYS_TOTAL 256
 # define WINDOW_HEIGHT 576
-# define WINDOW_WIDTH 672
+# define WINDOW_WIDTH 704
 # define WINDOW_TITLE "The Legend Of Zelda"
 # define PLAYER_HEARTS_TOTAL 10
 # define PLAYER_STATUS_X 208
@@ -64,6 +64,9 @@ typedef enum e_sprite_idx
 	SPRITE_STAR_LOADING_H,
 	SPRITE_STAR_LOADING_V,
 	SPRITE_SWORD_VICTORY,
+    SPRITE_FLOOR,
+    SPRITE_CEILING,
+    SPRITE_WALL,
     SPRITE_TOTAL,
 }					t_sprite_idx;
 
@@ -145,4 +148,5 @@ void				ft_player_star(t_player *player, t_render *render);
 void				ft_render_clear(t_render **render);
 t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
 						t_sprite_idx type);
+void ft_map_display(t_render * render,char ** map);
 #endif

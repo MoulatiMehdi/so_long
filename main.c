@@ -9,19 +9,20 @@ int	ft_animation_update(t_animation *animation)
 	if (animation->render->stop)
 		return (0);
 	ft_image_fill(animation->render->back, 0X00FFFFFF);
-	if (animation->engine->keys['p'] == 1)
-		animation->engine->player->hearts = 0;
-	if (animation->engine->keys['v'] == 1)
-	{
-		animation->engine->player->state = STATE_VICTORY;
-	}
-	ft_player_render(animation);
-	ft_player_debug(animation->engine->player);
-	ft_hearts_render(animation);
-	ft_coin_render(animation);
-	ft_counter_render(animation);
-	ft_key_debug(animation);
-	ft_render_display(animation->render);
+    ft_map_display(animation->render,animation->engine->map);
+	/*if (animation->engine->keys['p'] == 1)*/
+	/*	animation->engine->player->hearts = 0;*/
+	/*if (animation->engine->keys['v'] == 1)*/
+	/*{*/
+	/*	animation->engine->player->state = STATE_VICTORY;*/
+	/*}*/
+	/*ft_player_render(animation);*/
+	/*ft_player_debug(animation->engine->player);*/
+	/*ft_hearts_render(animation);*/
+	/*ft_coin_render(animation);*/
+	/*ft_counter_render(animation);*/
+	/*ft_key_debug(animation);*/
+    ft_render_display(animation->render);
 	return (0);
 }
 
@@ -34,7 +35,13 @@ int	main(void)
 	t_animation	game;
 	t_engine	*engine;
 	t_render	*render;
-
+    char * map[] = {
+        "111111",
+        "100001",
+        "100001",
+        "111111",
+        NULL
+    }; 
 	render = ft_render_new();
 	if (render == NULL)
 	{
@@ -50,6 +57,7 @@ int	main(void)
 	}
 	game.render = render;
 	game.engine = engine;
+    engine->map = map; 
 	mlx_do_key_autorepeatoff(render->mlx);
 	mlx_hook(render->window, ON_DESTROY, 0, ft_handler_close, &game);
 	mlx_hook(render->window, ON_KEYDOWN, 1L << 0, ft_handler_key_press, &game);
