@@ -112,7 +112,7 @@ void	ft_image_grid(t_image *image, int stepx, int stepy, t_color color)
 		}
 		i += stepy;
 	}
-	j = 0;
+	j = 32;
 	while (j < WINDOW_WIDTH)
 	{
 		i = 0;

@@ -37,8 +37,9 @@ int	main(void)
 	t_render	*render;
     char * map[] = {
         "111111",
+        "111011",
         "100001",
-        "100001",
+        "111011",
         "111111",
         NULL
     }; 
@@ -57,7 +58,7 @@ int	main(void)
 	}
 	game.render = render;
 	game.engine = engine;
-    engine->map = map; 
+    engine->map = ft_map_new(map); 
 	mlx_do_key_autorepeatoff(render->mlx);
 	mlx_hook(render->window, ON_DESTROY, 0, ft_handler_close, &game);
 	mlx_hook(render->window, ON_KEYDOWN, 1L << 0, ft_handler_key_press, &game);

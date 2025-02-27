@@ -70,6 +70,13 @@ typedef enum e_sprite_idx
     SPRITE_TOTAL,
 }					t_sprite_idx;
 
+typedef struct s_map 
+{
+    int width;
+    int height;
+    char ** data;
+} t_map;
+
 typedef struct s_sprite
 {
 	int				x;
@@ -96,7 +103,7 @@ typedef struct s_render
 typedef struct s_engine
 {
 	bool			paused;
-	char			**map;
+	t_map			*map;
 	char			keys[KEYS_TOTAL];
 	t_player		*player;
 }					t_engine;
@@ -148,5 +155,6 @@ void				ft_player_star(t_player *player, t_render *render);
 void				ft_render_clear(t_render **render);
 t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
 						t_sprite_idx type);
-void ft_map_display(t_render * render,char ** map);
+void ft_map_display(t_render * render,t_map * map);
+t_map *ft_map_new(char ** array);
 #endif
