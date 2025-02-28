@@ -1,0 +1,25 @@
+#ifndef WALL_H
+
+# define WALL_H
+
+bool is_valid_point(t_map * map,t_point* point);
+
+bool ft_map_isroof(t_map * map,t_point *point);
+
+bool ft_map_ismiddle_top(t_map * map,t_point *point);
+bool ft_map_ismiddle_bottom(t_map * map,t_point *point);
+bool ft_map_ismiddle_left(t_map * map,t_point *point);
+bool ft_map_ismiddle_right(t_map * map,t_point *point);
+
+bool ft_map_isright_top(t_map * map,t_point *point);
+bool ft_map_isright_bottom(t_map * map,t_point *point);
+
+bool ft_map_isleft_top(t_map * map,t_point *point);
+bool ft_map_isleft_bottom(t_map * map,t_point *point);
+
+
+bool ft_map_outside_isleft_top(t_map * map,t_point *point);
+bool ft_map_outside_isright_top(t_map * map,t_point *point);
+bool ft_map_outside_isright_bottom(t_map * map,t_point *point);
+bool ft_map_outside_isleft_bottom(t_map * map,t_point *point);
+#endif 

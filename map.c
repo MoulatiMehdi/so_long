@@ -2,6 +2,7 @@
 #include "libft/libft.h"
 #include "so_long.h"
 #include <stdio.h>
+#include "wall.h"
 
 
 void ft_map_wall_left_top(t_render * render,t_point * point)
@@ -24,6 +25,16 @@ void ft_map_wall_right_top(t_render * render,t_point * point)
     ft_render_sprite(render, sprite, point);
 }
 
+void ft_map_outside_left_top(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->x = sprite->frame_width * 0;
+    sprite->y = sprite->frame_height * 2;
+    ft_render_sprite(render, sprite, point);
+}
+
 void ft_map_wall_right_bottom(t_render * render,t_point * point)
 {
     t_sprite * sprite;
@@ -33,6 +44,37 @@ void ft_map_wall_right_bottom(t_render * render,t_point * point)
     sprite->y = 0;
     ft_render_sprite(render, sprite, point);
 }
+
+void ft_map_outside_left_bottom(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->x = sprite->frame_width * 1;
+    sprite->y = sprite->frame_height * 2;
+    ft_render_sprite(render, sprite, point);
+}
+
+void ft_map_outside_right_bottom(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->x = sprite->frame_width * 3;
+    sprite->y = sprite->frame_height * 2;
+    ft_render_sprite(render, sprite, point);
+}
+
+void ft_map_outside_right_top(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->x = sprite->frame_width * 2;
+    sprite->y = sprite->frame_height * 2;
+    ft_render_sprite(render, sprite, point);
+}
+
 
 void ft_map_wall_left_bottom(t_render * render,t_point * point)
 {
@@ -64,6 +106,25 @@ void ft_map_middle_bottom(t_render * render,t_point * point)
     ft_render_sprite(render, sprite, point);
 }
 
+void ft_map_middle_left(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->y = sprite->frame_height * 1;
+    sprite->x = sprite->frame_width * 0;
+    ft_render_sprite(render, sprite, point);
+}
+
+void ft_map_middle_right(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_WALL];
+    sprite->y = sprite->frame_height * 1;
+    sprite->x = sprite->frame_width * 2;
+    ft_render_sprite(render, sprite, point);
+}
 void ft_map_floor_blue(t_render * render,t_point * point)
 {
     t_point  shift;
@@ -125,8 +186,8 @@ void ft_map_fill_void(t_render * render,t_map * map)
     int i;
     sprite = render->sprites[SPRITE_FLOOR];
 
-    sprite->x = sprite->frame_width * 0;
-    sprite->y = sprite->frame_height * 3;
+    sprite->x = sprite->frame_width * 1;
+    sprite->y = sprite->frame_height * 1;
     i = 0;
     while(i < WINDOW_HEIGHT / 2 - map->height * 32)
     {
@@ -161,205 +222,9 @@ void ft_map_fill_void(t_render * render,t_map * map)
     i = 0;
 }
 
-bool is_valid_point(t_map * map,t_point* point)
-{
-    return point->x >=0  && point->y >= 0 && point->y < map->height  && point->x < map->width;
-}
 
 
-bool ft_map_isroof(t_map * map,t_point *point)
-{
-    t_point p;
-    int i;
-    int j;
-    bool isroof;
-    isroof = true;
-    i = -1;
-    while(i < 2)
-    {
-        j = -1;
-        while(j < 2)
-        {
-            p.x = point->x - i;
-            p.y = point->y - j;
-            if(is_valid_point(map, &p))
-                isroof = isroof && (map->data[p.y][p.x] == '1');
-            j++;
-        }
-        i++;
-    }
-    return isroof;
-}
-
-bool ft_map_ismiddle_top(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->y == map->height - 1)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
-
-bool ft_map_ismiddle_bottom(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->y == 0)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x - j;
-        p.y = point->y;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
-
-bool ft_map_isleft_top(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->y == map->height - 1)
-        return false;
-    if(point->x == map->width - 1)
-        return false;
-    isroof = true;
-    j = 0;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-        {
-            isroof = isroof && map->data[p.y][p.x] == "11"[j];
-        }  
-        p.x = point->x + 1;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-        {
-            isroof = isroof && map->data[p.y][p.x] == "10"[j];
-        }   j++;
-    }
-    return isroof;
-}
-
-bool ft_map_isright_top(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->x == 0)
-        return false;
-    if(point->y == map->height - 1)
-        return false;
-    isroof = true;
-    j = 0;
-
-    // j == 0 
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "11"[j];
-        j++;
-    }
-    j = 0; 
-    while(j < 2)
-    {
-        p.x = point->x - 1;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "10"[j];
-        j++;
-    }
-    return isroof;
-}
-
-bool ft_map_isright_bottom(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-  
-    if(point->y == 0)
-        return false;
-    if(point->x == 0)
-        return false;
-    isroof = true;
-    j = 0;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "11"[j];
-        p.x = point->x - 1;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "10"[j];
-        j++;
-    }
-    return isroof;
-}
-
-
-bool ft_map_isleft_bottom(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-  
-    if(point->x == map->width - 1)
-        return false;
-    if(point->y == 0)
-        return false;
-    isroof = true;
-    j = 0;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "11"[j];
-        p.x = point->x + 1;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "10"[j];
-        j++;
-    }
-    return isroof;
-}
-void ft_map_wall_inside(t_render * render,t_map * map)
+void ft_map_wall_top(t_render * render,t_map * map)
 {
     t_point idx;
     t_point shift;
@@ -374,31 +239,39 @@ void ft_map_wall_inside(t_render * render,t_map * map)
         idx.y = 0;
         while(idx.y  < map->height)
         {
-            if(!is_valid_point(map,&idx) || map->data[idx.y][idx.x] == 0)
-                break;
             shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
-            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == '0')
+                break;
             if(ft_map_isroof(map, &idx))
-                ft_map_roof(render, &shift);
+               ft_map_roof(render, &shift);
             else if(ft_map_ismiddle_top(map, &idx))
                 ft_map_middle_top(render,&shift);
-            else if(ft_map_ismiddle_bottom(map, &idx))
-                ft_map_middle_bottom(render,&shift);
             else if(ft_map_isleft_top(map, &idx))
                 ft_map_wall_left_top(render,&shift);
             else if(ft_map_isright_top(map, &idx))
                 ft_map_wall_right_top(render,&shift);
-            else if(ft_map_isright_bottom(map,&idx))
-                ft_map_wall_right_bottom(render,&shift);
-            else if(ft_map_isleft_bottom(map,&idx))
-                ft_map_wall_left_bottom(render,&shift);
+            else 
+                break;
+            
+            /*else if(ft_map_ismiddle_left(map, &idx))*/
+            /*    ft_map_middle_left(render,&shift);*/
+            /*else if(ft_map_ismiddle_right(map, &idx))*/
+            /*    ft_map_middle_right(render,&shift);*/
+            /*else if(ft_map_ismiddle_bottom(map, &idx))*/
+            /*    ft_map_middle_bottom(render,&shift);*/
+            /*if(ft_map_isright_bottom(map,&idx))*/
+            /*    ft_map_wall_right_bottom(render,&shift);*/
+            /*else if(ft_map_isleft_bottom(map,&idx))*/
+            /*    ft_map_wall_left_bottom(render,&shift);*/
+
             idx.y ++;
         }
         idx.x ++;
     }
 }
 
-void ft_map_wall_outside(t_render * render,t_map * map)
+void ft_map_wall_bottom(t_render * render,t_map * map)
 {
     t_point idx;
     t_point shift;
@@ -408,32 +281,125 @@ void ft_map_wall_outside(t_render * render,t_map * map)
     sprite_floor = render->sprites[SPRITE_FLOOR];
     sprite_wall = render->sprites[SPRITE_WALL];
     idx.x = 0;
+    while(idx.x < map->width)
+    {
+        idx.y = map->height - 1;
+        while(idx.y  >= 0)
+        {
+            shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == '0')
+                break;
+            if(ft_map_isroof(map, &idx))
+               ft_map_roof(render, &shift);
+            else if(ft_map_ismiddle_bottom(map, &idx))
+                ft_map_middle_bottom(render,&shift);
+            else if(ft_map_isright_bottom(map,&idx))
+                ft_map_wall_right_bottom(render,&shift);
+            else if(ft_map_isleft_bottom(map,&idx))
+                ft_map_wall_left_bottom(render,&shift);
+            else 
+                break;
+            idx.y --;
+        }
+        idx.x ++;
+    }
+}
+
+
+void ft_map_wall_left(t_render * render,t_map * map)
+{
+    t_point idx;
+    t_point shift;
+    t_sprite * sprite_wall;    
+    t_sprite * sprite_floor;
+
+    sprite_floor = render->sprites[SPRITE_FLOOR];
+    sprite_wall = render->sprites[SPRITE_WALL];
+    idx.y = 0;
     while(idx.y < map->height)
     {
         idx.x = 0;
         while(idx.x  < map->width)
         {
-            if(!is_valid_point(map,&idx) || map->data[idx.y][idx.x] == 0)
-                break;
             shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
-            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == '0')
+                break;
             if(ft_map_isroof(map, &idx))
-                ft_map_roof(render, &shift);
-            else if(ft_map_ismiddle_top(map, &idx))
-                ft_map_middle_top(render,&shift);
-            else if(ft_map_ismiddle_bottom(map, &idx))
-                ft_map_middle_bottom(render,&shift);
-            else if(ft_map_isleft_top(map, &idx))
-                ft_map_wall_left_top(render,&shift);
-            else if(ft_map_isright_top(map, &idx))
-                ft_map_wall_right_top(render,&shift);
-            else if(ft_map_isright_bottom(map,&idx))
-                ft_map_wall_right_bottom(render,&shift);
-            else if(ft_map_isleft_bottom(map,&idx))
-                ft_map_wall_left_bottom(render,&shift);
-            idx.y ++;
+               ft_map_roof(render, &shift);
+            else if(ft_map_ismiddle_left(map, &idx))
+                ft_map_middle_left(render,&shift);
+            else 
+                break;
+            idx.x ++;
         }
-        idx.x ++;
+        idx.y ++;
+    }
+}
+
+void ft_map_wall_right(t_render * render,t_map * map)
+{
+    t_point idx;
+    t_point shift;
+    t_sprite * sprite_wall;    
+    t_sprite * sprite_floor;
+
+    sprite_floor = render->sprites[SPRITE_FLOOR];
+    sprite_wall = render->sprites[SPRITE_WALL];
+    idx.y = 0;
+    while(idx.y < map->height)
+    {
+        idx.x = map->width - 1;
+        while(idx.x  >= 0)
+        {
+            shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == '0')
+                break;
+            if(ft_map_isroof(map, &idx))
+               ft_map_roof(render, &shift);
+            else if(ft_map_ismiddle_right(map, &idx))
+                ft_map_middle_right(render,&shift);
+            else 
+                break;
+            idx.x --;
+        }
+        idx.y ++;
+    }
+}
+void ft_map_wall_outside(t_render * render,t_map * map)
+{
+    t_point idx;
+    t_point shift;
+    t_sprite * sprite_wall;    
+    t_sprite * sprite_floor;
+
+    sprite_floor = render->sprites[SPRITE_FLOOR];
+    sprite_wall = render->sprites[SPRITE_WALL];
+    idx.y = 0;
+    while(idx.y < map->height)
+    {
+        idx.x = 0;
+        while(idx.x  < map->width)
+        {
+            shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == '0')
+                break;
+            if(map->data[idx.y][idx.x] == '0')
+               ft_map_floor_blue(render,&shift); 
+            else if(ft_map_outside_isleft_bottom(map, &idx))
+                ft_map_outside_left_bottom(render,&shift);
+            else if(ft_map_outside_isright_bottom(map, &idx))
+                ft_map_outside_right_bottom(render,&shift);
+            else if(ft_map_outside_isright_top(map,&idx))
+                ft_map_outside_right_top(render,&shift);
+            else if(ft_map_outside_isleft_top(map,&idx))
+                ft_map_outside_left_top(render,&shift);
+            idx.x ++;
+        }
+        idx.y ++;
     }
 }
 
@@ -441,8 +407,11 @@ void ft_map_wall_outside(t_render * render,t_map * map)
 void ft_map_display(t_render * render,t_map * map)
 {
     ft_map_fill_void(render, map);
-    ft_map_wall_inside(render, map);
-    ft_map_wall_outside(render, map);   
+    ft_map_wall_top(render, map);
+    ft_map_wall_bottom(render, map);
+    ft_map_wall_left(render, map);
+    ft_map_wall_right(render, map);
+    /*ft_map_wall_outside(render, map);*/
 }
 
 t_map *ft_map_new(char ** array)

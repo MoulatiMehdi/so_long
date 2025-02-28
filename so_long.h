@@ -157,4 +157,5 @@ t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
 						t_sprite_idx type);
 void ft_map_display(t_render * render,t_map * map);
 t_map *ft_map_new(char ** array);
+bool is_valid_point(t_map * map,t_point* point);
 #endif

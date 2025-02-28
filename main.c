@@ -36,11 +36,11 @@ int	main(void)
 	t_engine	*engine;
 	t_render	*render;
     char * map[] = {
-        "111111",
-        "111011",
-        "100001",
-        "111011",
-        "111111",
+        "1111111",
+        "1101011",
+        "1110111",
+        "1101011",
+        "1011111",
         NULL
     }; 
 	render = ft_render_new();
