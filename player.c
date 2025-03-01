@@ -63,7 +63,7 @@ t_player	*ft_player_new(void)
 	player->charge = 0;
 	player->moves = 0;
 	player->hearts = 10;
-	player->speed = 1;
+	player->speed = 2;
 	player->width = 48;
 	player->height = 64;
 	player->is_moving = false;
@@ -75,6 +75,8 @@ t_player	*ft_player_new(void)
 	player->way = WAY_DOWN;
 	player->state = STATE_IDLE;
 	player->frame_on_loop = 0;
+    player->origin_y = 48;
+    player->origin_x = 24;
 	return (player);
 }
 

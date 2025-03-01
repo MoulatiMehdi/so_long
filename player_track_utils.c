@@ -1,22 +1,39 @@
 #include "so_long.h"
+#include <stdio.h>
 
-void	ft_player_coor(t_player *player, int dx, int dy)
+bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
 {
-	player->x += dx * player->speed;
+    t_point p;
+    t_player * player;
+    t_map * map;
+
+    player = engine->player;
+    map = engine->map;
+
+    p.x = (player->x + dx * player->speed - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x) / 64;
+    p.y = (player->y + dy * player->speed - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y )/ 64;
+    if(!is_valid_point(map,&p))
+        return false;
+    if(map->data[p.y][p.x] != WALL_EMPTY)
+        return false;
+    return true;
+}
+
+void	ft_player_coor(t_engine *engine, int dx, int dy)
+{
+    t_player * player;
+    t_map * map;
+
+    player = engine->player;
+    map = engine->map;
+    if (dx == 0 && dy == 0)
+        return ;
+    if(!ft_player_move_isvalid(engine, dx, dy))
+        return ;
+    player->moves++;
+	player->is_moving = true;
+    player->x += dx * player->speed;
 	player->y += dy * player->speed;
-	if (player->x > WINDOW_WIDTH - player->width)
-		player->x = WINDOW_WIDTH - player->width;
-	if (player->y > WINDOW_HEIGHT - player->height)
-		player->y = WINDOW_HEIGHT - player->height;
-	if (player->y < 0)
-		player->y = 0;
-	if (player->x < 0)
-		player->x = 0;
-	if (dx != 0 || dy != 0)
-	{
-		player->moves++;
-		player->is_moving = true;
-	}
 }
 
 bool	ft_player_state_attack(t_player *player, bool is_attack)

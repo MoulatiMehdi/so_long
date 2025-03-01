@@ -30,6 +30,8 @@ typedef enum e_state
 
 typedef struct s_player
 {
+    int origin_x;
+    int origin_y;
 	int				x;
 	int				y;
 	int				speed;

@@ -177,4 +177,5 @@ void ft_map_display(t_render * render,t_map * map);
 t_map *ft_map_new(char ** array);
 bool is_valid_point(t_map * map,t_point* point);
 void wall_idx(t_map * map);
+void ft_map_grid(t_map * map,t_point * point);
 #endif

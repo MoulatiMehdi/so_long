@@ -50,7 +50,7 @@ void ft_map_fill_void(t_render * render,t_map * map)
 
 
 
-void ft_map_wall_top(t_render * render,t_map * map)
+void ft_map_wall(t_render * render,t_map * map)
 {
     t_point idx;
     t_point shift;
@@ -103,7 +103,7 @@ void ft_map_wall_top(t_render * render,t_map * map)
 }
 
 
-void ft_map_wall_up(t_render * render,t_map * map)
+void ft_map_obstacle(t_render * render,t_map * map)
 {
     t_point idx;
     t_point shift;
@@ -115,17 +115,20 @@ void ft_map_wall_up(t_render * render,t_map * map)
         {
             shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
             shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == WALL_OBSTACLE)
+                ft_map_outside_right_top(render,&shift);
             idx.y ++;
         }
         idx.x ++;
     }
+
 }
 
 void ft_map_display(t_render * render,t_map * map)
 {
     ft_map_fill_void(render, map);
-    ft_map_wall_top(render, map);
-    //ft_map_wall_up(render, map);
+    ft_map_wall(render, map);
+    ft_map_obstacle(render, map);
 }
 
 t_map *ft_map_new(char ** array)

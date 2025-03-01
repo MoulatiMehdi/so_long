@@ -35,6 +35,8 @@ void ft_map_grid(t_map * map,t_point * point)
     t_point p;
 
     p.y = 0;
+    
+    printf("\n");
     while(p.y < map->height){
        p.x = 0;
         while(p.x < map->width)
@@ -48,6 +50,7 @@ void ft_map_grid(t_map * map,t_point * point)
         printf("\n");
         p.y++;
     }
+    printf("\n");
 }
 
 
@@ -83,7 +86,6 @@ void wall_idx(t_map * map)
     ft_wall_only_wall(map);
     p.y = 0;
     p.x = 0;
-    ft_map_grid(map, &p);
     while(p.y < map->height)
     {
         p.x = 0;

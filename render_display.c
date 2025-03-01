@@ -6,7 +6,6 @@ void	ft_render_display(t_render *render)
 
 	if (render == NULL)
 		return ;
-	ft_image_grid(render->back, 64, 64, 0X00FF0000);
 	//mlx_clear_window(render->mlx, render->window);
 	mlx_put_image_to_window(render->mlx, render->window, render->back->address,
 		0, 0);

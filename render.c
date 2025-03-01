@@ -2,7 +2,7 @@
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
-#define FRAME_REPETE 3
+#define FRAME_REPETE 1
 
 static void	ft_render_sprite_player(t_render *render)
 {
