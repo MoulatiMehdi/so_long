@@ -4,6 +4,7 @@
 #include "player.h"
 #include "so_long.h"
 
+
 int	ft_animation_update(t_animation *animation)
 {
 	if (animation->render->stop)
@@ -35,15 +36,20 @@ int	main(void)
 	t_animation	game;
 	t_engine	*engine;
 	t_render	*render;
-    char * map[] = {
+    char * strs[] = {
         "1111111",
+        "1011101",
+        "1101011",
         "1110111",
-        "1000001",
-        "1110111",
+        "1101011",
+        "1011101",
         "1111111",
         NULL
-    }; 
-	render = ft_render_new();
+    };
+    char ** map;
+
+    map = ft_strs_dup(strs);
+    render = ft_render_new();
 	if (render == NULL)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -59,6 +65,7 @@ int	main(void)
 	game.render = render;
 	game.engine = engine;
     engine->map = ft_map_new(map); 
+	wall_idx(engine->map);
 	mlx_do_key_autorepeatoff(render->mlx);
 	mlx_hook(render->window, ON_DESTROY, 0, ft_handler_close, &game);
 	mlx_hook(render->window, ON_KEYDOWN, 1L << 0, ft_handler_key_press, &game);

@@ -32,7 +32,7 @@ bool ft_map_isroof(t_map * map,t_point *point)
         }
         i++;
     }
-    return test == 513;
+    return test == 511;
 }
 
 

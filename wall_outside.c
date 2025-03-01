@@ -2,7 +2,7 @@
 
 bool ft_map_outside_isleft_top(t_map * map,t_point *point)
 {
-    int arr [] = {27,91,155,283,59,31,287,95,387};
+    int arr [] = {27,91,155,283,59,31,287,95,387,351,347,123,415,351,287};
     t_point p;
     int i;
     int j;
@@ -38,7 +38,7 @@ bool ft_map_outside_isleft_top(t_map * map,t_point *point)
 
 bool ft_map_outside_isright_top(t_map * map,t_point *point)
 {
-    int arr [] = {216,472,248,220,218,217,221,476};
+    int arr [] = {472,248,220,218,217,476,474,473,252,250,221,477,254,253};
     t_point p;
     int i;
     int j;
@@ -63,7 +63,7 @@ bool ft_map_outside_isright_top(t_map * map,t_point *point)
         i++;
     }
     size_t k = 0;
-    while(k < sizeof(arr))
+    while(k < sizeof(arr)/sizeof(arr[0]))
     {
         if(arr[k] == test)
             return true;
@@ -74,7 +74,7 @@ bool ft_map_outside_isright_top(t_map * map,t_point *point)
 
 bool ft_map_outside_isright_bottom(t_map * map,t_point *point)
 {
-    int arr [] = {500,432,434,440,442,433,436,496};
+    int arr [] = {432,496,440,434,433,436,497,498,500,441,442,435,437,501,445};
     t_point p;
     int i;
     int j;
@@ -110,7 +110,7 @@ bool ft_map_outside_isright_bottom(t_map * map,t_point *point)
 
 bool ft_map_outside_isleft_bottom(t_map * map,t_point *point)
 {
-    int arr [] = {500,432,433};
+    int arr [] = {54,310,182,118,62,55,119,183,311,126,190,318,374,246,375,382};
     t_point p;
     int i;
     int j;

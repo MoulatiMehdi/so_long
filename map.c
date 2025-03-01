@@ -49,7 +49,61 @@ void ft_map_fill_void(t_render * render,t_map * map)
 }
 
 
+
 void ft_map_wall_top(t_render * render,t_map * map)
+{
+    t_point idx;
+    t_point shift;
+    idx.x = 0;
+
+    while(idx.x < map->width)
+    {
+        idx.y = 0;
+        while(idx.y  < map->height)
+        {
+            shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
+            shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
+            if(map->data[idx.y][idx.x] == WALL_EMPTY)
+                ft_map_floor_blue(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_ROOF)
+               ft_map_roof(render, &shift);
+            
+            else if(map->data[idx.y][idx.x] == WALL_IN_MID_TOP)
+                ft_map_middle_top(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_MID_BOTTOM)
+                ft_map_middle_bottom(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_MID_LEFT)
+                ft_map_middle_left(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_MID_RIGHT)
+                ft_map_middle_right(render,&shift);
+            
+
+            else if(map->data[idx.y][idx.x] == WALL_IN_LEFT_TOP)
+                ft_map_wall_left_top(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_LEFT_BOTTOM)
+                ft_map_wall_left_bottom(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_RIGHT_BOTTOM)
+                ft_map_wall_right_bottom(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_IN_RIGHT_TOP)
+                ft_map_wall_right_top(render,&shift);
+
+            else if(map->data[idx.y][idx.x] == WALL_OUT_LEFT_TOP)
+                ft_map_outside_left_top(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_OUT_LEFT_BOTTOM)
+                ft_map_outside_left_bottom(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_OUT_RIGHT_BOTTOM)
+                ft_map_outside_right_bottom(render,&shift);
+            else if(map->data[idx.y][idx.x] == WALL_OUT_RIGHT_TOP)
+                ft_map_outside_right_top(render,&shift);
+
+            idx.y ++;
+        }
+        idx.x ++;
+    }
+}
+
+
+void ft_map_wall_up(t_render * render,t_map * map)
 {
     t_point idx;
     t_point shift;
@@ -61,51 +115,17 @@ void ft_map_wall_top(t_render * render,t_map * map)
         {
             shift.x = WINDOW_WIDTH / 2 - map->width * 32 + idx.x * 64; 
             shift.y = WINDOW_HEIGHT / 2 - map->height * 32 + idx.y * 64;
-            if(map->data[idx.y][idx.x] == '0')
-               ft_map_floor_blue(render,&shift); 
-            else if(ft_map_isroof(map, &idx))
-               ft_map_roof(render, &shift);
-
-            else if(ft_map_ismiddle_top(map, &idx))
-                ft_map_middle_top(render,&shift);
-            else if(ft_map_ismiddle_right(map, &idx))
-                ft_map_middle_right(render,&shift);
-            else if(ft_map_ismiddle_bottom(map, &idx))
-                ft_map_middle_bottom(render,&shift);
-            else if(ft_map_ismiddle_left(map, &idx))
-                ft_map_middle_left(render,&shift);
-           
-            else if(ft_map_isleft_top(map, &idx))
-                ft_map_wall_left_top(render,&shift);
-            else if(ft_map_isright_top(map, &idx))
-                ft_map_wall_right_top(render,&shift);
-
-            if(ft_map_isright_bottom(map,&idx))
-                ft_map_wall_right_bottom(render,&shift);
-            else if(ft_map_isleft_bottom(map,&idx))
-                ft_map_wall_left_bottom(render,&shift);
-            
-            else if(ft_map_outside_isright_bottom(map, &idx))
-                ft_map_outside_right_bottom(render,&shift);
-            else if(ft_map_outside_isright_top(map,&idx))
-                ft_map_outside_right_top(render,&shift);
-            else if(ft_map_outside_isleft_top(map,&idx))
-                ft_map_outside_left_top(render,&shift);
-            else if(ft_map_outside_isleft_bottom(map, &idx))
-                ft_map_outside_left_bottom(render,&shift);
-
             idx.y ++;
         }
         idx.x ++;
     }
 }
 
-
-
 void ft_map_display(t_render * render,t_map * map)
 {
     ft_map_fill_void(render, map);
     ft_map_wall_top(render, map);
+    //ft_map_wall_up(render, map);
 }
 
 t_map *ft_map_new(char ** array)
