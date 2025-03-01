@@ -1,4 +1,5 @@
 #include "so_long.h"
+#include <stdbool.h>
 #include <stdio.h>
 
 bool is_valid_point(t_map * map,t_point* point)
@@ -11,252 +12,171 @@ bool ft_map_isroof(t_map * map,t_point *point)
     t_point p;
     int i;
     int j;
-    bool isroof;
-    isroof = true;
+    int test;
+
+    test = 0;
     i = -1;
     while(i < 2)
     {
         j = -1;
         while(j < 2)
         {
-            p.x = point->x - i;
-            p.y = point->y - j;
+            p.x = point->x + i;
+            p.y = point->y + j;
+            test <<= 1;
             if(is_valid_point(map, &p))
-                isroof = isroof && (map->data[p.y][p.x] == '1');
+                test +=(map->data[p.y][p.x] == '1');
+            else 
+                test++;
             j++;
         }
         i++;
     }
-    return isroof;
+    return test == 513;
 }
 
-bool ft_map_ismiddle_top(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->y == map->height - 1)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
-
-bool ft_map_ismiddle_bottom(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->y == 0)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x;
-        p.y = point->y - j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x - j;
-        p.y = point->y;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
-
-bool ft_map_ismiddle_left(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->x == map->width - 1)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x + j;
-        p.y = point->y ;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x ;
-        p.y = point->y + j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
-
-
-bool ft_map_ismiddle_right(t_map * map,t_point *point)
-{
-    t_point p;
-    int j;
-    bool isroof;
-   
-    if(point->x == 0)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x - j;
-        p.y = point->y; 
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        p.x = point->x ;
-        p.y = point->y+ j;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == '1';
-        j++;
-    }
-    return isroof;
-}
 
 bool ft_map_isleft_top(t_map * map,t_point *point)
 {
+    int arr [] = {510};
     t_point p;
+    int i;
     int j;
-    bool isroof;
-   
-    if(point->y == map->height - 1)
-        return false;
-    if(point->x == map->width - 1)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
+    int test;
+
+    test = 0;
+    i = -1;
+    while(i < 2)
     {
-        p.x = point->x + j;
-        p.y = point->y ;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "111"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y + 1;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        j++;
+        j = -1;
+        while(j < 2)
+        {
+            p.x = point->x + i;
+            p.y = point->y + j;
+            test <<= 1;
+            if(is_valid_point(map, &p))
+                test +=(map->data[p.y][p.x] == '1');
+            else 
+                test++;
+            j++;
+        }
+        i++;
     }
-    return isroof;
+    size_t k = 0;
+    while(k < sizeof(arr))
+    {
+        if(arr[k] == test)
+            return true;
+        k++;
+    }
+    return false;
 }
 
 bool ft_map_isright_top(t_map * map,t_point *point)
 {
+    int arr [] = {447};
     t_point p;
+    int i;
     int j;
-    bool isroof;
-   
-    if(point->x == 0)
-        return false;
-    if(point->y == map->height - 1)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
-    {
-        p.x = point->x + j;
-        p.y = point->y ;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "111"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y + 1;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "011"[j + 1];
-        j++;
-    }
-    return isroof;
-}
+    int test;
 
-void ft_map_grid(t_map * map,t_point *point)
-{
-    int i = 0;
-    int j = 0;
-    int c;
-    while(i < map->height)
+    test = 0;
+    i = -1;
+    while(i < 2)
     {
-        j = 0;
-        while(j < map->width)
+        j = -1;
+        while(j < 2)
         {
-            if(i == point->y && j == point->x)
-                printf("\033[45;1m%c \033[0m",map->data[i][j]); 
+            p.x = point->x + i;
+            p.y = point->y + j;
+            test <<= 1;
+            if(is_valid_point(map, &p))
+                test +=(map->data[p.y][p.x] == '1');
             else 
-                printf("%c ",map->data[i][j]); 
+                test++;
             j++;
         }
-        printf("\n");
         i++;
     }
+    size_t k = 0;
+    while(k < sizeof(arr))
+    {
+        if(arr[k] == test)
+            return true;
+        k++;
+    }
+    return false;
 }
 
 bool ft_map_isright_bottom(t_map * map,t_point *point)
 {
+    int arr [] = {255};
     t_point p;
+    int i;
     int j;
-    bool isroof;
-  
-    if(point->y == 0)
-        return false;
-    if(point->x == 0)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
+    int test;
+
+    test = 0;
+    i = -1;
+    while(i < 2)
     {
-        p.x = point->x + j;
-        p.y = point->y ;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "111"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y - 1;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "011"[j + 1];
-        j++;
+        j = -1;
+        while(j < 2)
+        {
+            p.x = point->x + i;
+            p.y = point->y + j;
+            test <<= 1;
+            if(is_valid_point(map, &p))
+                test +=(map->data[p.y][p.x] == '1');
+            else 
+                test++;
+            j++;
+        }
+        i++;
     }
-    return isroof;
+    size_t k = 0;
+    while(k < sizeof(arr))
+    {
+        if(arr[k] == test)
+            return true;
+        k++;
+    }
+    return false;
 }
 
 
 bool ft_map_isleft_bottom(t_map * map,t_point *point)
 {
+    int arr [] = {507};
     t_point p;
+    int i;
     int j;
-    bool isroof;
-  
-    if(point->x == map->width - 1)
-        return false;
-    if(point->y == 0)
-        return false;
-    isroof = true;
-    j = -1;
-    while(j < 2)
+    int test;
+
+    test = 0;
+    i = -1;
+    while(i < 2)
     {
-        p.x = point->x + j;
-        p.y = point->y ;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "111"[j + 1];
-        p.x = point->x + j;
-        p.y = point->y - 1;
-        if(is_valid_point(map, &p))
-            isroof = isroof && map->data[p.y][p.x] == "110"[j + 1];
-        j++;
+        j = -1;
+        while(j < 2)
+        {
+            p.x = point->x + i;
+            p.y = point->y + j;
+            test <<= 1;
+            if(is_valid_point(map, &p))
+                test +=(map->data[p.y][p.x] == '1');
+            else 
+                test++;
+            j++;
+        }
+        i++;
     }
-    return isroof;
+    size_t k = 0;
+    while(k < sizeof(arr))
+    {
+        if(arr[k] == test)
+            return true;
+        k++;
+    }
+    return false;
 }

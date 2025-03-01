@@ -37,10 +37,10 @@ int	main(void)
 	t_render	*render;
     char * map[] = {
         "1111111",
-        "1101011",
         "1110111",
-        "1101011",
-        "1011111",
+        "1000001",
+        "1110111",
+        "1111111",
         NULL
     }; 
 	render = ft_render_new();
