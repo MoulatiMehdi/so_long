@@ -14,7 +14,11 @@ bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
     p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
     p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
     
-    /*p.x += player->width * (dx > 0);*/
+    if(dx > 0)
+        p.x += player->width/ 2;
+    else if(dx < 0) 
+        p.x -= player->width/ 2;
+    
     p.x += dx * player->speed; 
     p.x /=64;
     p.y /=64;
@@ -24,7 +28,12 @@ bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
         return false;
     p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
     p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
-    /*p.y += player->height * (dy > 0);*/
+    
+    if(dy > 0)
+        p.y += player->height/ 2;
+    else if(dy < 0) 
+        p.y -= player->height/ 2;
+    
     p.y += dy * player->speed; 
     p.x /=64;
     p.y /=64;
@@ -48,8 +57,8 @@ t_map * map;
     player->moves++;
 	player->is_moving = true;
 
-    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32; 
-    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32; 
+    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32 + player->origin_x; 
+    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y; 
     
     p.x /=64;
     p.y /=64;
