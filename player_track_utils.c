@@ -1,5 +1,6 @@
 #include "so_long.h"
-#include <stdio.h>
+
+
 
 
 bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
@@ -7,40 +8,38 @@ bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
     t_point p;
     t_player * player;
     t_map * map;
-
+    int i;
+    
+    i = 0;
     player = engine->player;
     map = engine->map;
-
     p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
-    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
-    
-    if(dx > 0)
-        p.x += player->width/ 2;
-    else if(dx < 0) 
-        p.x -= player->width/ 2;
-    
+    p.x += dx * player->width/ 2;
     p.x += dx * player->speed; 
     p.x /=64;
-    p.y /=64;
-    if(!is_valid_point(map,&p))
-        return false;
-    if(map->data[p.y][p.x] != WALL_EMPTY)
-        return false;
-    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
+    while(i < 2)
+    {
+        p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
+        p.y += (2*i - 1) * player->height/ 2;
+        p.y /=64;
+        if(!is_valid_point(map,&p) || map->data[p.y][p.x] != WALL_EMPTY)
+            return false;
+        i++;
+    }
     p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
-    
-    if(dy > 0)
-        p.y += player->height/ 2;
-    else if(dy < 0) 
-        p.y -= player->height/ 2;
-    
+    p.y += dy * player->height/ 2;
     p.y += dy * player->speed; 
-    p.x /=64;
     p.y /=64;
-    if(!is_valid_point(map,&p))
-        return false;
-    if(map->data[p.y][p.x] != WALL_EMPTY)
-        return false;
+    i = 0; 
+    while(i < 2)
+    {
+        p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
+        p.x += (2*i - 1) * player->width/ 2;
+        p.x /=64;
+        if(!is_valid_point(map,&p) || map->data[p.y][p.x] != WALL_EMPTY)
+            return false;
+        i++;
+    }
     return true;
 }
 

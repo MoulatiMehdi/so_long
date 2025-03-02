@@ -64,7 +64,7 @@ t_player	*ft_player_new(void)
 	player->moves = 0;
 	player->hearts = 10;
 	player->speed = 2;
-	player->width = 32;
+	player->width = 24;
 	player->height = 16;
 	player->is_moving = false;
 	player->is_loaded = false;
