@@ -83,7 +83,7 @@ typedef enum e_sprite_idx
 	SPRITE_STAR_LOADING_V,
 	SPRITE_SWORD_VICTORY,
     SPRITE_FLOOR,
-    SPRITE_CEILING,
+    SPRITE_OBSTACLE,
     SPRITE_WALL,
     SPRITE_TOTAL,
 }					t_sprite_idx;

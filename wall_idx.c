@@ -66,8 +66,6 @@ void ft_wall_only_wall(t_map * map)
             if(ft_map_isroof(map,&p));
             else if (map->data[p.y][p.x] != '1')
                 map->data[p.y][p.x] = '0';
-            else if(!ft_is_roof_touch(map,&p))
-                map->data[p.y][p.x] = '0';
             p.x++;
         }
         p.y++;
@@ -94,7 +92,10 @@ void wall_idx(t_map * map)
             if(ft_map_isroof(map,&p))
                 strs[p.y][p.x] = WALL_ROOF;
             else if (map->data[p.y][p.x] != '1')
+            {
                 strs[p.y][p.x] = WALL_EMPTY;
+                map->data[p.y][p.x] = '0';
+            }
             else if(!ft_is_roof_touch(map,&p))
             {
                 strs[p.y][p.x] = WALL_OBSTACLE;

@@ -32,6 +32,7 @@ bool ft_map_outside_isleft_bottom(t_map * map,t_point *point);
 
 
 
+void ft_map_obstacle(t_render * render,t_point * point);
 void ft_map_wall_left_top(t_render * render,t_point * point);
 void ft_map_wall_right_top(t_render * render,t_point * point);
 void ft_map_outside_left_top(t_render * render,t_point * point);

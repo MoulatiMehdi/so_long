@@ -1,5 +1,15 @@
 #include "so_long.h"
 
+void ft_map_obstacle(t_render * render,t_point * point)
+{
+    t_sprite * sprite;
+
+    sprite = render->sprites[SPRITE_OBSTACLE];
+    sprite->x = 0;
+    sprite->y = 0;
+    ft_render_sprite(render, sprite, point);
+}
+
 void ft_map_wall_left_top(t_render * render,t_point * point)
 {
     t_sprite * sprite;

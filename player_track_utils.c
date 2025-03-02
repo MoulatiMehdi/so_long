@@ -1,6 +1,7 @@
 #include "so_long.h"
 #include <stdio.h>
 
+
 bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
 {
     t_point p;
@@ -10,8 +11,23 @@ bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
     player = engine->player;
     map = engine->map;
 
-    p.x = (player->x + dx * player->speed - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x) / 64;
-    p.y = (player->y + dy * player->speed - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y )/ 64;
+    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
+    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
+    
+    /*p.x += player->width * (dx > 0);*/
+    p.x += dx * player->speed; 
+    p.x /=64;
+    p.y /=64;
+    if(!is_valid_point(map,&p))
+        return false;
+    if(map->data[p.y][p.x] != WALL_EMPTY)
+        return false;
+    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32  + player->origin_x ;
+    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32 + player->origin_y;
+    /*p.y += player->height * (dy > 0);*/
+    p.y += dy * player->speed; 
+    p.x /=64;
+    p.y /=64;
     if(!is_valid_point(map,&p))
         return false;
     if(map->data[p.y][p.x] != WALL_EMPTY)
@@ -22,16 +38,24 @@ bool ft_player_move_isvalid(t_engine * engine,int dx, int dy)
 void	ft_player_coor(t_engine *engine, int dx, int dy)
 {
     t_player * player;
-    t_map * map;
+t_map * map;
+    t_point p;
 
-    player = engine->player;
     map = engine->map;
+    player = engine->player;
     if (dx == 0 && dy == 0)
-        return ;
-    if(!ft_player_move_isvalid(engine, dx, dy))
         return ;
     player->moves++;
 	player->is_moving = true;
+
+    p.x = player->x - WINDOW_WIDTH / 2 + map->width * 32; 
+    p.y = player->y - WINDOW_HEIGHT / 2 + map->height * 32; 
+    
+    p.x /=64;
+    p.y /=64;
+    ft_map_grid(map, &p);
+    if(!ft_player_move_isvalid(engine, dx, dy))
+        return ;
     player->x += dx * player->speed;
 	player->y += dy * player->speed;
 }
