@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_collision.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 17:32:40 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/03 17:32:40 by mmoulati         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static bool	ft_player_is_collision_h(t_player *player, t_map *map, int dx)
@@ -35,7 +47,7 @@ static bool	ft_player_is_collision_v(t_player *player, t_map *map, int dy)
 	i = 0;
 	while (i < 2)
 	{
-		p.x = player->x  + player->origin_x;
+		p.x = player->x + player->origin_x;
 		p.x += (2 * i - 1) * player->width / 2;
 		p.x /= 64;
 		if (!is_valid_point(map, &p) || map->data[p.y][p.x] != WALL_EMPTY)

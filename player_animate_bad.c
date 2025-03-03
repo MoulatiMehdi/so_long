@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_animate_bad.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 17:32:36 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/03 17:32:36 by mmoulati         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #define FRAME_FADE_IN 10.0
@@ -8,7 +20,7 @@ void	ft_player_hurt(t_player *player, t_render *render)
 	t_sprite	*sprite;
 	t_point		point;
 
-    ft_player_camera_center(render,player, &point);
+	ft_player_camera_center(render, player, &point);
 	sprite = render->sprites[SPRITE_LINK_HURT];
 	sprite->x = 0;
 	sprite->y = sprite->frame_height * player->way;
@@ -23,7 +35,7 @@ void	ft_player_fadein(t_player *player, t_render *render, int n)
 	factor = ((FRAME_FADE_IN - n) / FRAME_FADE_IN);
 	if (factor < 0)
 		factor = 0;
-    ft_player_camera_center(render,player, &ellipse.center);
+	ft_player_camera_center(render, player, &ellipse.center);
 	ellipse.center.x += player->width / 2;
 	ellipse.center.y += player->height * 0.60;
 	ellipse.raduis_x = WINDOW_WIDTH * factor;
@@ -65,7 +77,7 @@ void	ft_player_dying(t_player *player, t_render *render)
 
 	sprite = render->sprites[SPRITE_LINK_DYING];
 	sprite->y = 0;
-    ft_player_camera_center(render,player, &point);
+	ft_player_camera_center(render, player, &point);
 	if (n <= FRAME_FADE_IN)
 		ft_player_fadein(player, render, n++);
 	else

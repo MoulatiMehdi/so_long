@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_display.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/03 17:49:44 by mmoulati         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	ft_render_display(t_render *render)
@@ -16,8 +28,8 @@ void	ft_render_display(t_render *render)
 void	ft_render_sprite(t_render *render, t_sprite *sprite, t_point *point)
 {
 	ft_sprite_toimage(render->back, sprite, point);
-    sprite->frame_height = sprite->image->height / sprite->row;
-    sprite->frame_width = sprite->image->width / sprite->col;
+	sprite->frame_height = sprite->image->height / sprite->row;
+	sprite->frame_width = sprite->image->width / sprite->col;
 }
 
 void	ft_sprites_clear(t_sprite ***sprites)

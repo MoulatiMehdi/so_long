@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 17:32:22 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/03 17:51:31 by mmoulati         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "image.h"
 #include "so_long.h"
 #include <mlx.h>
@@ -96,31 +108,31 @@ void	ft_image_fill(t_image *img, t_color color)
 	}
 }
 
-void	ft_image_grid(t_image *image, int stepx, int stepy, t_color color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-		{
-			ft_image_putpixel(image, j, i, color);
-			j++;
-		}
-		i += stepy;
-	}
-	j = 0;
-	while (j < WINDOW_WIDTH)
-	{
-		i = 0;
-		while (i < WINDOW_HEIGHT)
-		{
-			ft_image_putpixel(image, j, i, color);
-			i++;
-		}
-		j += stepx;
-	}
-}
+/*void	ft_image_grid(t_image *image, int stepx, int stepy, t_color color)*/
+/*{*/
+/*	int	i;*/
+/*	int	j;*/
+/**/
+/*	i = 0;*/
+/*	while (i < WINDOW_HEIGHT)*/
+/*	{*/
+/*		j = 0;*/
+/*		while (j < WINDOW_WIDTH)*/
+/*		{*/
+/*			ft_image_putpixel(image, j, i, color);*/
+/*			j++;*/
+/*		}*/
+/*		i += stepy;*/
+/*	}*/
+/*	j = 0;*/
+/*	while (j < WINDOW_WIDTH)*/
+/*	{*/
+/*		i = 0;*/
+/*		while (i < WINDOW_HEIGHT)*/
+/*		{*/
+/*			ft_image_putpixel(image, j, i, color);*/
+/*			i++;*/
+/*		}*/
+/*		j += stepx;*/
+/*	}*/
+/*}*/

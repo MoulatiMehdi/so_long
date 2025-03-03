@@ -118,10 +118,10 @@ typedef struct s_render
 	t_image			*back;
 	t_image			*front;
 	t_sprite		**sprites;
-    t_point camera;
-    int map_width;
-    int map_height;
-    bool			stop;
+	t_point			camera;
+	int				map_width;
+	int				map_height;
+	bool			stop;
 }					t_render;
 
 typedef struct s_engine
@@ -187,6 +187,7 @@ void				ft_map_grid(t_map *map, t_point *point);
 void				ft_map_destroy(t_map **map);
 bool				ft_player_is_collision(t_player *player, t_map *map, int dx,
 						int dy);
-void	ft_player_move(t_engine *engine);
-void   ft_player_camera_center(t_render * render,t_player * player,t_point * point);
+void				ft_player_move(t_engine *engine);
+void				ft_player_camera_center(t_render *render, t_player *player,
+						t_point *point);
 #endif
