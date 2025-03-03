@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:44 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/03 21:11:18 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ static void	ft_render_sprites_loop(t_render *render)
 	t_sprite	**sprites;
 
 	sprites = render->sprites;
-	sprites[SPRITE_LINK_SPIN]->loop = 2 * FRAME_REPETE;
-	sprites[SPRITE_LINK_LOADING]->loop = 4 * FRAME_REPETE;
+	sprites[SPRITE_LINK_SPIN]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_LOADING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
-	sprites[SPRITE_LINK_DYING]->loop = 5 * FRAME_REPETE;
-	sprites[SPRITE_LINK_VICTORY]->loop = 4 * FRAME_REPETE;
-	sprites[SPRITE_LINK_WALKING]->loop = 4 * FRAME_REPETE;
+	sprites[SPRITE_LINK_DYING]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_WALKING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
 	sprites[SPRITE_SWORD_LOADING]->loop = sprites[SPRITE_LINK_LOADING]->loop;
