@@ -108,7 +108,6 @@ void	wall_idx(t_map *map)
 	strs = ft_strs_dup(map->data);
 	ft_wall_only_wall(map, strs);
 	ft_wall_ignore_obstacle(map, strs);
-	ft_map_grid(map, NULL);
 	p.y = 0;
 	while (p.y < map->height)
 	{

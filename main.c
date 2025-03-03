@@ -13,7 +13,10 @@ void ft_render_camera(t_render * render,t_engine * engine)
 {
     t_point * camera;
     t_player * player;
+    t_point max;
 
+    max.x = engine->map->width  * 64 - WINDOW_WIDTH ;
+    max.y = engine->map->height * 64 - WINDOW_HEIGHT ;
     player = engine->player;
     camera = &render->camera;
     camera->x = player->x - WINDOW_WIDTH / 2;
@@ -22,18 +25,18 @@ void ft_render_camera(t_render * render,t_engine * engine)
         camera->x = 0;
     if(camera->y < 0 )
         camera->y = 0;
-    if(camera->x > (engine->map->width - 1) * 64 )
-        camera->x = (engine->map->width - 1) * 64;
-    if(camera->y > (engine->map->height - 1) * 64 )
-        camera->y = (engine->map->height - 1) * 64;
+    if(camera->x > max.x )
+        camera->x = max.x;
+    if(camera->y > max.y)
+        camera->y = max.y;
 }
 
-void	draw_react(t_render *image, t_player *player,t_engine *engine, t_color color)
+void	draw_react(t_render *image, t_player *player, t_color color)
 {
 	int	j;
     t_point p;
 
-    ft_player_camera_center(image, player,engine->map, &p);
+    ft_player_camera_center(image, player, &p);
 	p.x += -player->width / 2 + player->origin_x;
 	p.y += - player->height / 2 + player->origin_y;
 	j = 0;
@@ -73,7 +76,7 @@ int	ft_animation_update(t_animation *animation)
 	ft_map_display(render, engine->map);
 	ft_image_grid(render->back, 64, 64, 0X00FF0000);
 	ft_player_render(animation);
-	draw_react(render, engine->player,engine, 0X00FF0000);
+	draw_react(render, engine->player, 0X00FF0000);
 	// ft_player_debug(animation->engine->player);
 	ft_hearts_render(animation);
 	ft_coin_render(animation);
@@ -135,9 +138,9 @@ int	main(void)
 		"1000000000000001",
 		"1000000000000001",
 		"1000000000000001",
-		"10000000000P0001",
 		"1000000000000001",
 		"1000000000000001",
+		"10000000000000P1",
 		"1111111111111111",
 		NULL,
 	};
@@ -158,7 +161,9 @@ int	main(void)
 	game.render = render;
 	game.engine = engine;
 	engine->map = ft_map_new(map);
-	ft_engine_player_coord(engine);
+	render->map_width =  engine->map->width;
+	render->map_height =  engine->map->height;
+    ft_engine_player_coord(engine);
     wall_idx(engine->map);
 	mlx_do_key_autorepeatoff(render->mlx);
 	mlx_hook(render->window, ON_DESTROY, 0, ft_handler_close, &game);

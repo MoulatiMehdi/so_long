@@ -119,6 +119,8 @@ typedef struct s_render
 	t_image			*front;
 	t_sprite		**sprites;
     t_point camera;
+    int map_width;
+    int map_height;
     bool			stop;
 }					t_render;
 
@@ -159,13 +161,13 @@ void				ft_render_sprite(t_render *render, t_sprite *sprite,
 						t_point *point);
 void				ft_player_state_set(t_player *player, t_state state);
 
-void				ft_player_idle(t_player *player, t_render *render,t_map * map);
-void				ft_player_walking(t_player *player, t_render *render,t_map * map);
+void				ft_player_idle(t_player *player, t_render *render);
+void				ft_player_walking(t_player *player, t_render *render);
 void				ft_player_spinning(t_player *player, t_render *render);
 void				ft_player_attack(t_player *player, t_render *render);
 void				ft_player_loading(t_player *player, t_render *render);
 void				ft_player_dying(t_player *player, t_render *render);
-void				ft_player_victory(t_player *player, t_render *render,t_map * map);
+void				ft_player_victory(t_player *player, t_render *render);
 
 void				ft_key_debug(t_animation *animation);
 void				ft_hearts_render(t_animation *animation);
@@ -186,5 +188,5 @@ void				ft_map_destroy(t_map **map);
 bool				ft_player_is_collision(t_player *player, t_map *map, int dx,
 						int dy);
 void	ft_player_move(t_engine *engine);
-void ft_player_camera_center(t_render * render,t_player * player,t_map * map,t_point * point);
+void   ft_player_camera_center(t_render * render,t_player * player,t_point * point);
 #endif
