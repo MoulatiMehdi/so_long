@@ -16,6 +16,8 @@ void	ft_render_display(t_render *render)
 void	ft_render_sprite(t_render *render, t_sprite *sprite, t_point *point)
 {
 	ft_sprite_toimage(render->back, sprite, point);
+    sprite->frame_height = sprite->image->height / sprite->row;
+    sprite->frame_width = sprite->image->width / sprite->col;
 }
 
 void	ft_sprites_clear(t_sprite ***sprites)

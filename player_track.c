@@ -86,12 +86,10 @@ void	ft_player_render(t_animation *animation)
 	engine = animation->engine;
 	render = animation->render;
 	player = engine->player;
-	if (!engine->paused)
-		ft_player_move(engine);
 	if (player->state == STATE_WALK)
-		ft_player_walking(player, render);
+		ft_player_walking(player, render,engine->map);
 	if (player->state == STATE_IDLE)
-		ft_player_idle(player, render);
+		ft_player_idle(player, render,engine->map);
 	if (player->state == STATE_DYING)
 		ft_player_dying(player, render);
 	if (player->state == STATE_ATTACK)
@@ -99,7 +97,7 @@ void	ft_player_render(t_animation *animation)
 	if (player->state == STATE_SPIN)
 		ft_player_spinning(player, render);
 	if (player->state == STATE_VICTORY)
-		ft_player_victory(player, render);
+		ft_player_victory(player, render,engine->map);
 	if (player->state == STATE_LOADING)
 		ft_player_loading(player, render);
 	player->frame_on_loop += !engine->paused;
