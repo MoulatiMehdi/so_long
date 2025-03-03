@@ -4,9 +4,9 @@
 #include "so_long.h"
 #include <mlx.h>
 
-int			ft_handler_close(t_animation *animation);
-int			ft_handler_key_press(int keycode, t_animation *animation);
-int			ft_handler_key_release(int keycode, t_engine *engine);
+int		ft_handler_close(t_animation *animation);
+int		ft_handler_key_press(int keycode, t_animation *animation);
+int		ft_handler_key_release(int keycode, t_engine *engine);
 
 void	draw_react(t_render *image, t_player *player, t_color color)
 {
@@ -57,13 +57,13 @@ int	ft_animation_update(t_animation *animation)
 
 void	ft_engine_player_coord(t_engine *engine)
 {
-	int		i;
-	int		j;
-	t_map	*map;
+	int			i;
+	int			j;
+	t_map		*map;
 	t_player	*player;
 
 	map = engine->map;
-    player = engine->player;
+	player = engine->player;
 	if (map == NULL)
 		return ;
 	i = 0;

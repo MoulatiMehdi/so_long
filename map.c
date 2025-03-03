@@ -1,7 +1,6 @@
 #include "libft/libft.h"
 #include "so_long.h"
 
-
 t_map	*ft_map_new(char **array)
 {
 	t_map	*map;
