@@ -5,7 +5,7 @@ AR = ar
 
 # flags 
 CCLIBS  = -lmlx_Linux  -lft -Llibft -lXext -lX11 -lm 
-CCDEBUG = -g 
+CCDEBUG = -g -fsanitize=address 
 CCFLAGS = -Wall -Wextra $(CCDEBUG) 
 
 RMFLAGS = -rf 
@@ -25,7 +25,7 @@ NAME = so_long
 all :  $(LIBFT) $(NAME) 
 
 $(NAME) :  $(OBJS) 
-	$(CC) $(CCFLAGS) $^ -o $@ -I./minilibx-linux/  $(CCLIBS)
+	$(CC) $(CCFLAGS) $^ -o $@  $(CCLIBS)
 
 $(DIR_OBJS)/%.o : %.c $(DIR_OBJS)
 	$(CC) $(CCFLAGS) $< -o $@ -c  

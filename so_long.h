@@ -42,24 +42,25 @@ typedef enum e_event
 	ON_DESTROY = 17
 }					t_event;
 
-typedef enum e_wall {
-    WALL_EMPTY = '0' ,
-    WALL_WALL = '1',
-    WALL_OBSTACLE,
-    WALL_ROOF,
-    WALL_IN_MID_TOP ,
-    WALL_IN_MID_BOTTOM ,
-    WALL_IN_MID_LEFT ,
-    WALL_IN_MID_RIGHT ,
-    WALL_IN_LEFT_TOP ,
-    WALL_IN_LEFT_BOTTOM ,
-    WALL_IN_RIGHT_BOTTOM ,
-    WALL_IN_RIGHT_TOP ,
-    WALL_OUT_LEFT_TOP ,
-    WALL_OUT_LEFT_BOTTOM ,
-    WALL_OUT_RIGHT_BOTTOM ,
-    WALL_OUT_RIGHT_TOP ,
-} t_wall ;
+typedef enum e_wall
+{
+	WALL_EMPTY = '0',
+	WALL_WALL = '1',
+	WALL_OBSTACLE,
+	WALL_ROOF,
+	WALL_IN_MID_TOP,
+	WALL_IN_MID_BOTTOM,
+	WALL_IN_MID_LEFT,
+	WALL_IN_MID_RIGHT,
+	WALL_IN_LEFT_TOP,
+	WALL_IN_LEFT_BOTTOM,
+	WALL_IN_RIGHT_BOTTOM,
+	WALL_IN_RIGHT_TOP,
+	WALL_OUT_LEFT_TOP,
+	WALL_OUT_LEFT_BOTTOM,
+	WALL_OUT_RIGHT_BOTTOM,
+	WALL_OUT_RIGHT_TOP,
+}					t_wall;
 typedef enum e_sprite_idx
 {
 	SPRITE_LINK_SPIN = 0,
@@ -82,18 +83,18 @@ typedef enum e_sprite_idx
 	SPRITE_STAR_LOADING_H,
 	SPRITE_STAR_LOADING_V,
 	SPRITE_SWORD_VICTORY,
-    SPRITE_FLOOR,
-    SPRITE_OBSTACLE,
-    SPRITE_WALL,
-    SPRITE_TOTAL,
+	SPRITE_FLOOR,
+	SPRITE_OBSTACLE,
+	SPRITE_WALL,
+	SPRITE_TOTAL,
 }					t_sprite_idx;
 
-typedef struct s_map 
+typedef struct s_map
 {
-    int width;
-    int height;
-    char ** data;
-} t_map;
+	int				width;
+	int				height;
+	char			**data;
+}					t_map;
 
 typedef struct s_sprite
 {
@@ -173,9 +174,12 @@ void				ft_player_star(t_player *player, t_render *render);
 void				ft_render_clear(t_render **render);
 t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
 						t_sprite_idx type);
-void ft_map_display(t_render * render,t_map * map);
-t_map *ft_map_new(char ** array);
-bool is_valid_point(t_map * map,t_point* point);
-void wall_idx(t_map * map);
-void ft_map_grid(t_map * map,t_point * point);
+void				ft_map_display(t_render *render, t_map *map);
+t_map				*ft_map_new(char **array);
+bool				is_valid_point(t_map *map, t_point *point);
+void				wall_idx(t_map *map);
+void				ft_map_grid(t_map *map, t_point *point);
+void				ft_map_destroy(t_map **map);
+bool				ft_player_is_collision(t_player *player, t_map *map, int dx,
+						int dy);
 #endif

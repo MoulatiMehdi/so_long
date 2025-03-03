@@ -23,7 +23,7 @@ t_engine	*ft_engine_new(void)
 void	ft_engine_destroy(t_engine **engine)
 {
 	ft_player_destroy(&(*engine)->player);
-	//ft_split_free(&(*engine)->map);
+	ft_map_destroy(&(*engine)->map);
 	free(*engine);
 	*engine = NULL;
 }

@@ -57,11 +57,11 @@ static void	ft_player_way(t_player *player, char keys[256])
 
 void	ft_player_move(t_engine *engine)
 {
-    t_player * player;
-    char *keys;
+	t_player	*player;
+	char		*keys;
 
-    keys = engine->keys;
-    player = engine->player;
+	keys = engine->keys;
+	player = engine->player;
 	ft_player_state(player, keys);
 	ft_player_way(player, keys);
 	player->is_moving = false;

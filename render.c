@@ -38,8 +38,8 @@ static void	ft_render_sprite_tiles(t_render *render)
 	mlx = render->mlx;
 	sprites[SPRITE_FLOOR] = ft_sprite_new(mlx, SPRITE_SRC "floor.xpm", 3, 4);
 	sprites[SPRITE_WALL] = ft_sprite_new(mlx, SPRITE_SRC "wall.xpm", 4, 3);
-	sprites[SPRITE_OBSTACLE] = ft_sprite_new(mlx, SPRITE_SRC "obstacle.xpm", 5, 1);
-
+	sprites[SPRITE_OBSTACLE] = ft_sprite_new(mlx, SPRITE_SRC "obstacle.xpm", 5,
+			1);
 }
 
 static void	ft_render_sprite_objects(t_render *render)
@@ -76,11 +76,11 @@ static void	ft_render_sprites_loop(t_render *render)
 
 	sprites = render->sprites;
 	sprites[SPRITE_LINK_SPIN]->loop = 2 * FRAME_REPETE;
-	sprites[SPRITE_LINK_LOADING]->loop = 4* FRAME_REPETE;
-	sprites[SPRITE_LINK_ATTACKING]->loop = 1* FRAME_REPETE;
-	sprites[SPRITE_LINK_DYING]->loop = 5* FRAME_REPETE;
-	sprites[SPRITE_LINK_VICTORY]->loop = 4* FRAME_REPETE;
-	sprites[SPRITE_LINK_WALKING]->loop = 4* FRAME_REPETE;
+	sprites[SPRITE_LINK_LOADING]->loop = 4 * FRAME_REPETE;
+	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_DYING]->loop = 5 * FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 4 * FRAME_REPETE;
+	sprites[SPRITE_LINK_WALKING]->loop = 4 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
 	sprites[SPRITE_SWORD_LOADING]->loop = sprites[SPRITE_LINK_LOADING]->loop;
@@ -117,20 +117,15 @@ static void	ft_render_sprites_init(t_render *render)
 
 t_render	*ft_render_new(void)
 {
-	void		*mlx;
-	void		*window;
 	t_render	*render;
 
-	mlx = mlx_init();
-	if (mlx == NULL)
-		return (NULL);
-	window = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-	render = malloc(sizeof(t_render));
+	render = ft_calloc(sizeof(t_render), 1);
 	if (render == NULL)
 		return (NULL);
+	render->mlx = mlx_init();
+	render->window = mlx_new_window(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
+			WINDOW_TITLE);
 	render->stop = false;
-	render->window = window;
-	render->mlx = mlx;
 	render->back = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	render->front = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (render->back == NULL || render->front == NULL)

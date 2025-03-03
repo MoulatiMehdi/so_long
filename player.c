@@ -75,8 +75,8 @@ t_player	*ft_player_new(void)
 	player->way = WAY_DOWN;
 	player->state = STATE_IDLE;
 	player->frame_on_loop = 0;
-    player->origin_y = 52;
-    player->origin_x = 24;
+	player->origin_y = 52;
+	player->origin_x = 24;
 	return (player);
 }
 
