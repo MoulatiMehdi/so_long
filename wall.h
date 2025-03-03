@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:40:31 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:40:31 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/03 22:15:35 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,8 @@ bool	ft_wall_inter_isantidiagonal(t_map *map, t_point *point);
 
 void	ft_map_inter_diagonal(t_render *render, t_point *point);
 void	ft_map_inter_antidiagonal(t_render *render, t_point *point);
+void	ft_wall_tile(t_render *render, t_map *map, t_point *shift,
+			t_point *idx);
+void	ft_wall_tile_type(t_map *map, t_point *p, char **strs);
+bool	ft_is_roof_touch(t_map *map, t_point *point);
 #endif

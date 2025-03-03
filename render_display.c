@@ -32,37 +32,6 @@ void	ft_render_sprite(t_render *render, t_sprite *sprite, t_point *point)
 	sprite->frame_width = sprite->image->width / sprite->col;
 }
 
-void	ft_sprites_clear(t_sprite ***sprites)
-{
-	unsigned int	i;
-
-	if (!*sprites)
-		return ;
-	i = 0;
-	while ((*sprites)[i])
-	{
-		ft_image_clear(&(*sprites)[i]->image);
-		free((*sprites)[i]);
-		i++;
-	}
-	free(*sprites);
-	*sprites = NULL;
-}
-
-void	ft_render_clear(t_render **render)
-{
-	if (*render == NULL)
-		return ;
-	ft_image_clear(&(*render)->back);
-	ft_image_clear(&(*render)->front);
-	ft_sprites_clear(&(*render)->sprites);
-	mlx_destroy_window((*render)->mlx, (*render)->window);
-	mlx_destroy_display((*render)->mlx);
-	free((*render)->mlx);
-	free(*render);
-	*render = NULL;
-}
-
 t_sprite	*ft_sprite_coor_way(t_player *player, t_render *render,
 		t_sprite_idx type)
 {

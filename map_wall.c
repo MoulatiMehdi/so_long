@@ -6,12 +6,13 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:31 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:48:14 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/03 21:31:52 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "wall.h"
+#include <stdbool.h>
 
 void	ft_map_fill(t_render *render)
 {
@@ -51,40 +52,7 @@ void	ft_map_wall(t_render *render, t_map *map)
 			}
 			shift.x = count.x * 64 - render->camera.x % 64;
 			shift.y = count.y * 64 - render->camera.y % 64;
-			if (map->data[idx.y][idx.x] == WALL_EMPTY)
-				ft_map_floor_blue(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_ROOF)
-				ft_map_roof(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_MID_TOP)
-				ft_map_middle_top(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_MID_BOTTOM)
-				ft_map_middle_bottom(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_MID_LEFT)
-				ft_map_middle_left(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_MID_RIGHT)
-				ft_map_middle_right(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_LEFT_TOP)
-				ft_map_wall_left_top(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_LEFT_BOTTOM)
-				ft_map_wall_left_bottom(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_RIGHT_BOTTOM)
-				ft_map_wall_right_bottom(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_IN_RIGHT_TOP)
-				ft_map_wall_right_top(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_OUT_LEFT_TOP)
-				ft_map_outside_left_top(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_OUT_LEFT_BOTTOM)
-				ft_map_outside_left_bottom(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_OUT_RIGHT_BOTTOM)
-				ft_map_outside_right_bottom(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_OUT_RIGHT_TOP)
-				ft_map_outside_right_top(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_INTER_ANTIDIAGONAL)
-				ft_map_inter_antidiagonal(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_INTER_DIAGONAL)
-				ft_map_inter_diagonal(render, &shift);
-			else if (map->data[idx.y][idx.x] == WALL_OBSTACLE)
-				ft_map_obstacle(render, &shift);
+			ft_wall_tile(render, map, &shift, &idx);
 			count.y++;
 		}
 		count.x++;
