@@ -60,6 +60,8 @@ typedef enum e_wall
 	WALL_OUT_LEFT_BOTTOM,
 	WALL_OUT_RIGHT_BOTTOM,
 	WALL_OUT_RIGHT_TOP,
+    WALL_INTER_DIAGONAL,
+    WALL_INTER_ANTIDIAGONAL,
 }					t_wall;
 typedef enum e_sprite_idx
 {

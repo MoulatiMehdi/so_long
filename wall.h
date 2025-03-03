@@ -44,4 +44,10 @@ void	ft_map_middle_right(t_render *render, t_point *point);
 void	ft_map_floor_blue(t_render *render, t_point *point);
 void	ft_map_roof(t_render *render, t_point *point);
 
+bool	ft_wall_inter_isdiagonal(t_map *map, t_point *point);
+bool	ft_wall_inter_isantidiagonal(t_map *map, t_point *point);
+
+
+void	ft_map_inter_diagonal(t_render *render, t_point *point);
+void	ft_map_inter_antidiagonal(t_render *render, t_point *point);
 #endif

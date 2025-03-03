@@ -1,3 +1,4 @@
+#include "so_long.h"
 #include "wall.h"
 #include <stdio.h>
 
@@ -148,6 +149,10 @@ void	wall_idx(t_map *map)
 				strs[p.y][p.x] = WALL_OUT_LEFT_TOP;
 			else if (ft_wall_outside_isleft_bottom(map, &p))
 				strs[p.y][p.x] = WALL_OUT_LEFT_BOTTOM;
+			else if (ft_wall_inter_isdiagonal(map, &p))
+				strs[p.y][p.x] = WALL_INTER_DIAGONAL;
+			else if (ft_wall_inter_isantidiagonal(map, &p))
+				strs[p.y][p.x] = WALL_INTER_ANTIDIAGONAL;
 			p.x++;
 		}
 		p.y++;

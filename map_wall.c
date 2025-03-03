@@ -83,6 +83,10 @@ void	ft_map_wall(t_render *render, t_map *map)
 				ft_map_outside_right_bottom(render, &shift);
 			else if (map->data[idx.y][idx.x] == WALL_OUT_RIGHT_TOP)
 				ft_map_outside_right_top(render, &shift);
+			else if (map->data[idx.y][idx.x] == WALL_INTER_ANTIDIAGONAL)
+				ft_map_inter_antidiagonal(render, &shift);
+			else if (map->data[idx.y][idx.x] == WALL_INTER_DIAGONAL)
+				ft_map_inter_diagonal(render, &shift);
 			else if (map->data[idx.y][idx.x] == WALL_OBSTACLE)
 				ft_map_obstacle(render, &shift);
 			idx.y++;
