@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:50:55 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 23:20:20 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:48:48 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ static void	ft_lst_remove_front_if(t_list **head, void *data,
 {
 	t_list	*curr;
 
+	if (*head == NULL)
+		return ;
 	curr = *head;
 	while (data == curr->content)
 	{
 		*head = curr->next;
 		ft_lstdelone(curr, func);
 		curr = *head;
+		if (!curr)
+			return ;
 	}
 }
 
