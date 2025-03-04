@@ -67,3 +67,12 @@ void	ft_render_clear(t_render **render)
 	free(*render);
 	*render = NULL;
 }
+
+bool ft_camera_is_inview(t_point * camera,t_point * p)
+{
+    if(camera->x > p->x && camera ->x + WINDOW_WIDTH < p->x)
+        return false;
+    if(camera->y > p->y && camera ->y + WINDOW_HEIGHT < p->y)
+        return false;
+    return true;
+}

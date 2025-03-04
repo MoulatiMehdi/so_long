@@ -16,6 +16,7 @@
 #include "so_long.h"
 #include <mlx.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int		ft_handler_close(t_animation *animation);
 int		ft_handler_key_press(int keycode, t_animation *animation);
@@ -83,9 +84,9 @@ int	ft_animation_update(t_animation *animation)
 	render = animation->render;
 	if (render->stop)
 		return (0);
-	ft_image_fill(render->back, 0X00FFFFFF);
 	if (!engine->paused)
 		ft_player_move(engine);
+    ft_coin_update(animation);
 	ft_render_camera(render, engine);
 	ft_map_display(render, engine->map);
 	ft_player_render(animation);
@@ -93,38 +94,58 @@ int	ft_animation_update(t_animation *animation)
 	ft_coin_render(animation);
 	ft_counter_render(animation);
 	ft_key_debug(animation);
+	ft_rupee_render(render,engine);
 	ft_render_display(render);
 	return (0);
 }
 
+
+void ft_engine_setdata(t_engine * engine,t_point * p)
+{ 
+    char c;
+    t_coin * coin;
+
+    c = engine->map->data[p->y][p->x];
+	if (c == 'P')
+	{
+		engine->player->x = p->x * 64 + 8;
+		engine->player->y = p->y * 64 - 8;
+	}
+	if(c == 'E')
+    {
+        engine->exit.x = p->x * 64 ;
+        engine->exit.y = p->y * 64 ;
+    }
+    if (c == 'C')
+	{
+        coin = ft_coin_new(p->x * 64 + 24,p->y* 64 + 16);
+        ft_lstadd_front(&engine->coins,ft_lstnew(coin) );
+	    engine->coins_total ++;
+    }
+
+}
+
 void	ft_engine_player_coord(t_engine *engine)
 {
-	int			i;
-	int			j;
+    t_point p;
 	t_map		*map;
-	t_player	*player;
 
 	map = engine->map;
-	player = engine->player;
 	if (map == NULL)
 		return ;
-	i = 0;
-	while (i < map->height)
+	p.y = 0;
+	while (p.y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		p.x = 0;
+		while (p.x < map->width)
 		{
-			if (map->data[i][j] == 'P')
-			{
-				player->x = j * 64 + 8;
-				player->y = i * 64 - 8;
-				break ;
-			}
-			j++;
+            ft_engine_setdata(engine,&p);
+            p.x++;
 		}
-		i++;
+		p.y++;
 	}
 }
+
 
 int	main(void)
 {
@@ -134,7 +155,7 @@ int	main(void)
 	char		**map;
 	static char *strs[] = {
 		"1111111111111111",
-		"1000000000000001",
+		"1CP0000000000001",
 		"1100011111111111",
 		"1000001111111111",
 		"1000000011111111",
@@ -148,7 +169,7 @@ int	main(void)
 		"1011100000011111",
 		"1011100000011111",
 		"1000000000000001",
-		"10000000000000P1",
+		"1000000000000001",
 		"1111111111111111",
 		NULL,
 	};

@@ -51,6 +51,7 @@ static void	ft_render_sprite_tiles(t_render *render)
 	sprites[SPRITE_WALL] = ft_sprite_new(mlx, SPRITE_SRC "wall.xpm", 4, 4);
 	sprites[SPRITE_OBSTACLE] = ft_sprite_new(mlx, SPRITE_SRC "obstacle.xpm", 5,
 			1);
+	sprites[SPRITE_RUPEE] = ft_sprite_new(mlx, SPRITE_SRC "rupee.xpm", 10, 3);
 }
 
 static void	ft_render_sprite_objects(t_render *render)
@@ -106,6 +107,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_GAMEOVER]->loop = 1;
 	sprites[SPRITE_LINK_HURT]->loop = 1;
 	sprites[SPRITE_LINK_IDLE]->loop = 1;
+	sprites[SPRITE_RUPEE]->loop = 3;
 }
 
 void	ft_render_sprites_init(t_render *render)

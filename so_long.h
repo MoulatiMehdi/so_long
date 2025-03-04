@@ -88,7 +88,8 @@ typedef enum e_sprite_idx
 	SPRITE_FLOOR,
 	SPRITE_OBSTACLE,
 	SPRITE_WALL,
-	SPRITE_TOTAL,
+	SPRITE_RUPEE,
+    SPRITE_TOTAL,
 }					t_sprite_idx;
 
 typedef struct s_map
@@ -124,12 +125,25 @@ typedef struct s_render
 	bool			stop;
 }					t_render;
 
+typedef struct s_coin 
+{
+    int x;
+    int y;
+    int type;
+    int frame;
+    bool is_taken;
+}
+t_coin ;
+
 typedef struct s_engine
 {
 	bool			paused;
-	t_map			*map;
 	char			keys[KEYS_TOTAL];
+	t_map			*map;
+    t_list *coins;
+    t_point exit;
 	t_player		*player;
+    int coins_total;
 }					t_engine;
 
 typedef struct s_animation
@@ -190,4 +204,9 @@ bool				ft_player_is_collision(t_player *player, t_map *map, int dx,
 void				ft_player_move(t_engine *engine);
 void				ft_player_camera_center(t_render *render, t_player *player,
 						t_point *point);
+void	ft_rupee_render(t_render * render,t_engine * engine);
+bool ft_camera_is_inview(t_point * camera,t_point * p);
+t_coin * ft_coin_new(int x,int y);
+void ft_coin_update(t_animation * animation);
+void ft_coin_destroy(t_coin * coin);
 #endif
