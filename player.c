@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:38 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 21:13:28 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:45:16 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_player	*ft_player_new(void)
 	player->charge = 0;
 	player->moves = 0;
 	player->hearts = 10;
-	player->speed = 6;
+	player->speed = 2;
 	player->width = 24;
 	player->height = 16;
 	player->is_moving = false;

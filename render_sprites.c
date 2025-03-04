@@ -6,14 +6,14 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 21:27:35 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:45:42 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
-#define FRAME_REPETE 1
+#define FRAME_REPETE 2
 
 static void	ft_render_sprite_player(t_render *render)
 {
@@ -107,7 +107,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_GAMEOVER]->loop = 1;
 	sprites[SPRITE_LINK_HURT]->loop = 1;
 	sprites[SPRITE_LINK_IDLE]->loop = 1;
-	sprites[SPRITE_RUPEE]->loop = 3;
+	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
 }
 
 void	ft_render_sprites_init(t_render *render)

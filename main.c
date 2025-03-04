@@ -44,37 +44,6 @@ void	ft_render_camera(t_render *render, t_engine *engine)
 		camera->y = max.y;
 }
 
-/*void	draw_react(t_render *image, t_player *player, t_color color)*/
-/*{*/
-/*	int		j;*/
-/*	t_point	p;*/
-/**/
-/*	ft_player_camera_center(image, player, &p);*/
-/*	p.x += -player->width / 2 + player->origin_x;*/
-/*	p.y += -player->height / 2 + player->origin_y;*/
-/*	j = 0;*/
-/*	while (j < player->width)*/
-/*	{*/
-/*		ft_image_putpixel(image->back, p.x + j, p.y, color);*/
-/*		j++;*/
-/*	}*/
-/*	j = 0;*/
-/*	while (j < player->height)*/
-/*	{*/
-/*		ft_image_putpixel(image->back, p.x, p.y + j, color);*/
-/*		ft_image_putpixel(image->back, p.x + player->width - 1, p.y + j,
-			color);*/
-/*		j++;*/
-/*	}*/
-/*	j = 0;*/
-/*	while (j < player->width)*/
-/*	{*/
-/*		ft_image_putpixel(image->back, p.x + j, p.y + player->height - 1,*/
-/*			color);*/
-/*		j++;*/
-/*	}*/
-/*}*/
-
 int	ft_animation_update(t_animation *animation)
 {
 	t_engine	*engine;
@@ -86,7 +55,7 @@ int	ft_animation_update(t_animation *animation)
 		return (0);
 	if (!engine->paused)
 		ft_player_move(engine);
-    ft_coin_update(animation);
+	ft_coin_update(animation);
 	ft_render_camera(render, engine);
 	ft_map_display(render, engine->map);
 	ft_player_render(animation);
@@ -94,41 +63,39 @@ int	ft_animation_update(t_animation *animation)
 	ft_coin_render(animation);
 	ft_counter_render(animation);
 	ft_key_debug(animation);
-	ft_rupee_render(render,engine);
+	ft_rupee_render(render, engine);
 	ft_render_display(render);
 	return (0);
 }
 
+void	ft_engine_setdata(t_engine *engine, t_point *p)
+{
+	char	c;
+	t_coin	*coin;
 
-void ft_engine_setdata(t_engine * engine,t_point * p)
-{ 
-    char c;
-    t_coin * coin;
-
-    c = engine->map->data[p->y][p->x];
+	c = engine->map->data[p->y][p->x];
 	if (c == 'P')
 	{
 		engine->player->x = p->x * 64 + 8;
 		engine->player->y = p->y * 64 - 8;
 	}
-	if(c == 'E')
-    {
-        engine->exit.x = p->x * 64 ;
-        engine->exit.y = p->y * 64 ;
-    }
-    if (c == 'C')
+	if (c == 'E')
 	{
-        coin = ft_coin_new(p->x * 64 + 24,p->y* 64 + 16);
-        ft_lstadd_front(&engine->coins,ft_lstnew(coin) );
-	    engine->coins_total ++;
-    }
-
+		engine->exit.x = p->x * 64;
+		engine->exit.y = p->y * 64;
+	}
+	if (c == 'C')
+	{
+		coin = ft_coin_new(p->x * 64 + 24, p->y * 64 + 16);
+		ft_lstadd_front(&engine->coins, ft_lstnew(coin));
+		engine->coins_total++;
+	}
 }
 
 void	ft_engine_player_coord(t_engine *engine)
 {
-    t_point p;
-	t_map		*map;
+	t_point	p;
+	t_map	*map;
 
 	map = engine->map;
 	if (map == NULL)
@@ -139,13 +106,12 @@ void	ft_engine_player_coord(t_engine *engine)
 		p.x = 0;
 		while (p.x < map->width)
 		{
-            ft_engine_setdata(engine,&p);
-            p.x++;
+			ft_engine_setdata(engine, &p);
+			p.x++;
 		}
 		p.y++;
 	}
 }
-
 
 int	main(void)
 {
@@ -153,6 +119,7 @@ int	main(void)
 	t_engine	*engine;
 	t_render	*render;
 	char		**map;
+
 	static char *strs[] = {
 		"1111111111111111",
 		"1CP0000000000001",
@@ -173,7 +140,6 @@ int	main(void)
 		"1111111111111111",
 		NULL,
 	};
-
 	map = ft_strs_dup(strs);
 	render = ft_render_new();
 	if (render == NULL)
