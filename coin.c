@@ -6,12 +6,14 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:50:22 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 19:54:18 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:58:43 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "so_long.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 t_coin	*ft_coin_new(int x, int y)
 {
@@ -22,6 +24,7 @@ t_coin	*ft_coin_new(int x, int y)
 		return (NULL);
 	coin->x = x;
 	coin->y = y;
+	coin->type = rand() % 3;
 	return (coin);
 }
 
@@ -69,19 +72,18 @@ void	ft_coin_update(t_animation *animation)
 	t_list		*lst;
 	t_coin		*coin;
 	t_sprite	*sprite;
-	static int	n = 0;
 
 	sprite = animation->render->sprites[SPRITE_RUPEE];
 	lst = animation->engine->coins;
 	while (lst)
 	{
 		coin = lst->content;
+		lst = lst->next;
 		if (ft_player_coin_iscollide(animation->engine->player, sprite, coin))
 		{
 			animation->engine->player->coins++;
-			n++;
+			ft_lst_remove(&animation->engine->coins, coin, free);
 		}
-		lst = lst->next;
 	}
 }
 

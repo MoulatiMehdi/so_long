@@ -6,14 +6,14 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 19:45:42 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:08:18 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
-#define FRAME_REPETE 2
+#define FRAME_REPETE 1
 
 static void	ft_render_sprite_player(t_render *render)
 {
