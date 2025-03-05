@@ -6,49 +6,16 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:38 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 22:21:57 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:57:47 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
-#include "image.h"
-#include "key.h"
 #include "player.h"
 #include "so_long.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/*void	ft_player_debug(t_player *player)*/
-/*{*/
-/*	static t_player	copy;*/
-/*	char			*state[STATE_TOTAL];*/
-/*	char			*way[5];*/
-/**/
-/*	if (memcmp(&copy, player, sizeof(t_player)) == 0)*/
-/*		return ;*/
-/*	state[STATE_IDLE] = "STOPING";*/
-/*	state[STATE_WALK] = "WALKING";*/
-/*	state[STATE_DYING] = "DYING";*/
-/*	state[STATE_ATTACK] = "ATTACKING";*/
-/*	state[STATE_SPIN] = "SPINING";*/
-/*	state[STATE_VICTORY] = "VICTORY";*/
-/*	state[STATE_LOADING] = "LOADING";*/
-/*	way[WAY_LEFT] = "LEFT";*/
-/*	way[WAY_RIGHT] = "RIGHT";*/
-/*	way[WAY_UP] = "UP";*/
-/*	way[WAY_DOWN] = "DOWN";*/
-/*	printf(DEBUG "(x,y)      : (%d,%d)\n", copy.x, copy.y);*/
-/*	printf(DEBUG "(x,y)      : (%d,%d)\n", player->x, player->y);*/
-/*	printf(DEBUG "state      : %s\n", state[player->state]);*/
-/*	printf(DEBUG "direction  : %s\n", way[player->way]);*/
-/*	printf(DEBUG "fixed      : %s\n", player->is_state_fixed ? "Yes" : "No");*/
-/*	printf(DEBUG "loaded     : %s\n", player->is_loaded ? "Yes" : "No");*/
-/*	printf(DEBUG "charge     : %d\n", player->charge);*/
-/*	printf(DEBUG "dead       : %s\n\n", player->is_dead ? "Yes" : "No");*/
-/*	copy = *player;*/
-/*}*/
 
 void	ft_player_state_set(t_player *player, t_state state)
 {
@@ -75,7 +42,7 @@ t_player	*ft_player_new(void)
 	player->charge = 0;
 	player->moves = 0;
 	player->hearts = 10;
-	player->speed = 6;
+	player->speed = 4;
 	player->width = 24;
 	player->height = 16;
 	player->is_moving = false;
