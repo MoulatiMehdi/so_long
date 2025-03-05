@@ -19,8 +19,8 @@ void	ft_engine_init(t_engine *engine)
 	engine->player = ft_player_new();
 	engine->paused = false;
 	engine->coins = NULL;
-    engine->coins_total = 0;
-    ft_bzero(engine->keys, KEYS_TOTAL);
+	engine->coins_total = 0;
+	ft_bzero(engine->keys, KEYS_TOTAL);
 }
 
 t_engine	*ft_engine_new(void)
@@ -38,7 +38,7 @@ void	ft_engine_destroy(t_engine **engine)
 {
 	ft_player_destroy(&(*engine)->player);
 	ft_map_destroy(&(*engine)->map);
-    ft_lstclear(&(*engine)->coins,free);
-    free(*engine);
+	ft_lstclear(&(*engine)->coins, free);
+	free(*engine);
 	*engine = NULL;
 }

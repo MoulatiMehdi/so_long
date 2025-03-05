@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:25 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 23:55:43 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:35:27 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	ft_animation_update(t_animation *animation)
 	ft_coin_update(animation);
 	ft_render_camera(render, engine);
 	ft_map_display(render, engine->map);
-	draw_react(render, engine->player, 0x00FF0000);
 	ft_rupee_render(render, engine);
 	ft_player_render(animation);
+	draw_react(render, engine->player, 0x00FF0000);
 	ft_hearts_render(animation);
 	ft_coin_render(animation);
 	ft_counter_render(animation);
@@ -122,23 +122,15 @@ int	main(void)
 	char		**map;
 
 	static char *strs[] = {
-		"11111111111111111111111111111111",
-		"1CPCCCCCCCCCCCC11111111111111111",
-		"11CCC111111111111111111111111111",
-		"1CCCCC11111111111111111111111111",
-		"1CCCCCCC111111111111111111111111",
-		"1CCCCCCCC11111111111111111111111",
-		"11111111CCCCCCC11111111111111111",
-		"11111111CCCCCCC11111111111111111",
-		"11111111CCCCCCC11111111111111111",
-		"1CCCCCCCCCCCCCC11111111111111111",
-		"1CCCCCCCCCCCCCC11111111111111111",
-		"1C111CCCCCC111111111111111111111",
-		"1C111CCCCCC111111111111111111111",
-		"1C111CCCCCC111111111111111111111",
-		"1CCCCCCCCCCCCCC11111111111111111",
-		"1CCCCCCCCCCCCCC11111111111111111",
-		"11111111111111111111111111111111",
+		"11111111111111",
+		"1P000000000C11",
+		"10111111111001",
+		"10000000000001",
+		"10111110111101",
+		"10100000000101",
+		"10101111110101",
+		"100000C0000011",
+		"11111111111111",
 		NULL,
 	};
 	map = ft_strs_dup(strs);

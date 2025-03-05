@@ -207,7 +207,6 @@ void				ft_rupee_render(t_render *render, t_engine *engine);
 bool				ft_camera_is_inview(t_point *camera, t_point *p);
 t_coin				*ft_coin_new(int x, int y);
 void				ft_coin_update(t_animation *animation);
-void				ft_coin_destroy(t_coin *coin);
 void				draw_react(t_render *image, t_player *player,
 						t_color color);
 void				draw_coin_collision(t_render *render, t_point p);

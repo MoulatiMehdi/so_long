@@ -13,7 +13,7 @@
 #include "image.h"
 #include "so_long.h"
 
-void	ft_render_sprites_init(t_render *render);
+void		ft_render_sprites_init(t_render *render);
 
 t_render	*ft_render_new(void)
 {
@@ -68,11 +68,11 @@ void	ft_render_clear(t_render **render)
 	*render = NULL;
 }
 
-bool ft_camera_is_inview(t_point * camera,t_point * p)
+bool	ft_camera_is_inview(t_point *camera, t_point *p)
 {
-    if(camera->x > p->x && camera ->x + WINDOW_WIDTH < p->x)
-        return false;
-    if(camera->y > p->y && camera ->y + WINDOW_HEIGHT < p->y)
-        return false;
-    return true;
+	if (camera->x > p->x && camera->x + WINDOW_WIDTH < p->x)
+		return (false);
+	if (camera->y > p->y && camera->y + WINDOW_HEIGHT < p->y)
+		return (false);
+	return (true);
 }

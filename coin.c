@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:50:22 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 23:58:43 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:25:54 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,24 @@ t_coin	*ft_coin_new(int x, int y)
 	return (coin);
 }
 
-bool	ft_collision_player_point(t_player *player, t_point *p)
+bool	ft_player_coin_iscollide(t_player *player, t_sprite *sprite,
+		t_coin *coin)
 {
-	t_point	min;
-	t_point	max;
+	t_point	player_lt;
+	t_point	player_br;
+	t_point	coin_lt;
+	t_point	coin_br;
 
-	min.x = player->x + player->origin_x - player->width / 2;
-	min.y = player->y + player->origin_y - player->height / 2;
-	max.x = player->x + player->origin_x + player->width / 2;
-	max.y = player->y + player->origin_y + player->height / 2;
-	if (min.x > p->x || max.x < p->x)
-		return (false);
-	if (min.y > p->y || max.y < p->y)
-		return (false);
-	return (true);
-}
-
-bool	ft_player_coin_iscollide(t_player *player, t_sprite *sprite, t_coin *p)
-{
-	t_point	point;
-
-	point.x = p->x;
-	point.y = p->y;
-	if (ft_collision_player_point(player, &point))
-		return (true);
-	point.x = p->x + sprite->frame_width;
-	point.y = p->y + sprite->frame_height;
-	if (ft_collision_player_point(player, &point))
-		return (true);
-	point.x = p->x + sprite->frame_width;
-	point.y = p->y;
-	if (ft_collision_player_point(player, &point))
-		return (true);
-	point.x = p->x;
-	point.y = p->y + sprite->frame_height;
-	if (ft_collision_player_point(player, &point))
-		return (true);
-	return (false);
+	player_lt.x = player->x + player->origin_x - player->width / 2;
+	player_lt.y = player->y + player->origin_y - player->height / 2;
+	player_br.x = player->x + player->origin_x + player->width / 2;
+	player_br.y = player->y + player->origin_y + player->height / 2;
+	coin_lt.x = coin->x;
+	coin_lt.y = coin->y;
+	coin_br.x = coin->x + sprite->frame_width / 1;
+	coin_br.y = coin->y + sprite->frame_height / 1;
+	return (!(player_lt.x > coin_br.x || player_br.x < coin_lt.x
+			|| player_lt.y > coin_br.y || player_br.y < coin_lt.y));
 }
 
 void	ft_coin_update(t_animation *animation)
@@ -85,9 +66,4 @@ void	ft_coin_update(t_animation *animation)
 			ft_lst_remove(&animation->engine->coins, coin, free);
 		}
 	}
-}
-
-void	ft_coin_destroy(t_coin *coin)
-{
-	free(coin);
 }
