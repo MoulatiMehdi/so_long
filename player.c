@@ -39,7 +39,7 @@ t_player	*ft_player_new(void)
 {
 	t_player	*player;
 
-	player = malloc(sizeof(t_player));
+	player = ft_calloc(sizeof(t_player), 1);
 	if (player == NULL)
 		return (NULL);
 	player->coins = 0;
@@ -65,6 +65,8 @@ t_player	*ft_player_new(void)
 
 void	ft_player_destroy(t_player **player)
 {
+	if (player == NULL || *player == NULL)
+		return ;
 	free(*player);
 	*player = NULL;
 }

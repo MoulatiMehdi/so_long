@@ -251,4 +251,9 @@ void				ft_camera_update(t_render *render, t_engine *engine);
 void				ft_engine_update(t_animation *animation);
 void				ft_render_update(t_animation *animation);
 void				engine_parse(t_engine *engine);
+void				ft_sprite_destroy(t_sprite **sprite);
+void				ft_sprites_clear(t_sprite ***sprites);
+void				ft_game_start(t_animation *game);
+t_animation			*ft_game_new(char **map);
+int					ft_game_destroy(t_animation *game);
 #endif

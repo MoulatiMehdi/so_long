@@ -27,10 +27,12 @@ t_engine	*ft_engine_new(void)
 {
 	t_engine	*engine;
 
-	engine = malloc(sizeof(t_engine));
+	engine = ft_calloc(sizeof(t_engine), 1);
 	if (engine == NULL)
 		return (NULL);
 	ft_engine_init(engine);
+	if (engine->player == NULL)
+		ft_engine_destroy(&engine);
 	return (engine);
 }
 

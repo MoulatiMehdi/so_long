@@ -28,22 +28,13 @@ static void	ft_handler_key_set(int keycode, char keys[256], bool is_pressed)
 		keys[KEY_S] = is_pressed;
 }
 
-int	ft_handler_close(t_animation *animation)
-{
-	mlx_do_key_autorepeaton(animation->render->mlx);
-	ft_engine_destroy(&animation->engine);
-	ft_render_clear(&animation->render);
-	exit(1);
-	return (1);
-}
-
 int	ft_handler_key_press(int keycode, t_animation *animation)
 {
 	t_engine	*engine;
 
 	engine = animation->engine;
 	if (keycode == KEY_ESC)
-		ft_handler_close(animation);
+		ft_game_destroy(animation);
 	if (keycode == KEY_X && (engine->player->state == STATE_LOADING
 			|| engine->player->state == STATE_ATTACK))
 	{

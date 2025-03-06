@@ -23,6 +23,8 @@ static int	ft_image_offset(t_image *data, int x, int y)
 
 char	*ft_image_pixels(t_image *data)
 {
+	if (data == NULL)
+		return (NULL);
 	return (mlx_get_data_addr(data->address, &data->bpp, &data->line_length,
 			&data->endian));
 }

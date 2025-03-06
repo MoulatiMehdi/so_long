@@ -34,24 +34,9 @@ t_render	*ft_render_new(void)
 		return (NULL);
 	}
 	ft_render_sprites_init(render);
+	if (render->sprites == NULL)
+		ft_render_clear(&render);
 	return (render);
-}
-
-void	ft_sprites_clear(t_sprite ***sprites)
-{
-	unsigned int	i;
-
-	if (!*sprites)
-		return ;
-	i = 0;
-	while ((*sprites)[i])
-	{
-		ft_image_clear(&(*sprites)[i]->image);
-		free((*sprites)[i]);
-		i++;
-	}
-	free(*sprites);
-	*sprites = NULL;
 }
 
 void	ft_render_clear(t_render **render)

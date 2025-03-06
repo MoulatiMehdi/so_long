@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "image.h"
+#include "libft/libft.h"
 #include "so_long.h"
 #include <mlx.h>
 
@@ -61,29 +62,34 @@ t_image	*ft_image_from_xpm(void *mlx, char *filename)
 
 t_image	*ft_image_new(void *mlx, int width, int height)
 {
-	t_image	*data;
+	t_image	*image;
 
 	if (mlx == NULL)
 		return (NULL);
-	data = malloc(sizeof(t_image));
-	if (data == NULL)
+	image = ft_calloc(sizeof(t_image), 1);
+	if (image == NULL)
 		return (NULL);
-	data->address = mlx_new_image(mlx, width, height);
-	data->pixels = ft_image_pixels(data);
-	data->height = height;
-	data->width = width;
-	data->mlx = mlx;
-	return (data);
+	image->address = mlx_new_image(mlx, width, height);
+	if (image->address == NULL)
+	{
+		free(image);
+		return (NULL);
+	}
+	image->pixels = ft_image_pixels(image);
+	image->height = height;
+	image->width = width;
+	image->mlx = mlx;
+	return (image);
 }
 
-void	ft_image_clear(t_image **data)
+void	ft_image_clear(t_image **image)
 {
-	if (!data || !*data)
+	if (!image || !*image)
 		return ;
-	if ((*data)->mlx && (*data)->address)
-		mlx_destroy_image((*data)->mlx, (*data)->address);
-	free(*data);
-	*data = NULL;
+	if ((*image)->mlx && (*image)->address)
+		mlx_destroy_image((*image)->mlx, (*image)->address);
+	free(*image);
+	*image = NULL;
 }
 
 void	ft_image_fill(t_image *img, t_color color)

@@ -12,6 +12,31 @@
 
 #include "so_long.h"
 
+void	ft_sprite_destroy(t_sprite **sprite)
+{
+	if (!sprite || !*sprite)
+		return ;
+	ft_image_clear(&(*sprite)->image);
+	free((*sprite));
+	*sprite = NULL;
+}
+
+void	ft_sprites_clear(t_sprite ***sprites)
+{
+	unsigned int	i;
+
+	if (!*sprites)
+		return ;
+	i = 0;
+	while ((*sprites)[i])
+	{
+		ft_sprite_destroy(&(*sprites)[i]);
+		i++;
+	}
+	free(*sprites);
+	*sprites = NULL;
+}
+
 t_sprite	*ft_sprite_new(void *mlx, char *path, unsigned int col,
 		unsigned int row)
 {
@@ -21,6 +46,11 @@ t_sprite	*ft_sprite_new(void *mlx, char *path, unsigned int col,
 	if (!sprite)
 		return (NULL);
 	sprite->image = ft_image_from_xpm(mlx, path);
+	if (sprite->image == NULL)
+	{
+		ft_sprite_destroy(&sprite);
+		return (NULL);
+	}
 	sprite->frame_height = sprite->image->height / row;
 	sprite->frame_width = sprite->image->width / col;
 	sprite->x = 0;

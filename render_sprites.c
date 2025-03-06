@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
 #define FRAME_REPETE 1
 
-static void	ft_render_sprite_player(t_render *render)
+static void	ft_render_sprites_player(t_render *render)
 {
 	t_sprite	**sprites;
 	void		*mlx;
@@ -40,7 +41,7 @@ static void	ft_render_sprite_player(t_render *render)
 			SPRITE_SRC "link.attack.xpm", 12, 4);
 }
 
-static void	ft_render_sprite_tiles(t_render *render)
+static void	ft_render_sprites_tiles(t_render *render)
 {
 	t_sprite	**sprites;
 	void		*mlx;
@@ -57,7 +58,7 @@ static void	ft_render_sprite_tiles(t_render *render)
 	sprites[SPRITE_EXIT] = ft_sprite_new(mlx, SPRITE_SRC "exit.xpm", 4, 2);
 }
 
-static void	ft_render_sprite_objects(t_render *render)
+static void	ft_render_sprites_objects(t_render *render)
 {
 	t_sprite	**sprites;
 	void		*mlx;
@@ -110,18 +111,22 @@ static void	ft_render_sprites_loop(t_render *render)
 
 void	ft_render_sprites_init(t_render *render)
 {
-	unsigned int	size;
+	unsigned int	i;
 
 	if (render == NULL)
 		return ;
-	size = sizeof(t_sprite *) * (SPRITE_TOTAL + 1);
-	render->sprites = malloc(size);
+	render->sprites = ft_calloc(sizeof(t_sprite *), SPRITE_TOTAL + 1);
 	if (render->sprites == NULL)
 		return ;
-	ft_bzero(render->sprites, size);
-	ft_render_sprite_player(render);
-	ft_render_sprite_objects(render);
-	ft_render_sprite_tiles(render);
+	ft_render_sprites_player(render);
+	ft_render_sprites_objects(render);
+	ft_render_sprites_tiles(render);
+	i = 0;
+	while (i < SPRITE_TOTAL)
+	{
+		if (!render->sprites[i])
+			return (ft_sprites_clear(&render->sprites));
+		i++;
+	}
 	ft_render_sprites_loop(render);
-	render->sprites[SPRITE_TOTAL] = NULL;
 }
