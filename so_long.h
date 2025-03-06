@@ -234,7 +234,7 @@ void				ft_render_coins(t_render *render, t_engine *engine);
 bool				ft_camera_is_inview(t_point *camera, t_point *p);
 t_coin				*ft_coin_new(int x, int y);
 void				ft_engine_coins_update(t_animation *animation);
-void				draw_react(t_render *image, t_player *player,
+void				draw_player_collision(t_render *render, t_player *player,
 						t_color color);
 void				draw_coin_collision(t_render *render, t_point p);
 void				ft_render_exit(t_exit *door, t_render *render);
@@ -256,4 +256,5 @@ void				ft_sprites_clear(t_sprite ***sprites);
 void				ft_game_start(t_animation *game);
 t_animation			*ft_game_new(char **map);
 int					ft_game_destroy(t_animation *game);
+void				draw_door_collision(t_engine *engine, t_render *render);
 #endif

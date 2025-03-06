@@ -64,9 +64,10 @@ void	ft_render_update(t_animation *animation)
 	ft_render_exit(&engine->exit, render);
 	ft_render_coins(render, engine);
 	ft_render_player(engine, render);
-	draw_react(render, engine->player, 0x00FF0000);
 	ft_render_hearts_counter(render, engine);
 	ft_render_coins_counter(render, engine);
 	ft_render_moves_counter(render, engine->player->moves);
 	ft_render_keys(render, engine);
+	draw_player_collision(render, engine->player, 0x00FF0000);
+	draw_door_collision(engine, render);
 }

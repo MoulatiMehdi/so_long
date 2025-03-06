@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collision.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/06 15:55:42 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/06 20:42:36 by mmoulati         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 bool	ft_rect_iscollide(t_rect *a, t_rect *b)
@@ -44,9 +56,9 @@ bool	ft_collision_player_door(t_player *player, t_sprite *sprite,
 	p.center.y = player->y + player->origin_y;
 	p.width = player->width;
 	p.height = player->height;
-	c.center.x = door->x + sprite->frame_width / 2;
-	c.center.y = door->y + sprite->frame_height / 2;
-	c.width = sprite->frame_width;
-	c.height = sprite->frame_height;
+	c.center.x = door->x + sprite->frame_width;
+	c.center.y = door->y + sprite->frame_height;
+	c.width = sprite->frame_width / 2;
+	c.height = sprite->frame_height / 2;
 	return (ft_rect_iscollide(&p, &c));
 }

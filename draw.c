@@ -6,70 +6,75 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 19:30:10 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 19:42:37 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:33:56 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	draw_react(t_render *render, t_player *player, t_color color)
+void	ft_react_draw(t_render *render, t_rect *rect)
 {
 	int		j;
 	t_point	p;
+	int		color;
 
-	ft_camera_player_center(render, player, &p);
-	p.x += -player->width / 2 + player->origin_x;
-	p.y += -player->height / 2 + player->origin_y;
+	color = 0X00FF0000;
+	p.x = rect->center.x - rect->width / 2;
+	p.y = rect->center.y - rect->height / 2;
 	j = 0;
-	while (j < player->width)
-	{
-		ft_image_putpixel(render->back, p.x + j, p.y, color);
-		j++;
-	}
+	while (j < rect->width)
+		ft_image_putpixel(render->back, p.x + j++, p.y, color);
 	j = 0;
-	while (j < player->height)
+	while (j < rect->height)
 	{
 		ft_image_putpixel(render->back, p.x, p.y + j, color);
-		ft_image_putpixel(render->back, p.x + player->width - 1, p.y + j,
-			color);
+		ft_image_putpixel(render->back, p.x + rect->width - 1, p.y + j, color);
 		j++;
 	}
 	j = 0;
-	while (j < player->width)
-	{
-		ft_image_putpixel(render->back, p.x + j, p.y + player->height - 1,
+	while (j < rect->width)
+		ft_image_putpixel(render->back, p.x + j++, p.y + rect->height - 1,
 			color);
-		j++;
-	}
+}
+
+void	draw_player_collision(t_render *render, t_player *player, t_color color)
+{
+	t_rect	c;
+	int		j;
+
+	c.center.x = player->x - render->camera.x + player->origin_x;
+	c.center.y = player->y - render->camera.y + player->origin_y;
+	c.width = player->width;
+	c.height = player->height;
+	ft_react_draw(render, &c);
 }
 
 void	draw_coin_collision(t_render *render, t_point p)
 {
-	int			j;
+	t_rect		c;
 	t_sprite	*sprite;
 	int			color;
 
 	color = 0X00FF0000;
 	sprite = render->sprites[SPRITE_RUPEE];
-	j = 0;
-	while (j < sprite->frame_width)
-	{
-		ft_image_putpixel(render->back, p.x + j, p.y, color);
-		j++;
-	}
-	j = 0;
-	while (j < sprite->frame_height)
-	{
-		ft_image_putpixel(render->back, p.x, p.y + j, color);
-		ft_image_putpixel(render->back, p.x + sprite->frame_width - 1, p.y + j,
-			color);
-		j++;
-	}
-	j = 0;
-	while (j < sprite->frame_width)
-	{
-		ft_image_putpixel(render->back, p.x + j, p.y + sprite->frame_height - 1,
-			color);
-		j++;
-	}
+	c.center.x = p.x - render->camera.x + sprite->frame_width / 2;
+	c.center.y = p.y - render->camera.y + sprite->frame_height / 2;
+	c.width = sprite->frame_width;
+	c.height = sprite->frame_height;
+	ft_react_draw(render, &c);
+}
+
+void	draw_door_collision(t_engine *engine, t_render *render)
+{
+	t_rect		c;
+	t_sprite	*sprite;
+	t_exit		*door;
+
+	door = &engine->exit;
+	sprite = render->sprites[SPRITE_EXIT];
+	c.center.x = door->x - render->camera.x + sprite->frame_width;
+	c.center.y = door->y - render->camera.y + sprite->frame_height;
+	c.width = sprite->frame_width / 2;
+	c.height = sprite->frame_height / 2;
+	ft_react_draw(render, &c);
 }
