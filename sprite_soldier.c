@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sprite_soldier.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 17:32:25 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 21:21:15 by mmoulati         ###   ########.fr       */
+/*   Created: 2025/03/06 21:02:38 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/06 21:09:46 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "so_long.h"
 
-int	main(void)
-{
-	t_animation	*game;
-	char		**map;
-
-	static char *strs[] = {
-		"11111111111111",
-		"1PC01110000101",
-		"1011111E111011",
-		"10000000100101",
-		"11111111111111",
-		NULL,
-	};
-	map = ft_strs_dup(strs);
-	game = ft_game_new(map);
-	ft_game_start(game);
-	ft_split_free(&map);
-}
+/*void	ft_soldier_idle(t_render *render, t_enemy *enemy)*/
+/*{*/
+/*	static int	n = 0;*/
+/*	t_point		p;*/
+/*	t_sprite	*sprite;*/
+/**/
+/*	sprite = render->sprites[SPRITE_SOLDIER];*/
+/*	sprite->x = sprite->frame_width * (n / sprite->loop);*/
+/*	sprite->y = sprite->frame_height * enemy->way;*/
+/*	p.y = enemy->y - render->camera->y;*/
+/*	p.x = enemy->x - render->camera->x;*/
+/*	ft_render_sprite(render, sprite, &p);*/
+/*}*/
