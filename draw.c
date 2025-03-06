@@ -17,7 +17,7 @@ void	draw_react(t_render *render, t_player *player, t_color color)
 	int		j;
 	t_point	p;
 
-	ft_player_camera_center(render, player, &p);
+	ft_camera_player_center(render, player, &p);
 	p.x += -player->width / 2 + player->origin_x;
 	p.y += -player->height / 2 + player->origin_y;
 	j = 0;

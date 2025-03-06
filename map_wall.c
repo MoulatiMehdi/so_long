@@ -59,7 +59,7 @@ void	ft_map_wall(t_render *render, t_map *map)
 	}
 }
 
-void	ft_map_display(t_render *render, t_map *map)
+void	ft_render_map(t_render *render, t_map *map)
 {
 	if (map->width * 64 > WINDOW_WIDTH || map->height * 64 > WINDOW_HEIGHT)
 		ft_map_fill(render);

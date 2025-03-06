@@ -57,7 +57,7 @@ static bool	ft_player_is_collision_v(t_player *player, t_map *map, int dy)
 	return (true);
 }
 
-bool	ft_player_is_collision(t_player *player, t_map *map, int dx, int dy)
+bool	ft_collision_player_wall(t_player *player, t_map *map, int dx, int dy)
 {
 	if (!ft_player_is_collision_h(player, map, dx))
 		return (true);

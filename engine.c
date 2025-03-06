@@ -42,3 +42,18 @@ void	ft_engine_destroy(t_engine **engine)
 	free(*engine);
 	*engine = NULL;
 }
+
+void	ft_engine_update(t_animation *animation)
+{
+	t_engine	*engine;
+	t_render	*render;
+
+	engine = animation->engine;
+	render = animation->render;
+	ft_engine_player_update(engine);
+	ft_camera_update(render, engine);
+	ft_engine_coins_update(animation);
+	if (engine->exit.is_on && ft_collision_player_door(engine->player,
+			render->sprites[SPRITE_EXIT], &engine->exit))
+		ft_player_state_set(engine->player, STATE_VICTORY);
+}

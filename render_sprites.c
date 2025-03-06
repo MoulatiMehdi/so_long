@@ -52,6 +52,9 @@ static void	ft_render_sprite_tiles(t_render *render)
 	sprites[SPRITE_OBSTACLE] = ft_sprite_new(mlx, SPRITE_SRC "obstacle.xpm", 5,
 			1);
 	sprites[SPRITE_RUPEE] = ft_sprite_new(mlx, SPRITE_SRC "rupee.xpm", 10, 3);
+	sprites[SPRITE_SOLDIER] = ft_sprite_new(mlx, SPRITE_SRC "smoke.xpm", 6, 4);
+	sprites[SPRITE_SMOKE] = ft_sprite_new(mlx, SPRITE_SRC "soldier.xpm", 3, 1);
+	sprites[SPRITE_EXIT] = ft_sprite_new(mlx, SPRITE_SRC "exit.xpm", 4, 2);
 }
 
 static void	ft_render_sprite_objects(t_render *render)
@@ -91,7 +94,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_LINK_LOADING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_DYING]->loop = 2 * FRAME_REPETE;
-	sprites[SPRITE_LINK_VICTORY]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_WALKING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
@@ -99,15 +102,10 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_SWORD_VICTORY]->loop = sprites[SPRITE_LINK_VICTORY]->loop;
 	sprites[SPRITE_STAR_LOADING_H]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_STAR_LOADING_V]->loop = sprites[SPRITE_LINK_LOADING]->loop;
-	sprites[SPRITE_CAPE]->loop = 1;
-	sprites[SPRITE_COIN]->loop = 1;
-	sprites[SPRITE_DEBUG]->loop = 1;
-	sprites[SPRITE_DIGITS]->loop = 1;
-	sprites[SPRITE_HEARTS]->loop = 1;
-	sprites[SPRITE_GAMEOVER]->loop = 1;
-	sprites[SPRITE_LINK_HURT]->loop = 1;
-	sprites[SPRITE_LINK_IDLE]->loop = 1;
 	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
+	sprites[SPRITE_EXIT]->loop = 3 * FRAME_REPETE;
+	sprites[SPRITE_SOLDIER]->loop = 3 * FRAME_REPETE;
+	sprites[SPRITE_SMOKE]->loop = sprites[SPRITE_SOLDIER]->loop;
 }
 
 void	ft_render_sprites_init(t_render *render)

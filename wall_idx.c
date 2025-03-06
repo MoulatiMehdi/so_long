@@ -83,7 +83,7 @@ void	ft_wall_ignore_obstacle(t_map *map, char **strs)
 	}
 }
 
-void	wall_idx(t_map *map)
+void	ft_wall_parse(t_map *map)
 {
 	char	**strs;
 	t_point	p;

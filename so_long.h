@@ -89,6 +89,9 @@ typedef enum e_sprite_idx
 	SPRITE_OBSTACLE,
 	SPRITE_WALL,
 	SPRITE_RUPEE,
+	SPRITE_SMOKE,
+	SPRITE_SOLDIER,
+	SPRITE_EXIT,
 	SPRITE_TOTAL,
 }					t_sprite_idx;
 
@@ -98,6 +101,13 @@ typedef struct s_map
 	int				height;
 	char			**data;
 }					t_map;
+
+typedef struct s_rect
+{
+	t_point			center;
+	int				width;
+	int				height;
+}					t_rect;
 
 typedef struct s_sprite
 {
@@ -134,15 +144,34 @@ typedef struct s_coin
 	bool			is_taken;
 }					t_coin;
 
+typedef struct s_enemy
+{
+	int				x;
+	int				y;
+	t_way			way;
+	t_state			state;
+	unsigned int	frame_on_loop;
+	bool			is_dead;
+}					t_enemy;
+
+typedef struct s_exit
+{
+	int				x;
+	int				y;
+	int				type;
+	bool			is_on;
+}					t_exit;
+
 typedef struct s_engine
 {
 	bool			paused;
 	char			keys[KEYS_TOTAL];
 	t_map			*map;
 	t_list			*coins;
-	t_point			exit;
+	t_exit			exit;
 	t_player		*player;
-	int				coins_total;
+	t_enemy			enemy;
+	unsigned int	coins_total;
 }					t_engine;
 
 typedef struct s_animation
@@ -157,8 +186,8 @@ void				ft_engine_destroy(t_engine **engine);
 t_engine			*ft_engine_new(void);
 t_render			*ft_render_new(void);
 
-void				ft_player_render(t_animation *animation);
-void				ft_key_debug(t_animation *animation);
+void				ft_render_player(t_engine *engine, t_render *render);
+void				ft_render_keys(t_render *render, t_engine *engine);
 void				ft_sprite_toimage(t_image *dst, t_sprite *sprite,
 						t_point *o_dest);
 void				ft_image_grid(t_image *image, int stepx, int stepy,
@@ -182,32 +211,44 @@ void				ft_player_loading(t_player *player, t_render *render);
 void				ft_player_dying(t_player *player, t_render *render);
 void				ft_player_victory(t_player *player, t_render *render);
 
-void				ft_key_debug(t_animation *animation);
-void				ft_hearts_render(t_animation *animation);
-void				ft_counter_render(t_animation *animation);
-void				ft_coin_render(t_animation *animation);
-void				ft_number_render(t_animation *animation, t_point *point,
-						int nbr, int digits);
+void				ft_render_hearts_counter(t_render *render,
+						t_engine *engine);
+void				ft_render_moves_counter(t_render *render, int moves);
+void				ft_render_coins_counter(t_render *render, t_engine *engine);
+void				ft_number_render(t_render *render, t_point *point, int nbr,
+						int digits);
 void				ft_player_star(t_player *player, t_render *render);
 void				ft_render_clear(t_render **render);
 t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
 						t_sprite_idx type);
-void				ft_map_display(t_render *render, t_map *map);
+void				ft_render_map(t_render *render, t_map *map);
 t_map				*ft_map_new(char **array);
 bool				is_valid_point(t_map *map, t_point *point);
-void				wall_idx(t_map *map);
+void				ft_wall_parse(t_map *map);
 void				ft_map_grid(t_map *map, t_point *point);
 void				ft_map_destroy(t_map **map);
-bool				ft_player_is_collision(t_player *player, t_map *map, int dx,
-						int dy);
-void				ft_player_move(t_engine *engine);
-void				ft_player_camera_center(t_render *render, t_player *player,
+void				ft_engine_player_update(t_engine *engine);
+void				ft_camera_player_center(t_render *render, t_player *player,
 						t_point *point);
-void				ft_rupee_render(t_render *render, t_engine *engine);
+void				ft_render_coins(t_render *render, t_engine *engine);
 bool				ft_camera_is_inview(t_point *camera, t_point *p);
 t_coin				*ft_coin_new(int x, int y);
-void				ft_coin_update(t_animation *animation);
+void				ft_engine_coins_update(t_animation *animation);
 void				draw_react(t_render *image, t_player *player,
 						t_color color);
 void				draw_coin_collision(t_render *render, t_point p);
+void				ft_render_exit(t_exit *door, t_render *render);
+
+bool				ft_rect_iscollide(t_rect *a, t_rect *b);
+bool				ft_collision_player_coin(t_player *player, t_sprite *sprite,
+						t_coin *coin);
+
+bool				ft_collision_player_door(t_player *player, t_sprite *sprite,
+						t_exit *door);
+bool				ft_collision_player_wall(t_player *player, t_map *map,
+						int dx, int dy);
+void				ft_camera_update(t_render *render, t_engine *engine);
+void				ft_engine_update(t_animation *animation);
+void				ft_render_update(t_animation *animation);
+void				engine_parse(t_engine *engine);
 #endif

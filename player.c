@@ -21,6 +21,10 @@ void	ft_player_state_set(t_player *player, t_state state)
 {
 	if (player == NULL)
 		return ;
+	if (player->state == STATE_DYING)
+		return ;
+	if (player->state == STATE_VICTORY)
+		return ;
 	if (player->is_state_fixed && state != STATE_DYING)
 		return ;
 	if (state == player->state && state != STATE_ATTACK)

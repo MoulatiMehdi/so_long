@@ -68,11 +68,20 @@ void	ft_render_clear(t_render **render)
 	*render = NULL;
 }
 
-bool	ft_camera_is_inview(t_point *camera, t_point *p)
+void	ft_render_update(t_animation *animation)
 {
-	if (camera->x > p->x && camera->x + WINDOW_WIDTH < p->x)
-		return (false);
-	if (camera->y > p->y && camera->y + WINDOW_HEIGHT < p->y)
-		return (false);
-	return (true);
+	t_render	*render;
+	t_engine	*engine;
+
+	render = animation->render;
+	engine = animation->engine;
+	ft_render_map(render, engine->map);
+	ft_render_exit(&engine->exit, render);
+	ft_render_coins(render, engine);
+	ft_render_player(engine, render);
+	draw_react(render, engine->player, 0x00FF0000);
+	ft_render_hearts_counter(render, engine);
+	ft_render_coins_counter(render, engine);
+	ft_render_moves_counter(render, engine->player->moves);
+	ft_render_keys(render, engine);
 }

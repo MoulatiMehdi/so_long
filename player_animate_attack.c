@@ -16,7 +16,7 @@
 void	ft_player_star_position(t_render *render, t_player *player,
 		t_point *point)
 {
-	ft_player_camera_center(render, player, point);
+	ft_camera_player_center(render, player, point);
 	if (player->way == WAY_LEFT)
 	{
 		point->x += -24;
@@ -83,11 +83,11 @@ void	ft_player_loading(t_player *player, t_render *render)
 	}
 	else
 		player->is_loaded = true;
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	point.x += -16;
 	point.y += 4;
 	ft_render_sprite(render, sprite_sword, &point);
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	ft_render_sprite(render, sprite_link, &point);
 	ft_player_star(player, render);
 }
@@ -100,10 +100,10 @@ void	ft_player_attack(t_player *player, t_render *render)
 
 	sprite = ft_sprite_coor_way(player, render, SPRITE_LINK_ATTACKING);
 	sprite_sword = ft_sprite_coor_way(player, render, SPRITE_SWORD_ATTACK);
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	point.x += -8;
 	ft_render_sprite(render, sprite, &point);
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	point.x += -48;
 	point.y += -28;
 	ft_render_sprite(render, sprite_sword, &point);
@@ -119,10 +119,10 @@ void	ft_player_spinning(t_player *player, t_render *render)
 
 	sprite_spin = ft_sprite_coor_way(player, render, SPRITE_LINK_SPIN);
 	sprite_sword = ft_sprite_coor_way(player, render, SPRITE_SWORD_SPIN);
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	point.y += +16;
 	ft_render_sprite(render, sprite_spin, &point);
-	ft_player_camera_center(render, player, &point);
+	ft_camera_player_center(render, player, &point);
 	point.x += -40;
 	point.y += -20;
 	ft_render_sprite(render, sprite_sword, &point);

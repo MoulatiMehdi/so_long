@@ -22,7 +22,7 @@ void	ft_player_coor(t_engine *engine, int dx, int dy)
 	if (dx == 0 && dy == 0)
 		return ;
 	player->is_moving = true;
-	if (ft_player_is_collision(player, map, dx, dy))
+	if (ft_collision_player_wall(player, map, dx, dy))
 		return ;
 	player->moves++;
 	player->x += dx * player->speed;

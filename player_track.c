@@ -67,7 +67,7 @@ static void	ft_player_way(t_player *player, char keys[256])
 		player->way = WAY_UP;
 }
 
-void	ft_player_move(t_engine *engine)
+void	ft_engine_player_update(t_engine *engine)
 {
 	t_player	*player;
 	char		*keys;
@@ -89,14 +89,10 @@ void	ft_player_move(t_engine *engine)
 		ft_player_coor(engine, 0, -1);
 }
 
-void	ft_player_render(t_animation *animation)
+void	ft_render_player(t_engine *engine, t_render *render)
 {
 	t_player	*player;
-	t_render	*render;
-	t_engine	*engine;
 
-	engine = animation->engine;
-	render = animation->render;
 	player = engine->player;
 	if (player->state == STATE_WALK)
 		ft_player_walking(player, render);

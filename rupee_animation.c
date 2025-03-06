@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	ft_rupee_render(t_render *render, t_engine *engine)
+void	ft_render_coins(t_render *render, t_engine *engine)
 {
 	t_sprite	*sprite;
 	t_list		*head;
