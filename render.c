@@ -87,4 +87,5 @@ void	ft_render_update(t_animation *animation)
 	draw_enemy_collision(render, &engine->enemy);
 	draw_player_collision(render, engine->player);
 	draw_door_collision(engine, render);
+	draw_spin_collision(engine, render);
 }

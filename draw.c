@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 19:30:10 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 22:42:02 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:34:59 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,18 @@ void	draw_door_collision(t_engine *engine, t_render *render)
 	c.center.y = door->y - render->camera.y + sprite->frame_height;
 	c.width = sprite->frame_width / 2;
 	c.height = sprite->frame_height / 2;
+	ft_react_draw(render, &c);
+}
+
+void	draw_spin_collision(t_engine *engine, t_render *render)
+{
+	t_rect		c;
+	t_player	*player;
+
+	player = engine->player;
+	c.center.x = player->x - render->camera.x + 24;
+	c.center.y = player->y - render->camera.y + 40;
+	c.width = 96;
+	c.height = 96;
 	ft_react_draw(render, &c);
 }

@@ -6,13 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:41 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/07 20:33:11 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:05:19 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 #include "so_long.h"
-#include <stdio.h>
 
 static void	ft_player_state(t_player *player, char keys[256])
 {
@@ -28,7 +27,6 @@ static void	ft_player_state(t_player *player, char keys[256])
 			player->is_state_fixed = false;
 			ft_player_state_set(player, STATE_IDLE);
 		}
-		printf("%d\n", player->frame_on_loop);
 	}
 	if (player->hearts <= 0)
 		return (ft_player_state_set(player, STATE_DYING));

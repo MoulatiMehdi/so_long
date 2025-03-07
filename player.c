@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:38 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/05 22:46:51 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:39:28 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_player_state_set(t_player *player, t_state state)
 		return ;
 	if (player->state == STATE_VICTORY)
 		return ;
-	if (player->is_state_fixed && state != STATE_DYING)
+	if (player->is_state_fixed && (state != STATE_DYING && state != STATE_HURT
+			&& state != STATE_VICTORY))
 		return ;
 	if (state == player->state && state != STATE_ATTACK)
 		return ;
