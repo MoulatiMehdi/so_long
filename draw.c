@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 19:30:10 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 20:33:56 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:42:02 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,25 @@ void	ft_react_draw(t_render *render, t_rect *rect)
 			color);
 }
 
-void	draw_player_collision(t_render *render, t_player *player, t_color color)
+void	draw_player_collision(t_render *render, t_player *player)
 {
 	t_rect	c;
-	int		j;
 
 	c.center.x = player->x - render->camera.x + player->origin_x;
 	c.center.y = player->y - render->camera.y + player->origin_y;
 	c.width = player->width;
 	c.height = player->height;
+	ft_react_draw(render, &c);
+}
+
+void	draw_enemy_collision(t_render *render, t_enemy *enemy)
+{
+	t_rect	c;
+
+	c.center.x = enemy->x - render->camera.x + enemy->origin_x;
+	c.center.y = enemy->y - render->camera.y + enemy->origin_y;
+	c.width = enemy->width;
+	c.height = enemy->height;
 	ft_react_draw(render, &c);
 }
 

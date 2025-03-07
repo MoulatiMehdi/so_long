@@ -25,6 +25,7 @@ typedef enum e_way
 	WAY_UP = 1,
 	WAY_LEFT = 2,
 	WAY_DOWN = 3,
+	WAY_TOTAL,
 }					t_way;
 
 typedef enum e_state

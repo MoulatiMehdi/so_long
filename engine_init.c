@@ -6,11 +6,34 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:51:15 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 20:51:16 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 00:16:02 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "image.h"
 #include "so_long.h"
+
+void	ft_engine_enemy_set(t_engine *engine, t_point *p)
+{
+	int			i;
+	t_point		e;
+	static int	d[4][2] = {1, -1};
+
+	i = 0;
+	while (i < 4)
+	{
+		e = *p;
+		e.x += 2 * (i % 2) - 1;
+		e.y += 2 * (i / 2) - 1;
+		if (is_valid_point(engine->map, &e)
+			&& engine->map->data[e.y][e.x] == WALL_EMPTY)
+		{
+			engine->enemy.y = e.y * 64 - 32;
+			engine->enemy.x = e.x * 64 - 32;
+			return ;
+		}
+	}
+}
 
 void	ft_engine_setdata(t_engine *engine, t_point *p)
 {
@@ -29,6 +52,7 @@ void	ft_engine_setdata(t_engine *engine, t_point *p)
 		engine->exit.y = p->y * 64;
 		engine->exit.is_on = false;
 		engine->exit.type = 1;
+		ft_engine_enemy_set(engine, p);
 	}
 	if (c == 'C')
 	{

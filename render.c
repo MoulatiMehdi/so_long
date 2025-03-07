@@ -6,11 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 21:25:13 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:54:47 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
+#include "player.h"
 #include "so_long.h"
 
 void		ft_render_sprites_init(t_render *render);
@@ -53,6 +54,17 @@ void	ft_render_clear(t_render **render)
 	*render = NULL;
 }
 
+void	ft_render_soldier(t_render *render, t_engine *engine)
+{
+	t_enemy	*enemy;
+
+	enemy = &engine->enemy;
+	if (enemy->state == STATE_WALK)
+		ft_soldier_walk(render, enemy);
+	else if (enemy->state == STATE_IDLE)
+		ft_soldier_look(render, enemy);
+}
+
 void	ft_render_update(t_animation *animation)
 {
 	t_render	*render;
@@ -68,6 +80,8 @@ void	ft_render_update(t_animation *animation)
 	ft_render_coins_counter(render, engine);
 	ft_render_moves_counter(render, engine->player->moves);
 	ft_render_keys(render, engine);
-	draw_player_collision(render, engine->player, 0x00FF0000);
+	ft_render_soldier(render, engine);
+	draw_enemy_collision(render, &engine->enemy);
+	draw_player_collision(render, engine->player);
 	draw_door_collision(engine, render);
 }

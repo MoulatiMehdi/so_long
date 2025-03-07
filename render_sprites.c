@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 22:08:18 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:39:12 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ static void	ft_render_sprites_tiles(t_render *render)
 	sprites[SPRITE_OBSTACLE] = ft_sprite_new(mlx, SPRITE_SRC "obstacle.xpm", 5,
 			1);
 	sprites[SPRITE_RUPEE] = ft_sprite_new(mlx, SPRITE_SRC "rupee.xpm", 10, 3);
-	sprites[SPRITE_SOLDIER] = ft_sprite_new(mlx, SPRITE_SRC "smoke.xpm", 6, 4);
-	sprites[SPRITE_SMOKE] = ft_sprite_new(mlx, SPRITE_SRC "soldier.xpm", 3, 1);
+	sprites[SPRITE_SOLDIER] = ft_sprite_new(mlx, SPRITE_SRC "soldier.xpm", 6,
+			4);
+	sprites[SPRITE_SMOKE] = ft_sprite_new(mlx, SPRITE_SRC "smoke.xpm", 3, 1);
 	sprites[SPRITE_EXIT] = ft_sprite_new(mlx, SPRITE_SRC "exit.xpm", 4, 2);
 }
 

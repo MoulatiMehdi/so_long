@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:47:43 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 22:20:51 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:28:25 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,11 @@ typedef struct s_enemy
 	t_state			state;
 	unsigned int	frame_on_loop;
 	bool			is_dead;
+	int				origin_x;
+	int				origin_y;
+	int				width;
+	int				height;
+	int				speed;
 }					t_enemy;
 
 typedef struct s_exit
@@ -228,17 +233,13 @@ void				ft_wall_parse(t_map *map);
 void				ft_map_grid(t_map *map, t_point *point);
 void				ft_map_destroy(t_map **map);
 void				ft_engine_player_update(t_engine *engine);
+bool				ft_camera_is_inview(t_point *camera, t_point *p);
 void				ft_camera_player_center(t_render *render, t_player *player,
 						t_point *point);
 void				ft_render_coins(t_render *render, t_engine *engine);
-bool				ft_camera_is_inview(t_point *camera, t_point *p);
 t_coin				*ft_coin_new(int x, int y);
 void				ft_engine_coins_update(t_animation *animation);
-void				draw_player_collision(t_render *render, t_player *player,
-						t_color color);
-void				draw_coin_collision(t_render *render, t_point p);
 void				ft_render_exit(t_exit *door, t_render *render);
-
 bool				ft_rect_iscollide(t_rect *a, t_rect *b);
 bool				ft_collision_player_coin(t_player *player, t_sprite *sprite,
 						t_coin *coin);
@@ -253,8 +254,19 @@ void				ft_render_update(t_animation *animation);
 void				engine_parse(t_engine *engine);
 void				ft_sprite_destroy(t_sprite **sprite);
 void				ft_sprites_clear(t_sprite ***sprites);
+
 void				ft_game_start(t_animation *game);
 t_animation			*ft_game_new(char **map);
 int					ft_game_destroy(t_animation *game);
+
 void				draw_door_collision(t_engine *engine, t_render *render);
+void				draw_player_collision(t_render *render, t_player *player);
+void				draw_coin_collision(t_render *render, t_point p);
+void				ft_enemy_init(t_enemy *enemy);
+
+void				ft_soldier_look(t_render *render, t_enemy *enemy);
+void				ft_soldier_walk(t_render *render, t_enemy *enemy);
+bool				ft_collision_enemy_wall(t_enemy *enemy, t_map *map, int dx,
+						int dy);
+void				draw_enemy_collision(t_render *render, t_enemy *enemy);
 #endif

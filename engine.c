@@ -6,11 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:17 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:17 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:59:33 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "player.h"
 #include "so_long.h"
 
 void	ft_engine_init(t_engine *engine)
@@ -21,6 +22,7 @@ void	ft_engine_init(t_engine *engine)
 	engine->coins = NULL;
 	engine->coins_total = 0;
 	ft_bzero(engine->keys, KEYS_TOTAL);
+	ft_enemy_init(&engine->enemy);
 }
 
 t_engine	*ft_engine_new(void)
@@ -45,6 +47,32 @@ void	ft_engine_destroy(t_engine **engine)
 	*engine = NULL;
 }
 
+void	ft_engine_solider_update(t_engine *engine)
+{
+	t_enemy	*enemy;
+	int		dx;
+	int		dy;
+
+	enemy = &engine->enemy;
+	dx = 0;
+	dy = 0;
+	if (enemy->way == WAY_DOWN)
+		dy = 1;
+	else if (enemy->way == WAY_UP)
+		dy = -1;
+	else if (enemy->way == WAY_RIGHT)
+		dx = 1;
+	else if (enemy->way == WAY_LEFT)
+		dx = -1;
+	if (!ft_collision_enemy_wall(&engine->enemy, engine->map, dx, dy))
+	{
+		enemy->x += dx * enemy->speed;
+		enemy->y += dy * enemy->speed;
+	}
+	else
+		enemy->way = (enemy->way + 1) % WAY_TOTAL;
+}
+
 void	ft_engine_update(t_animation *animation)
 {
 	t_engine	*engine;
@@ -53,6 +81,7 @@ void	ft_engine_update(t_animation *animation)
 	engine = animation->engine;
 	render = animation->render;
 	ft_engine_player_update(engine);
+	ft_engine_solider_update(engine);
 	ft_camera_update(render, engine);
 	ft_engine_coins_update(animation);
 	if (engine->exit.is_on && ft_collision_player_door(engine->player,
