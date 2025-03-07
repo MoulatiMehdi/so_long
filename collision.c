@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "player.h"
 #include "so_long.h"
 
 bool	ft_rect_iscollide(t_rect *a, t_rect *b)
@@ -52,6 +53,8 @@ bool	ft_collision_player_door(t_player *player, t_sprite *sprite,
 	t_rect	p;
 	t_rect	c;
 
+	if (!door->is_on)
+		return (false);
 	p.center.x = player->x + player->origin_x;
 	p.center.y = player->y + player->origin_y;
 	p.width = player->width;
@@ -60,5 +63,25 @@ bool	ft_collision_player_door(t_player *player, t_sprite *sprite,
 	c.center.y = door->y + sprite->frame_height;
 	c.width = sprite->frame_width / 2;
 	c.height = sprite->frame_height / 2;
+	return (ft_rect_iscollide(&p, &c));
+}
+
+bool	ft_collision_player_enemy(t_player *player, t_enemy *enemy)
+{
+	t_rect	p;
+	t_rect	c;
+
+	if (enemy->is_dead)
+		return (false);
+	if (enemy->state == STATE_DYING)
+		return (false);
+	p.center.x = player->x + player->origin_x;
+	p.center.y = player->y + player->origin_y;
+	p.width = player->width;
+	p.height = player->height;
+	c.center.x = enemy->x + enemy->origin_x;
+	c.center.y = enemy->y + enemy->origin_y;
+	c.width = enemy->width;
+	c.height = enemy->height;
 	return (ft_rect_iscollide(&p, &c));
 }

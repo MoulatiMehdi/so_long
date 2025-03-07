@@ -95,7 +95,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_LINK_SPIN]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_LOADING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
-	sprites[SPRITE_LINK_DYING]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_DYING]->loop = 4 * FRAME_REPETE;
 	sprites[SPRITE_LINK_VICTORY]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_WALKING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
@@ -106,7 +106,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_STAR_LOADING_V]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
 	sprites[SPRITE_EXIT]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_SOLDIER]->loop = 3 * FRAME_REPETE;
+	sprites[SPRITE_SOLDIER]->loop = 10 * FRAME_REPETE;
 	sprites[SPRITE_SMOKE]->loop = sprites[SPRITE_SOLDIER]->loop;
 }
 

@@ -25,4 +25,5 @@ void	ft_enemy_init(t_enemy *enemy)
 	enemy->origin_x = 32;
 	enemy->width = 24;
 	enemy->height = 16;
+	enemy->is_fixed = false;
 }

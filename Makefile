@@ -27,11 +27,11 @@ all :  $(LIBFT) $(NAME)
 $(NAME) :  $(OBJS) 
 	$(CC) $(CCFLAGS) $^ -o $@  $(CCLIBS)
 
-$(DIR_OBJS)/%.o : %.c $(DIR_OBJS)
+$(DIR_OBJS)/%.o : %.c | $(DIR_OBJS)
 	$(CC) $(CCFLAGS) $< -o $@ -c  
 
 $(DIR_OBJS) : 
-	mkdir $(DIR_OBJS)
+	mkdir -p $(DIR_OBJS)
 
 $(LIBFT) : 
 	make -C libft --no-print-directory
@@ -45,3 +45,4 @@ fclean : clean
 re : fclean all
 
 .PHONY : re clean fclean all
+.SECONDARY: $(OBJS)

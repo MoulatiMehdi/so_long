@@ -14,30 +14,32 @@
 
 void	ft_soldier_walk(t_render *render, t_enemy *enemy)
 {
-	static int	n = 0;
 	t_point		p;
 	t_sprite	*sprite;
 
 	sprite = render->sprites[SPRITE_SOLDIER];
-	sprite->x = sprite->frame_width * (n / sprite->loop);
+	sprite->x = sprite->frame_width * (enemy->frame_on_loop / sprite->loop);
 	sprite->y = sprite->frame_height * enemy->way;
 	p.y = enemy->y - render->camera.y;
 	p.x = enemy->x - render->camera.x;
 	ft_render_sprite(render, sprite, &p);
-	n = (n + 1) % (sprite->loop * (sprite->col - 2));
+	enemy->frame_on_loop = (enemy->frame_on_loop + 1) % (sprite->loop
+			* (sprite->col - 4));
 }
 
 void	ft_soldier_look(t_render *render, t_enemy *enemy)
 {
-	static int	n = 0;
 	t_point		p;
 	t_sprite	*sprite;
 
 	sprite = render->sprites[SPRITE_SOLDIER];
-	sprite->x = sprite->frame_width * (4 + n / sprite->loop);
+	sprite->x = sprite->frame_width * (4 + enemy->frame_on_loop / (sprite->loop
+				* 4));
 	sprite->y = sprite->frame_height * enemy->way;
 	p.y = enemy->y - render->camera.y;
 	p.x = enemy->x - render->camera.x;
 	ft_render_sprite(render, sprite, &p);
-	n = (n + 1) % (sprite->loop * 2);
+	enemy->frame_on_loop = (enemy->frame_on_loop + 1) % (sprite->loop * 8);
+	if (enemy->frame_on_loop == 0)
+		enemy->is_fixed = false;
 }

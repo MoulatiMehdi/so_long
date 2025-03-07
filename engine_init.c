@@ -17,7 +17,6 @@ void	ft_engine_enemy_set(t_engine *engine, t_point *p)
 {
 	int			i;
 	t_point		e;
-	static int	d[4][2] = {1, -1};
 
 	i = 0;
 	while (i < 4)

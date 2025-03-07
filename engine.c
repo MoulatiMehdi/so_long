@@ -54,22 +54,21 @@ void	ft_engine_solider_update(t_engine *engine)
 	int		dy;
 
 	enemy = &engine->enemy;
-	dx = 0;
-	dy = 0;
-	if (enemy->way == WAY_DOWN)
-		dy = 1;
-	else if (enemy->way == WAY_UP)
-		dy = -1;
-	else if (enemy->way == WAY_RIGHT)
-		dx = 1;
-	else if (enemy->way == WAY_LEFT)
-		dx = -1;
+	if (enemy->is_fixed || enemy->is_dead)
+		return ;
+	ft_way_init(&dx, &dy, enemy->way);
 	if (!ft_collision_enemy_wall(&engine->enemy, engine->map, dx, dy))
 	{
+		ft_soldier_state_set(enemy, STATE_WALK);
 		enemy->x += dx * enemy->speed;
 		enemy->y += dy * enemy->speed;
 	}
-	else
+	else if (!enemy->is_fixed && enemy->state == STATE_WALK)
+	{
+		ft_soldier_state_set(enemy, STATE_IDLE);
+		enemy->is_fixed = true;
+	}
+	else if (enemy->state == STATE_IDLE && !enemy->is_fixed)
 		enemy->way = (enemy->way + 1) % WAY_TOTAL;
 }
 
@@ -84,7 +83,9 @@ void	ft_engine_update(t_animation *animation)
 	ft_engine_solider_update(engine);
 	ft_camera_update(render, engine);
 	ft_engine_coins_update(animation);
-	if (engine->exit.is_on && ft_collision_player_door(engine->player,
-			render->sprites[SPRITE_EXIT], &engine->exit))
+	if (ft_collision_player_door(engine->player, render->sprites[SPRITE_EXIT],
+			&engine->exit))
 		ft_player_state_set(engine->player, STATE_VICTORY);
+	if (ft_collision_player_enemy(engine->player, &engine->enemy))
+		ft_player_state_set(engine->player, STATE_DYING);
 }

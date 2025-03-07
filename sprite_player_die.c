@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 #define FRAME_FADE_IN 10.0
-#define FRAME_FADE_OUT 104.0
+#define FRAME_FADE_OUT 120.0
 
 void	ft_player_hurt(t_player *player, t_render *render)
 {

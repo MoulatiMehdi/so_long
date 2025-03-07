@@ -152,6 +152,7 @@ typedef struct s_enemy
 	t_state			state;
 	unsigned int	frame_on_loop;
 	bool			is_dead;
+	bool			is_fixed;
 	int				origin_x;
 	int				origin_y;
 	int				width;
@@ -269,4 +270,7 @@ void				ft_soldier_walk(t_render *render, t_enemy *enemy);
 bool				ft_collision_enemy_wall(t_enemy *enemy, t_map *map, int dx,
 						int dy);
 void				draw_enemy_collision(t_render *render, t_enemy *enemy);
+void				ft_soldier_state_set(t_enemy *enemy, t_state state);
+void				ft_way_init(int *dx, int *dy, t_way way);
+bool				ft_collision_player_enemy(t_player *player, t_enemy *enemy);
 #endif

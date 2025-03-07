@@ -63,9 +63,7 @@ void	draw_coin_collision(t_render *render, t_point p)
 {
 	t_rect		c;
 	t_sprite	*sprite;
-	int			color;
 
-	color = 0X00FF0000;
 	sprite = render->sprites[SPRITE_RUPEE];
 	c.center.x = p.x - render->camera.x + sprite->frame_width / 2;
 	c.center.y = p.y - render->camera.y + sprite->frame_height / 2;
