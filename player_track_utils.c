@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "player.h"
 #include "so_long.h"
 
 void	ft_player_coor(t_engine *engine, int dx, int dy)
@@ -24,7 +25,8 @@ void	ft_player_coor(t_engine *engine, int dx, int dy)
 	player->is_moving = true;
 	if (ft_collision_player_wall(player, map, dx, dy))
 		return ;
-	player->moves++;
+	if (player->state != STATE_HURT)
+		player->moves++;
 	player->x += dx * player->speed;
 	player->y += dy * player->speed;
 }

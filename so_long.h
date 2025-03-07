@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:47:43 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 23:28:25 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:47:40 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ typedef struct s_animation
 {
 	t_engine		*engine;
 	t_render		*render;
+	bool			exit;
 }					t_animation;
 
 void				ft_player_destroy(t_player **player);
@@ -273,4 +274,7 @@ void				draw_enemy_collision(t_render *render, t_enemy *enemy);
 void				ft_soldier_state_set(t_enemy *enemy, t_state state);
 void				ft_way_init(int *dx, int *dy, t_way way);
 bool				ft_collision_player_enemy(t_player *player, t_enemy *enemy);
+void				ft_player_hurt(t_player *player, t_render *render);
+void				ft_player_coor(t_engine *engine, int dx, int dy);
+bool				ft_player_state_attack(t_player *player, bool is_attack);
 #endif

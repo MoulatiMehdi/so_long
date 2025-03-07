@@ -6,15 +6,13 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:41 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:41 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:33:11 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 #include "so_long.h"
-
-void		ft_player_coor(t_engine *engine, int dx, int dy);
-bool		ft_player_state_attack(t_player *player, bool is_attack);
+#include <stdio.h>
 
 static void	ft_player_state(t_player *player, char keys[256])
 {
@@ -22,10 +20,15 @@ static void	ft_player_state(t_player *player, char keys[256])
 
 	if (player->state == STATE_DYING || player->state == STATE_VICTORY)
 		return ;
-	if (player->state == STATE_HURT && player->is_loaded)
+	if (player->state == STATE_HURT)
 	{
 		player->is_loaded = false;
-		player->is_state_fixed = false;
+		if (player->frame_on_loop >= 10)
+		{
+			player->is_state_fixed = false;
+			ft_player_state_set(player, STATE_IDLE);
+		}
+		printf("%d\n", player->frame_on_loop);
 	}
 	if (player->hearts <= 0)
 		return (ft_player_state_set(player, STATE_DYING));
@@ -108,5 +111,7 @@ void	ft_render_player(t_engine *engine, t_render *render)
 		ft_player_victory(player, render);
 	if (player->state == STATE_LOADING)
 		ft_player_loading(player, render);
+	if (player->state == STATE_HURT)
+		ft_player_hurt(player, render);
 	player->frame_on_loop += !engine->paused;
 }

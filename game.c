@@ -25,7 +25,8 @@ t_animation	*ft_game_new(char **map)
 		return (NULL);
 	game->render = ft_render_new();
 	game->engine = ft_engine_new();
-	if (game->render == NULL)
+	game->exit = false;
+	if (game->render == NULL || game->engine == NULL)
 	{
 		ft_render_clear(&game->render);
 		ft_engine_destroy(&game->engine);
