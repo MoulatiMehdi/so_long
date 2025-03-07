@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:17 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 23:59:33 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:14:24 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ void	ft_engine_update(t_animation *animation)
 			&engine->exit))
 		ft_player_state_set(engine->player, STATE_VICTORY);
 	if (ft_collision_player_enemy(engine->player, &engine->enemy))
-		ft_player_state_set(engine->player, STATE_DYING);
+		engine->player->hearts--;
 }
