@@ -63,6 +63,8 @@ void	ft_render_soldier(t_render *render, t_engine *engine)
 		ft_soldier_walk(render, enemy);
 	else if (enemy->state == STATE_IDLE)
 		ft_soldier_look(render, enemy);
+	else if (enemy->state == STATE_DYING)
+		ft_soldier_dying(render, enemy);
 }
 
 void	ft_render_update(t_animation *animation)

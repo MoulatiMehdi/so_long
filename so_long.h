@@ -278,4 +278,5 @@ void				ft_player_hurt(t_player *player, t_render *render);
 void				ft_player_coor(t_engine *engine, int dx, int dy);
 bool				ft_player_state_attack(t_player *player, bool is_attack);
 void				draw_spin_collision(t_engine *engine, t_render *render);
+void				ft_soldier_dying(t_render *render, t_enemy *enemy);
 #endif

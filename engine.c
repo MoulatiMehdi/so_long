@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:17 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/07 21:37:28 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/07 22:26:00 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_engine_solider_update(t_engine *engine)
 	int		dy;
 
 	enemy = &engine->enemy;
-	if (enemy->is_fixed || enemy->is_dead)
+	if (enemy->is_fixed || enemy->is_dead || enemy->state == STATE_DYING)
 		return ;
 	ft_way_init(&dx, &dy, enemy->way);
 	if (!ft_collision_enemy_wall(&engine->enemy, engine->map, dx, dy))
@@ -81,6 +81,8 @@ void	ft_engine_update(t_animation *animation)
 	engine = animation->engine;
 	render = animation->render;
 	ft_engine_player_update(engine);
+	if (engine->enemy.state != STATE_DYING)
+		ft_soldier_state_set(&engine->enemy, STATE_DYING);
 	ft_engine_solider_update(engine);
 	ft_camera_update(render, engine);
 	ft_engine_coins_update(animation);
