@@ -6,15 +6,17 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:07:55 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/02/11 23:09:31 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:39:05 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef SO_LONG_H
 
 # define SO_LONG_H
 
 # include "libft/libft.h"
 # include <fcntl.h>
+# include <limits.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,8 +27,22 @@
 # define CHAR_WALL '1'
 # define CHAR_COLLECTABLE 'C'
 # define CHARS_VALID "01CEP"
+# define CHARS_CHAGE " 1cep"
 
-typedef enum e_state
+typedef struct s_map
+{
+	int		width;
+	int		height;
+	char	**data;
+}			t_map;
+
+typedef struct s_point
+{
+	int		x;
+	int		y;
+}			t_point;
+
+typedef enum e_map_state
 {
 	OK = 0,
 	ERR_MAP_CHAR_INVALID,
@@ -38,15 +54,17 @@ typedef enum e_state
 	ERR_MAP_MALLOC,
 	ERR_MAP_PATH_INVALID,
 	ERR_FILENAME_INVALID,
-}		t_state;
+}			t_map_state;
 
-void	ft_error(char *str1);
-void	ft_perror(char *str1);
+void		ft_error(char *str1);
+void		ft_perror(char *str1);
 
-char	**ft_map_read(char *filename);
+t_map		*ft_map_new(char *filename);
 
-void	ft_map_valid(char ***map);
-void	ft_map_error(char ***map, t_state state);
-void	ft_map_print(char **map);
-
+t_map_state	ft_map_valid(t_map *map);
+void		ft_map_error(t_map **map, t_map_state state);
+void		ft_map_print(t_map *map);
+void		ft_map_destroy(t_map **map);
+bool		ft_check_solvable(t_map *map);
+t_map_state	ft_check_row(t_map *map);
 #endif

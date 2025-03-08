@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:29:51 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/02/11 23:14:15 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:47:16 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,28 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static bool	ft_file_isvalid(char *filename)
+static t_map_state	ft_file_isvalid(char *filename)
 {
 	size_t	size;
 
 	if (filename == NULL)
-		return (false);
+		return (ERR_FILENAME_INVALID);
 	size = ft_strlen(filename);
-	if (size < 4)
-		return (false);
+	if (size < 5)
+		return (ERR_FILENAME_INVALID);
 	if (ft_strncmp(&filename[size - 4], ".ber", 4) != 0)
-		return (false);
-	return (true);
+		return (ERR_FILENAME_INVALID);
+	return (OK);
 }
 
 static int	ft_file_open(char *filename)
 {
-	int	fd;
+	int			fd;
+	t_map_state	state;
 
-	if (filename == NULL || ft_file_isvalid(filename) == 0)
-		ft_map_error(NULL, ERR_FILENAME_INVALID);
+	state = ft_file_isvalid(filename);
+	if (filename == NULL || state != OK)
+		ft_map_error(NULL, state);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -81,26 +83,39 @@ static size_t	ft_count_height(char *file)
 	return (count);
 }
 
-char	**ft_map_read(char *filename)
+t_map	*ft_map_new(char *filename)
 {
 	int		fd;
-	char	**strs;
-	size_t	i;
-	size_t	size;
-	size_t	len;
+	int		i;
+	t_map	*map;
+	int		len;
 
+	map = ft_calloc(sizeof(t_map), 1);
+	if (map == NULL)
+		return (NULL);
 	i = 0;
 	fd = ft_file_open(filename);
-	size = ft_count_height(filename);
-	strs = malloc(sizeof(char *) * (size + 1));
-	while (i < size)
+	map->height = ft_count_height(filename);
+	map->data = malloc(sizeof(char *) * (map->height + 1));
+	while (i < map->height)
 	{
-		strs[i] = get_next_line(fd);
-		len = ft_strlen(strs[i]);
-		if (strs[i] && strs[i][0] != '\0' && strs[i][len - 1] == '\n')
-			strs[i][len - 1] = '\0';
+		map->data[i] = get_next_line(fd);
+		if (!map->data[i])
+			break ;
+		len = ft_strlen(map->data[i]);
+		if (map->data[i][0] != '\0' && map->data[i][len - 1] == '\n')
+			map->data[i][len - 1] = '\0';
 		i++;
 	}
-	strs[i] = NULL;
-	return (strs);
+	map->data[i] = NULL;
+	return (map);
+}
+
+void	ft_map_destroy(t_map **map)
+{
+	if (map == NULL || *map == NULL)
+		return ;
+	ft_split_free(&(*map)->data);
+	free(*map);
+	*map = NULL;
 }

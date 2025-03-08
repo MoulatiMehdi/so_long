@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:37:21 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/02/11 23:04:30 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 14:48:08 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	ft_perror(char *str1)
 	ft_putstr_fd("\033[0m\n", 2);
 }
 
-void	ft_map_error(char ***map, t_state state)
+void	ft_map_error(t_map **map, t_map_state state)
 {
+	if (state == OK)
+		return ;
 	if (state == ERR_FILENAME_INVALID)
 		ft_perror("Filename invalid");
 	else if (state == ERR_MAP_CHAR_INVALID)
@@ -49,7 +51,6 @@ void	ft_map_error(char ***map, t_state state)
 		ft_perror("Map is not solvable");
 	else if (state == ERR_MAP_MALLOC)
 		ft_perror("Insufficiant memory");
-	if (map)
-		ft_split_free(map);
+	ft_map_destroy(map);
 	exit(1);
 }
