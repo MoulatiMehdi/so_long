@@ -6,10 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 13:49:31 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 13:59:59 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "player.h"
 #include "so_long.h"
 
 void		ft_render_sprites_init(t_render *render);
@@ -100,7 +101,8 @@ void	ft_render_update(t_animation *animation)
 	engine = animation->engine;
 	ft_render_map(render, engine->map);
 	ft_render_exit(&engine->exit, render);
-	if (engine->player->state != STATE_DYING)
+	if (engine->player->state != STATE_DYING
+		&& engine->player->state != STATE_VICTORY)
 	{
 		ft_render_coins(render, engine);
 		ft_render_soldier(render, engine);
