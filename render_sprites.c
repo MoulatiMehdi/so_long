@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 07:56:51 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:34:09 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_LINK_LOADING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_DYING]->loop = 4 * FRAME_REPETE;
-	sprites[SPRITE_LINK_VICTORY]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_LINK_WALKING]->loop = 2 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;

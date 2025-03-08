@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:47:43 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 07:50:31 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 10:42:45 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,4 +282,7 @@ void				ft_soldier_dying(t_render *render, t_enemy *enemy);
 void				ft_engine_collision(t_engine *engine, t_render *render);
 bool				ft_collision_spin_enemy(t_player *player, t_enemy *enemy);
 bool				ft_collision_attack_enemy(t_player *player, t_enemy *enemy);
+void				draw_attack_collision(t_engine *engine, t_render *render);
+void				ft_rect_attack(t_rect *rect, t_player *player);
+void				ft_rect_spin(t_rect *rect, t_player *player);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:31 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 07:36:54 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:44:32 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	ft_map_fill(t_render *render)
 {
 	t_point	point;
 
-	point.y = 0;
+	point.y = -render->camera.y % 64;
 	while (point.y < WINDOW_HEIGHT)
 	{
-		point.x = 0;
+		point.x = -render->camera.x % 64;
 		while (point.x < WINDOW_WIDTH)
 		{
 			ft_map_roof(render, &point);

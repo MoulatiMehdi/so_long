@@ -6,28 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:55:42 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 07:10:42 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:31:08 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-bool	ft_rect_iscollide(t_rect *a, t_rect *b)
-{
-	t_point	pb[2];
-	t_point	pa[2];
-
-	pa[0].x = a->center.x - a->width / 2;
-	pa[0].y = a->center.y - a->height / 2;
-	pa[1].x = a->center.x + a->width / 2;
-	pa[1].y = a->center.y + a->height / 2;
-	pb[0].x = b->center.x - b->width / 2;
-	pb[0].y = b->center.y - b->height / 2;
-	pb[1].x = b->center.x + b->width / 2;
-	pb[1].y = b->center.y + b->height / 2;
-	return (!(pb[0].x > pa[1].x || pb[1].x < pa[0].x || pb[0].y > pa[1].y
-			|| pb[1].y < pa[0].y));
-}
 
 bool	ft_collision_player_coin(t_player *player, t_sprite *sprite,
 		t_coin *coin)
@@ -96,10 +79,7 @@ bool	ft_collision_spin_enemy(t_player *player, t_enemy *enemy)
 		return (false);
 	if (player->state != STATE_SPIN)
 		return (false);
-	p.center.x = player->x + 24;
-	p.center.y = player->y + 40;
-	p.width = 80;
-	p.height = 80;
+	ft_rect_spin(&p, player);
 	c.center.x = enemy->x + enemy->origin_x;
 	c.center.y = enemy->y + enemy->origin_y;
 	c.width = enemy->width;
@@ -120,10 +100,7 @@ bool	ft_collision_attack_enemy(t_player *player, t_enemy *enemy)
 	if (player->state != STATE_ATTACK)
 		return (false);
 	ft_way_init(&att.x, &att.y, player->way);
-	p.center.x = player->x + 24;
-	p.center.y = player->y + 40;
-	p.width = 48 + att.y * 16;
-	p.height = 48 + att.x * 32;
+	ft_rect_attack(&p, player);
 	c.center.x = enemy->x + enemy->origin_x;
 	c.center.y = enemy->y + enemy->origin_y;
 	c.width = enemy->width;
