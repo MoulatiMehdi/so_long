@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:51:23 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 20:51:24 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 07:59:17 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	ft_camera_update(t_render *render, t_engine *engine)
 
 	max.x = engine->map->width * 64 - WINDOW_WIDTH;
 	max.y = engine->map->height * 64 - WINDOW_HEIGHT;
+	if (max.x < 0)
+		max.x = (engine->map->width * 64 - WINDOW_WIDTH) / 2;
+	if (max.y < 0)
+		max.y = (engine->map->height * 64 - WINDOW_HEIGHT) / 2;
 	player = engine->player;
 	camera = &render->camera;
 	camera->x = player->x - WINDOW_WIDTH / 2;

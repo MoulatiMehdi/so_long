@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "player.h"
 #include "so_long.h"
 
 void	ft_player_star_position(t_render *render, t_player *player,

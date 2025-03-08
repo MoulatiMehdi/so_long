@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
 #include "so_long.h"
 
 void	ft_engine_enemy_set(t_engine *engine, t_point *p)
 {
-	int			i;
-	t_point		e;
+	int		i;
+	t_point	e;
 
 	i = 0;
 	while (i < 4)

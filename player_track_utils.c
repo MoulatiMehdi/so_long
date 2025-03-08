@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "player.h"
 #include "so_long.h"
 
 void	ft_player_coor(t_engine *engine, int dx, int dy)

@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
-#include "libft/libft.h"
 #include "so_long.h"
-#include <mlx.h>
 
 void	ft_image_ellipse(t_image *img, t_ellipse *ellipse, t_color color)
 {

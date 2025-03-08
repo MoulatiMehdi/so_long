@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:02:38 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/07 22:22:44 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 06:50:05 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_soldier_dying(t_render *render, t_enemy *enemy)
 	sprite_smoke->x = sprite_smoke->frame_width * (enemy->frame_on_loop
 			/ sprite_smoke->loop);
 	sprite_smoke->y = 0;
-	ft_render_sprite(render, sprite, &p);
+	ft_render_sprite(render, sprite_smoke, &p);
 	enemy->frame_on_loop = (enemy->frame_on_loop + 1) % (sprite->loop * 8);
 	if (enemy->frame_on_loop == 0)
 	{

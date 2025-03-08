@@ -6,13 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:31 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 21:31:52 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 07:36:54 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "wall.h"
-#include <stdbool.h>
 
 void	ft_map_fill(t_render *render)
 {
@@ -61,7 +60,7 @@ void	ft_map_wall(t_render *render, t_map *map)
 
 void	ft_render_map(t_render *render, t_map *map)
 {
-	if (map->width * 64 > WINDOW_WIDTH || map->height * 64 > WINDOW_HEIGHT)
+	if (render->camera.x < 0 || render->camera.y < 0)
 		ft_map_fill(render);
 	ft_map_wall(render, map);
 }

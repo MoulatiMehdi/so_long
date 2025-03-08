@@ -6,14 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 17:50:22 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/05 19:25:54 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 07:59:32 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "so_long.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 t_coin	*ft_coin_new(int x, int y)
 {

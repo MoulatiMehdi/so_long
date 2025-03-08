@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
-#include "player.h"
 #include "so_long.h"
 
 void		ft_render_sprites_init(t_render *render);
@@ -58,6 +56,8 @@ void	ft_render_soldier(t_render *render, t_engine *engine)
 {
 	t_enemy	*enemy;
 
+	if (engine->enemy.is_dead)
+		return ;
 	enemy = &engine->enemy;
 	if (enemy->state == STATE_WALK)
 		ft_soldier_walk(render, enemy);

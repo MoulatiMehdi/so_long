@@ -24,10 +24,10 @@ NAME = so_long
 
 all :  $(LIBFT) $(NAME) 
 
-$(NAME) :  $(OBJS) 
-	$(CC) $(CCFLAGS) $^ -o $@  $(CCLIBS)
+$(NAME) :  $(OBJS) $(DEPS) 
+	$(CC) $(CCFLAGS) $(OBJS) -o $@  $(CCLIBS)
 
-$(DIR_OBJS)/%.o : %.c | $(DIR_OBJS)
+$(DIR_OBJS)/%.o : %.c $(DEPS)| $(DIR_OBJS)
 	$(CC) $(CCFLAGS) $< -o $@ -c  
 
 $(DIR_OBJS) : 

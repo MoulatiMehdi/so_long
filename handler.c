@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "key.h"
-#include "player.h"
 #include "so_long.h"
 
 static void	ft_handler_key_set(int keycode, char keys[256], bool is_pressed)

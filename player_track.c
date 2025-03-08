@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "player.h"
 #include "so_long.h"
 
 static void	ft_player_state(t_player *player, char keys[256])

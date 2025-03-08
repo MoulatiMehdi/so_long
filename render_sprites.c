@@ -6,11 +6,10 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/07 21:57:19 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 07:56:51 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/xpm/"
@@ -106,7 +105,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_STAR_LOADING_V]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
 	sprites[SPRITE_EXIT]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_SOLDIER]->loop = 6 * FRAME_REPETE;
+	sprites[SPRITE_SOLDIER]->loop = 4 * FRAME_REPETE;
 	sprites[SPRITE_SMOKE]->loop = sprites[SPRITE_SOLDIER]->loop;
 	sprites[SPRITE_LINK_HURT]->loop = 2 * FRAME_REPETE;
 }
