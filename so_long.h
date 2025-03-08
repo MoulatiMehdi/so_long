@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:47:43 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 11:54:26 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:34:07 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define KEY_DEBUG_X 528
 # define KEY_DEBUG_Y 544
 # define ERR_SPRITE_MISSING "Error\n\t\033[91m⚠️  Missing Sprite!\033[0m\n"
-# define ERR_ALLOC_FAILED "Error\n\t\033[91m⚠️  Failed to allocate!\033[0m\n"
-# define ERR_MLX_FAILED "Error\n\t\033[91m⚠️  Failed to allocate for MLX!\033[0m\n"
-# define ERR_WINDOW_FAILED "Error\n\t\033[91m⚠️  Failed to allocate for MLX Window!\033[0m\n"
+# define ERR_ALLOC_FAILED "Error\n\t\033[91m⚠️  Malloc Failed!\033[0m\n"
+# define ERR_MLX_FAILED "Error\n\t\033[91m⚠️  MLX Failed!\033[0m\n"
+# define ERR_WINDOW_FAILED "Error\n\t\033[91m⚠️  MLX Window Failed!\033[0m\n"
 
 # include "color.h"
 # include "image.h"

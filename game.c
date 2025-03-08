@@ -6,10 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:52:16 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/06 21:15:48 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:24:56 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "player.h"
 #include "so_long.h"
 
 int			ft_handler_key_press(int keycode, t_animation *animation);
@@ -44,7 +45,7 @@ int	ft_game_destroy(t_animation *game)
 	mlx_do_key_autorepeaton(game->render->mlx);
 	ft_engine_destroy(&game->engine);
 	ft_render_clear(&game->render);
-	exit(1);
+	exit(0);
 	return (0);
 }
 
@@ -61,6 +62,8 @@ int	ft_game_update(t_animation *animation)
 		ft_engine_update(animation);
 	ft_render_update(animation);
 	ft_render_display(render);
+	if (animation->exit)
+		ft_game_destroy(animation);
 	return (0);
 }
 
