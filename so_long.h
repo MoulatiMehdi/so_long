@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:47:43 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 12:34:07 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 13:49:09 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,29 +191,46 @@ typedef struct s_animation
 	bool			exit;
 }					t_animation;
 
-void				ft_player_destroy(t_player **player);
-void				ft_engine_destroy(t_engine **engine);
-
 t_engine			*ft_engine_new(void);
-t_render			*ft_render_new(void);
+void				ft_engine_destroy(t_engine **engine);
+void				ft_engine_collision(t_engine *engine, t_render *render);
+void				ft_engine_player_update(t_engine *engine);
 
+t_render			*ft_render_new(void);
 void				ft_render_player(t_engine *engine, t_render *render);
 void				ft_render_keys(t_render *render, t_engine *engine);
+void				ft_render_display(t_render *render);
+void				ft_render_sprite(t_render *render, t_sprite *sprite,
+						t_point *point);
+void				ft_render_hearts_counter(t_render *render,
+						t_engine *engine);
+void				ft_render_moves_counter(t_render *render, int moves);
+void				ft_render_coins_counter(t_render *render, t_engine *engine);
+void				ft_number_render(t_render *render, t_point *point, int nbr,
+						int digits);
+void				ft_render_clear(t_render **render);
+void				ft_render_map(t_render *render, t_map *map);
+void				ft_render_exit(t_exit *door, t_render *render);
+void				ft_render_update(t_animation *animation);
+void				ft_render_coins(t_render *render, t_engine *engine);
+
+t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
+						t_sprite_idx type);
+t_sprite			*ft_sprite_new(void *mlx, char *path, unsigned int col,
+						unsigned int row);
 void				ft_sprite_toimage(t_image *dst, t_sprite *sprite,
 						t_point *o_dest);
+
 void				ft_image_grid(t_image *image, int stepx, int stepy,
 						t_color color);
 void				ft_image_ellipse(t_image *image, t_ellipse *ellipse,
 						t_color color);
 
-t_sprite			*ft_sprite_new(void *mlx, char *path, unsigned int col,
-						unsigned int row);
-
-void				ft_render_display(t_render *render);
-void				ft_render_sprite(t_render *render, t_sprite *sprite,
-						t_point *point);
 void				ft_player_state_set(t_player *player, t_state state);
-
+void				ft_player_destroy(t_player **player);
+void				ft_player_hurt(t_player *player, t_render *render);
+void				ft_player_coor(t_engine *engine, int dx, int dy);
+bool				ft_player_state_attack(t_player *player, bool is_attack);
 void				ft_player_idle(t_player *player, t_render *render);
 void				ft_player_walking(t_player *player, t_render *render);
 void				ft_player_spinning(t_player *player, t_render *render);
@@ -221,43 +238,25 @@ void				ft_player_attack(t_player *player, t_render *render);
 void				ft_player_loading(t_player *player, t_render *render);
 void				ft_player_dying(t_player *player, t_render *render);
 void				ft_player_victory(t_player *player, t_render *render);
-
-void				ft_render_hearts_counter(t_render *render,
-						t_engine *engine);
-void				ft_render_moves_counter(t_render *render, int moves);
-void				ft_render_coins_counter(t_render *render, t_engine *engine);
-void				ft_number_render(t_render *render, t_point *point, int nbr,
-						int digits);
 void				ft_player_star(t_player *player, t_render *render);
-void				ft_render_clear(t_render **render);
-t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
-						t_sprite_idx type);
-void				ft_render_map(t_render *render, t_map *map);
+
 t_map				*ft_map_new(char **array);
-bool				is_valid_point(t_map *map, t_point *point);
-void				ft_wall_parse(t_map *map);
 void				ft_map_grid(t_map *map, t_point *point);
 void				ft_map_destroy(t_map **map);
-void				ft_engine_player_update(t_engine *engine);
+
+bool				is_valid_point(t_map *map, t_point *point);
+void				ft_wall_parse(t_map *map);
+
 bool				ft_camera_is_inview(t_point *camera, t_point *p);
 void				ft_camera_player_center(t_render *render, t_player *player,
 						t_point *point);
-void				ft_render_coins(t_render *render, t_engine *engine);
-t_coin				*ft_coin_new(int x, int y);
-void				ft_engine_coins_update(t_animation *animation);
-void				ft_render_exit(t_exit *door, t_render *render);
-bool				ft_rect_iscollide(t_rect *a, t_rect *b);
-bool				ft_collision_player_coin(t_player *player, t_sprite *sprite,
-						t_coin *coin);
 
-bool				ft_collision_player_door(t_player *player, t_sprite *sprite,
-						t_exit *door);
-bool				ft_collision_player_wall(t_player *player, t_map *map,
-						int dx, int dy);
+t_coin				*ft_coin_new(int x, int y);
+
 void				ft_camera_update(t_render *render, t_engine *engine);
 void				ft_engine_update(t_animation *animation);
-void				ft_render_update(t_animation *animation);
 void				engine_parse(t_engine *engine);
+void				ft_engine_coins_update(t_animation *animation);
 void				ft_sprite_destroy(t_sprite **sprite);
 void				ft_sprites_clear(t_sprite ***sprites);
 
@@ -265,28 +264,35 @@ void				ft_game_start(t_animation *game);
 t_animation			*ft_game_new(char **map);
 int					ft_game_destroy(t_animation *game);
 
-void				draw_door_collision(t_engine *engine, t_render *render);
-void				draw_player_collision(t_render *render, t_player *player);
-void				draw_coin_collision(t_render *render, t_point p);
+/*void				draw_door_collision(t_engine *engine, t_render *render);*/
+/*void				draw_player_collision(t_render *render, t_player *player);*/
+/*void				draw_coin_collision(t_render *render, t_point p);*/
+/*void				draw_enemy_collision(t_render *render, t_enemy *enemy);*/
+/*void				draw_spin_collision(t_engine *engine, t_render *render);*/
+/*void				draw_attack_collision(t_engine *engine, t_render *render);*/
+
 void				ft_enemy_init(t_enemy *enemy);
 
 void				ft_soldier_look(t_render *render, t_enemy *enemy);
 void				ft_soldier_walk(t_render *render, t_enemy *enemy);
-bool				ft_collision_enemy_wall(t_enemy *enemy, t_map *map, int dx,
-						int dy);
-void				draw_enemy_collision(t_render *render, t_enemy *enemy);
 void				ft_soldier_state_set(t_enemy *enemy, t_state state);
-void				ft_way_init(int *dx, int *dy, t_way way);
-bool				ft_collision_player_enemy(t_player *player, t_enemy *enemy);
-void				ft_player_hurt(t_player *player, t_render *render);
-void				ft_player_coor(t_engine *engine, int dx, int dy);
-bool				ft_player_state_attack(t_player *player, bool is_attack);
-void				draw_spin_collision(t_engine *engine, t_render *render);
 void				ft_soldier_dying(t_render *render, t_enemy *enemy);
-void				ft_engine_collision(t_engine *engine, t_render *render);
+
+void				ft_way_init(int *dx, int *dy, t_way way);
+
+bool				ft_collision_player_enemy(t_player *player, t_enemy *enemy);
 bool				ft_collision_spin_enemy(t_player *player, t_enemy *enemy);
 bool				ft_collision_attack_enemy(t_player *player, t_enemy *enemy);
-void				draw_attack_collision(t_engine *engine, t_render *render);
+bool				ft_collision_player_coin(t_player *player, t_sprite *sprite,
+						t_coin *coin);
+bool				ft_collision_player_door(t_player *player, t_sprite *sprite,
+						t_exit *door);
+bool				ft_collision_player_wall(t_player *player, t_map *map,
+						int dx, int dy);
+bool				ft_collision_enemy_wall(t_enemy *enemy, t_map *map, int dx,
+						int dy);
+
 void				ft_rect_attack(t_rect *rect, t_player *player);
 void				ft_rect_spin(t_rect *rect, t_player *player);
+bool				ft_rect_iscollide(t_rect *a, t_rect *b);
 #endif

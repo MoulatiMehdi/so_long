@@ -28,10 +28,9 @@ void	ft_render_coins(t_render *render, t_engine *engine)
 		coin = head->content;
 		point.x = coin->x;
 		point.y = coin->y;
+		sprite->y = sprite->frame_height * (coin->type % sprite->row);
 		if (ft_camera_is_inview(&render->camera, &point))
 		{
-			sprite->y = sprite->frame_height * (coin->type % sprite->row);
-			draw_coin_collision(render, point);
 			point.x -= render->camera.x;
 			point.y -= render->camera.y;
 			ft_render_sprite(render, sprite, &point);

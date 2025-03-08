@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:13:32 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 11:32:02 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 13:35:23 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ bool	ft_rect_iscollide(t_rect *a, t_rect *b)
 void	ft_rect_attack(t_rect *rect, t_player *player)
 {
 	rect->width = 48;
-	rect->height = 64;
+	rect->height = 48;
 	if (player->way == WAY_DOWN)
 	{
 		rect->center.x = player->x + 26;
-		rect->center.y = player->y + 76;
-		rect->width = 68;
+		rect->center.y = player->y + 80;
+		rect->width = 48;
 		rect->height = 48;
 	}
 	else if (player->way == WAY_UP)
 	{
 		rect->center.x = player->x + 26;
 		rect->center.y = player->y;
-		rect->width = 64;
+		rect->width = 48;
 		rect->height = 48;
 	}
 	else if (player->way == WAY_LEFT)
@@ -53,7 +53,7 @@ void	ft_rect_attack(t_rect *rect, t_player *player)
 	else if (player->way == WAY_RIGHT)
 		rect->center.x = player->x + 64;
 	if (player->way == WAY_LEFT || player->way == WAY_RIGHT)
-		rect->center.y = player->y + 48;
+		rect->center.y = player->y + 36;
 }
 
 void	ft_rect_spin(t_rect *rect, t_player *player)

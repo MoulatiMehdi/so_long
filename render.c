@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 12:12:36 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 13:49:31 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,4 @@ void	ft_render_update(t_animation *animation)
 	ft_render_coins_counter(render, engine);
 	ft_render_moves_counter(render, engine->player->moves);
 	ft_render_keys(render, engine);
-	draw_enemy_collision(render, &engine->enemy);
-	draw_player_collision(render, engine->player);
-	draw_door_collision(engine, render);
-	draw_spin_collision(engine, render);
-	draw_attack_collision(engine, render);
 }
