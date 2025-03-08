@@ -6,10 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:17 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 06:53:21 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:56:26 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "so_long.h"
 
 void	ft_engine_init(t_engine *engine)
@@ -28,11 +29,14 @@ t_engine	*ft_engine_new(void)
 	t_engine	*engine;
 
 	engine = ft_calloc(sizeof(t_engine), 1);
+	if (engine)
+	{
+		ft_engine_init(engine);
+		if (engine->player == NULL)
+			ft_engine_destroy(&engine);
+	}
 	if (engine == NULL)
-		return (NULL);
-	ft_engine_init(engine);
-	if (engine->player == NULL)
-		ft_engine_destroy(&engine);
+		ft_putstr_fd(ERR_ALLOC_FAILED, 2);
 	return (engine);
 }
 

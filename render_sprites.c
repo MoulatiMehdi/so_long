@@ -6,13 +6,13 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 11:34:09 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:16:34 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#define SPRITE_SRC "./textures/xpm/"
+#define SPRITE_SRC "./textures/"
 #define FRAME_REPETE 1
 
 static void	ft_render_sprites_player(t_render *render)
@@ -126,7 +126,10 @@ void	ft_render_sprites_init(t_render *render)
 	while (i < SPRITE_TOTAL)
 	{
 		if (!render->sprites[i])
+		{
+			ft_putstr_fd(ERR_SPRITE_MISSING, 2);
 			return (ft_sprites_clear(&render->sprites));
+		}
 		i++;
 	}
 	ft_render_sprites_loop(render);

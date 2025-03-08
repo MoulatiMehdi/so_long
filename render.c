@@ -6,13 +6,33 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:44 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 11:00:31 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:12:36 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 void		ft_render_sprites_init(t_render *render);
+
+void	ft_render_window_init(t_render **render)
+{
+	(*render)->mlx = mlx_init();
+	if ((*render)->mlx == NULL)
+	{
+		ft_putstr_fd(ERR_MLX_FAILED, 2);
+		ft_render_clear(&(*render));
+		return ;
+	}
+	(*render)->window = mlx_new_window((*render)->mlx, WINDOW_WIDTH,
+			WINDOW_HEIGHT, WINDOW_TITLE);
+	if ((*render)->window == NULL)
+	{
+		ft_putstr_fd(ERR_WINDOW_FAILED, 2);
+		ft_render_clear(render);
+		return ;
+	}
+	(*render)->stop = false;
+}
 
 t_render	*ft_render_new(void)
 {
@@ -21,14 +41,14 @@ t_render	*ft_render_new(void)
 	render = ft_calloc(sizeof(t_render), 1);
 	if (render == NULL)
 		return (NULL);
-	render->mlx = mlx_init();
-	render->window = mlx_new_window(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT,
-			WINDOW_TITLE);
-	render->stop = false;
+	ft_render_window_init(&render);
+	if (!render)
+		return (NULL);
 	render->back = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	render->front = ft_image_new(render->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (render->back == NULL || render->front == NULL)
 	{
+		ft_putstr_fd(ERR_ALLOC_FAILED, 2);
 		ft_render_clear(&render);
 		return (NULL);
 	}
@@ -45,9 +65,13 @@ void	ft_render_clear(t_render **render)
 	ft_image_clear(&(*render)->back);
 	ft_image_clear(&(*render)->front);
 	ft_sprites_clear(&(*render)->sprites);
-	mlx_destroy_window((*render)->mlx, (*render)->window);
-	mlx_destroy_display((*render)->mlx);
-	free((*render)->mlx);
+	if ((*render)->window)
+		mlx_destroy_window((*render)->mlx, (*render)->window);
+	if ((*render)->mlx)
+	{
+		mlx_destroy_display((*render)->mlx);
+		free((*render)->mlx);
+	}
 	free(*render);
 	*render = NULL;
 }
