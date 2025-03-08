@@ -6,10 +6,11 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:52:16 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 12:24:56 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/08 14:07:30 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "player.h"
 #include "so_long.h"
 
@@ -22,7 +23,10 @@ t_animation	*ft_game_new(char **map)
 
 	game = ft_calloc(sizeof(t_animation), 1);
 	if (game == NULL)
+	{
+		ft_putstr_fd(ERR_ALLOC_FAILED, 2);
 		return (NULL);
+	}
 	game->render = ft_render_new();
 	game->engine = ft_engine_new();
 	game->exit = false;
