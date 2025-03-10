@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 13:17:10 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/04 23:15:12 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:34:55 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int					ft_atoi(const char *str);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t				ft_stridx(char *str, char c);
 
 long				ft_max(long a, long b);
 long				ft_min(long a, long b);
