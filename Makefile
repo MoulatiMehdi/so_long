@@ -4,7 +4,7 @@ RM = rm
 AR = ar
 
 # flags 
-CCDEBUG = -g -fsanitize=address
+CCDEBUG = -g #-fsanitize=address
 CCFLAGS = -Wall -Wextra $(CCDEBUG) 
 RMFLAGS = -rf 
 ARFLAGS = -crs
@@ -25,7 +25,7 @@ $(LIBFT) :
 	make -C libft --no-print-directory
 
 %.o : %.c
-	$(CC) $(CCFLAGS) $< -o $@ -c 
+	$(CC) $(CCFLAGS) $< -o $@ -c  
 
 clean : 
 	$(RM) $(RMFLAGS) $(OBJS)

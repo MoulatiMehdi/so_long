@@ -5,109 +5,82 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 20:29:51 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 16:47:16 by mmoulati         ###   ########.fr       */
+/*   Created: 2025/03/10 13:25:33 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/10 16:09:52 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "so_long.h"
-#include <stdbool.h>
+#include <fcntl.h>
 #include <stdio.h>
 
-static t_map_state	ft_file_isvalid(char *filename)
-{
-	size_t	size;
+#define ERR_MSG "ERROR\n"
 
-	if (filename == NULL)
-		return (ERR_FILENAME_INVALID);
-	size = ft_strlen(filename);
-	if (size < 5)
-		return (ERR_FILENAME_INVALID);
-	if (ft_strncmp(&filename[size - 4], ".ber", 4) != 0)
-		return (ERR_FILENAME_INVALID);
-	return (OK);
+static void	ft_map_data_init(t_map *map, t_list *head)
+{
+	int		i;
+	t_list	*p;
+	size_t	len;
+
+	map->data = ft_calloc(map->height + 1, sizeof(char *));
+	if (map->data == NULL)
+		return ;
+	i = map->height;
+	map->data[i--] = NULL;
+	while (head)
+	{
+		map->data[i] = head->content;
+		len = ft_strlen(head->content);
+		if (map->data[i][len - 1] == '\n')
+			map->data[i][len - 1] = '\0';
+		p = head;
+		head = head->next;
+		free(p);
+		i--;
+	}
+	map->width = ft_strlen(map->data[0]);
 }
 
-static int	ft_file_open(char *filename)
+static void	ft_map_read(t_map *map, int fd)
 {
-	int			fd;
-	t_map_state	state;
+	char	*str;
+	t_list	*head;
+	t_list	*new_elem;
 
-	state = ft_file_isvalid(filename);
-	if (filename == NULL || state != OK)
-		ft_map_error(NULL, state);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	head = NULL;
+	while (1)
 	{
-		ft_error(filename);
-		exit(1);
+		str = get_next_line(fd);
+		if (str == NULL)
+			break ;
+		new_elem = ft_lstnew(str);
+		if (new_elem == NULL)
+		{
+			free(str);
+			return (ft_lstclear(&head, free));
+		}
+		ft_lstadd_front(&head, new_elem);
+		map->height++;
 	}
-	return (fd);
-}
-
-static size_t	ft_count_nl(char *str, ssize_t bytes)
-{
-	ssize_t	j;
-	ssize_t	count;
-
-	j = 0;
-	count = 0;
-	while (j < bytes)
-	{
-		if (str[j] == '\n')
-			count++;
-		j++;
-	}
-	return (count);
-}
-
-static size_t	ft_count_height(char *file)
-{
-	int		fd;
-	char	line[1024];
-	size_t	count;
-	ssize_t	bytes;
-
-	fd = ft_file_open(file);
-	count = 0;
-	bytes = 1;
-	while (bytes > 0)
-	{
-		bytes = read(fd, line, 1024);
-		if (bytes < 0)
-			ft_perror(file);
-		count += ft_count_nl(line, bytes);
-	}
-	close(fd);
-	return (count);
+	ft_map_data_init(map, head);
 }
 
 t_map	*ft_map_new(char *filename)
 {
-	int		fd;
-	int		i;
 	t_map	*map;
-	int		len;
+	int		fd;
 
-	map = ft_calloc(sizeof(t_map), 1);
-	if (map == NULL)
-		return (NULL);
-	i = 0;
-	fd = ft_file_open(filename);
-	map->height = ft_count_height(filename);
-	map->data = malloc(sizeof(char *) * (map->height + 1));
-	while (i < map->height)
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 	{
-		map->data[i] = get_next_line(fd);
-		if (!map->data[i])
-			break ;
-		len = ft_strlen(map->data[i]);
-		if (map->data[i][0] != '\0' && map->data[i][len - 1] == '\n')
-			map->data[i][len - 1] = '\0';
-		i++;
+		ft_perror(filename);
+		return (NULL);
 	}
-	map->data[i] = NULL;
+	map = ft_calloc(sizeof(t_map), 1);
+	if (map)
+		ft_map_read(map, fd);
+	close(fd);
 	return (map);
 }
 

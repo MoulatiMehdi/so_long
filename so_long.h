@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:07:55 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 16:39:05 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:38:47 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 
 # define CHAR_PLAYER 'P'
@@ -56,15 +57,13 @@ typedef enum e_map_state
 	ERR_FILENAME_INVALID,
 }			t_map_state;
 
-void		ft_error(char *str1);
-void		ft_perror(char *str1);
+void		ft_error(char *str);
+void		ft_perror(char *str);
 
 t_map		*ft_map_new(char *filename);
-
-t_map_state	ft_map_valid(t_map *map);
-void		ft_map_error(t_map **map, t_map_state state);
-void		ft_map_print(t_map *map);
 void		ft_map_destroy(t_map **map);
-bool		ft_check_solvable(t_map *map);
-t_map_state	ft_check_row(t_map *map);
+t_map_state	ft_map_state(t_map *map);
+void		ft_map_error(t_map **map, t_map_state state);
+
+void		ft_map_print(t_map *map);
 #endif
