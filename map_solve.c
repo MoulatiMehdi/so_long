@@ -6,31 +6,15 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:15:27 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/10 22:04:07 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:43:56 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "so_long.h"
 
-t_point	*ft_point_new(int x, int y)
-{
-	t_point	*p;
-
-	p = ft_calloc(sizeof(t_point), 1);
-	p->x = x;
-	p->y = y;
-	return (p);
-}
-
-bool	ft_point_isvalid(t_map *map, t_point *p)
-{
-	return (p->x >= 0 && p->y >= 0 && p->y < map->height && p->x < map->width);
-}
-
 static void	ft_map_eliminate(t_map *map, int x, int y)
 {
-	int		idx;
 	t_list	*head;
 	t_list	*p;
 	t_point	*point;
@@ -47,8 +31,8 @@ static void	ft_map_eliminate(t_map *map, int x, int y)
 		if (ft_point_isvalid(map, point) && ft_strchr(CHARS_CHAGE,
 				map->data[y][x]) == NULL)
 		{
-			idx = ft_stridx(CHARS_VALID, map->data[y][x]);
-			map->data[y][x] = CHARS_CHAGE[idx];
+			map->data[y][x] = CHARS_CHAGE[ft_stridx(CHARS_VALID,
+					map->data[y][x])];
 			ft_lstadd_front(&head, ft_lstnew(ft_point_new(x - 1, y)));
 			ft_lstadd_front(&head, ft_lstnew(ft_point_new(x + 1, y)));
 			ft_lstadd_front(&head, ft_lstnew(ft_point_new(x, y - 1)));

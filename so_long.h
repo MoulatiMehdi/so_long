@@ -288,4 +288,6 @@ bool				ft_collision_enemy_wall(t_enemy *enemy, t_map *map, int dx,
 void				ft_rect_attack(t_rect *rect, t_player *player);
 void				ft_rect_spin(t_rect *rect, t_player *player);
 bool				ft_rect_iscollide(t_rect *a, t_rect *b);
+t_point				*ft_point_new(int x, int y);
+bool				ft_point_isvalid(t_map *map, t_point *p);
 #endif
