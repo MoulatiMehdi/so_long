@@ -5,32 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 17:30:39 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/11 16:40:36 by mmoulati         ###   ########.fr       */
+/*   Created: 2025/03/03 17:32:25 by mmoulati          #+#    #+#             */
+/*   Updated: 2025/03/11 17:11:18 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
-
-void	ft_map_print(t_map *map)
-{
-	int	i;
-
-	if (!map)
-	{
-		printf("Map NULL\n");
-		return ;
-	}
-	printf("\n");
-	i = 0;
-	while (i < map->height)
-	{
-		printf("%s\n", map->data[i]);
-		i++;
-	}
-	printf("\n");
-}
 
 static bool	ft_map_isvalid_extension(char *filename)
 {
@@ -46,6 +26,7 @@ int	main(int argc, char *argv[])
 {
 	t_map		*map;
 	t_map_state	state;
+	t_animation	*game;
 
 	if (argc != 2)
 		return (1);
@@ -55,7 +36,6 @@ int	main(int argc, char *argv[])
 	state = ft_map_state(map);
 	if (state != OK)
 		ft_map_error(&map, state);
-	ft_map_print(map);
-	ft_map_destroy(&map);
-	return (EXIT_SUCCESS);
+	game = ft_game_new(map);
+	ft_game_start(game);
 }

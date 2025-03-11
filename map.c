@@ -6,14 +6,12 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 13:25:33 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/11 16:33:19 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:06:52 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "so_long.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 #define ERR_MSG "ERROR\n"
 
@@ -73,13 +71,12 @@ t_map	*ft_map_new(char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
 		ft_perror(filename);
-		return (NULL);
-	}
 	map = ft_calloc(sizeof(t_map), 1);
 	if (map)
 		ft_map_read(map, fd);
+	else
+		ft_perror("malloc");
 	close(fd);
 	return (map);
 }

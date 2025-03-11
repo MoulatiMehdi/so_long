@@ -20,6 +20,7 @@ void	ft_perror(char *str)
 {
 	ft_putstr_fd(ERR_MSG, 2);
 	perror(str);
+	exit(1);
 }
 
 void	ft_map_error(t_map **map, t_map_state state)
