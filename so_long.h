@@ -254,7 +254,7 @@ void				ft_sprite_destroy(t_sprite **sprite);
 void				ft_sprites_clear(t_sprite ***sprites);
 
 void				ft_game_start(t_game *game);
-t_game			*ft_game_new(t_map *map);
+t_game				*ft_game_new(t_map *map);
 int					ft_game_destroy(t_game *game);
 
 /*void				draw_door_collision(t_engine *engine, t_render *render);*/
