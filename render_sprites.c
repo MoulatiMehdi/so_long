@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 21:27:34 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/11 17:31:11 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/12 07:59:14 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	ft_render_sprites_tiles(t_render *render)
 	sprites[SPRITE_RUPEE] = ft_sprite_new(mlx, SPRITE_SRC "rupee.xpm", 10, 3);
 	sprites[SPRITE_SOLDIER] = ft_sprite_new(mlx, SPRITE_SRC "soldier.xpm", 6,
 			4);
-	sprites[SPRITE_SMOKE] = ft_sprite_new(mlx, SPRITE_SRC "smoke.xpm", 3, 1);
+	sprites[SPRITE_SMOKE] = ft_sprite_new(mlx, SPRITE_SRC "smoke.xpm", 7, 1);
 	sprites[SPRITE_EXIT] = ft_sprite_new(mlx, SPRITE_SRC "exit.xpm", 4, 2);
 }
 
@@ -106,7 +106,7 @@ static void	ft_render_sprites_loop(t_render *render)
 	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
 	sprites[SPRITE_EXIT]->loop = 3 * FRAME_REPETE;
 	sprites[SPRITE_SOLDIER]->loop = 4 * FRAME_REPETE;
-	sprites[SPRITE_SMOKE]->loop = 6 * FRAME_REPETE;
+	sprites[SPRITE_SMOKE]->loop = 3 * FRAME_REPETE;
 	sprites[SPRITE_LINK_HURT]->loop = 4 * FRAME_REPETE;
 }
 
