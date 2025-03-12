@@ -26,13 +26,13 @@ static void	ft_handler_key_set(int keycode, char keys[256], bool is_pressed)
 		keys[KEY_S] = is_pressed;
 }
 
-int	ft_handler_key_press(int keycode, t_animation *animation)
+int	ft_handler_key_press(int keycode, t_game *game)
 {
 	t_engine	*engine;
 
-	engine = animation->engine;
+	engine = game->engine;
 	if (keycode == KEY_ESC)
-		ft_game_destroy(animation);
+		ft_game_destroy(game);
 	if (keycode == KEY_X && (engine->player->state == STATE_LOADING
 			|| engine->player->state == STATE_ATTACK))
 	{

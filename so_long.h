@@ -178,12 +178,12 @@ typedef struct s_engine
 	unsigned int	coins_total;
 }					t_engine;
 
-typedef struct s_animation
+typedef struct s_game
 {
 	t_engine		*engine;
 	t_render		*render;
 	bool			exit;
-}					t_animation;
+}					t_game;
 
 t_engine			*ft_engine_new(void);
 void				ft_engine_destroy(t_engine **engine);
@@ -205,7 +205,7 @@ void				ft_number_render(t_render *render, t_point *point, int nbr,
 void				ft_render_clear(t_render **render);
 void				ft_render_map(t_render *render, t_map *map);
 void				ft_render_exit(t_exit *door, t_render *render);
-void				ft_render_update(t_animation *animation);
+void				ft_render_update(t_game *game);
 void				ft_render_coins(t_render *render, t_engine *engine);
 
 t_sprite			*ft_sprite_coor_way(t_player *player, t_render *render,
@@ -247,15 +247,15 @@ void				ft_camera_player_center(t_render *render, t_player *player,
 t_coin				*ft_coin_new(int x, int y);
 
 void				ft_camera_update(t_render *render, t_engine *engine);
-void				ft_engine_update(t_animation *animation);
+void				ft_engine_update(t_game *game);
 void				engine_parse(t_engine *engine);
-void				ft_engine_coins_update(t_animation *animation);
+void				ft_engine_coins_update(t_game *game);
 void				ft_sprite_destroy(t_sprite **sprite);
 void				ft_sprites_clear(t_sprite ***sprites);
 
-void				ft_game_start(t_animation *game);
-t_animation			*ft_game_new(t_map *map);
-int					ft_game_destroy(t_animation *game);
+void				ft_game_start(t_game *game);
+t_game			*ft_game_new(t_map *map);
+int					ft_game_destroy(t_game *game);
 
 /*void				draw_door_collision(t_engine *engine, t_render *render);*/
 /*void				draw_player_collision(t_render *render, t_player *player);*/

@@ -74,19 +74,19 @@ void	ft_engine_solider_update(t_engine *engine)
 		enemy->way = (enemy->way + 1) % WAY_TOTAL;
 }
 
-void	ft_engine_update(t_animation *animation)
+void	ft_engine_update(t_game *game)
 {
 	t_engine	*engine;
 	t_render	*render;
 	t_point		d;
 
-	engine = animation->engine;
-	render = animation->render;
+	engine = game->engine;
+	render = game->render;
 	ft_engine_player_update(engine);
 	ft_engine_solider_update(engine);
 	ft_camera_update(render, engine);
-	ft_engine_coins_update(animation);
-	ft_engine_collision(animation->engine, animation->render);
+	ft_engine_coins_update(game);
+	ft_engine_collision(game->engine, game->render);
 	if (engine->player->state == STATE_HURT)
 	{
 		ft_way_init(&d.x, &d.y, engine->player->way);

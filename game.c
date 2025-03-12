@@ -14,14 +14,14 @@
 #include "player.h"
 #include "so_long.h"
 
-int			ft_handler_key_press(int keycode, t_animation *animation);
+int			ft_handler_key_press(int keycode, t_game *game);
 int			ft_handler_key_release(int keycode, t_engine *engine);
 
-t_animation	*ft_game_new(t_map *map)
+t_game	*ft_game_new(t_map *map)
 {
-	t_animation	*game;
+	t_game	*game;
 
-	game = ft_calloc(sizeof(t_animation), 1);
+	game = ft_calloc(sizeof(t_game), 1);
 	if (game == NULL)
 	{
 		ft_putstr_fd(ERR_ALLOC_FAILED, 2);
@@ -44,7 +44,7 @@ t_animation	*ft_game_new(t_map *map)
 	return (game);
 }
 
-int	ft_game_destroy(t_animation *game)
+int	ft_game_destroy(t_game *game)
 {
 	mlx_do_key_autorepeaton(game->render->mlx);
 	ft_engine_destroy(&game->engine);
@@ -53,25 +53,25 @@ int	ft_game_destroy(t_animation *game)
 	return (0);
 }
 
-int	ft_game_update(t_animation *animation)
+int	ft_game_update(t_game *game)
 {
 	t_engine	*engine;
 	t_render	*render;
 
-	engine = animation->engine;
-	render = animation->render;
+	engine = game->engine;
+	render = game->render;
 	if (render->stop)
 		return (0);
 	if (!engine->paused)
-		ft_engine_update(animation);
-	ft_render_update(animation);
+		ft_engine_update(game);
+	ft_render_update(game);
 	ft_render_display(render);
-	if (animation->exit)
-		ft_game_destroy(animation);
+	if (game->exit)
+		ft_game_destroy(game);
 	return (0);
 }
 
-void	ft_game_start(t_animation *game)
+void	ft_game_start(t_game *game)
 {
 	t_engine	*engine;
 	t_render	*render;

@@ -92,13 +92,13 @@ void	ft_render_soldier(t_render *render, t_engine *engine)
 		ft_soldier_dying(render, enemy);
 }
 
-void	ft_render_update(t_animation *animation)
+void	ft_render_update(t_game *game)
 {
 	t_render	*render;
 	t_engine	*engine;
 
-	render = animation->render;
-	engine = animation->engine;
+	render = game->render;
+	engine = game->engine;
 	ft_render_map(render, engine->map);
 	ft_render_exit(&engine->exit, render);
 	if (engine->player->state != STATE_DYING

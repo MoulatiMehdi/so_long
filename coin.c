@@ -25,15 +25,15 @@ t_coin	*ft_coin_new(int x, int y)
 	return (coin);
 }
 
-void	ft_engine_coins_update(t_animation *animation)
+void	ft_engine_coins_update(t_game *game)
 {
 	t_list		*lst;
 	t_coin		*coin;
 	t_sprite	*sprite;
 	t_engine	*engine;
 
-	engine = animation->engine;
-	sprite = animation->render->sprites[SPRITE_RUPEE];
+	engine = game->engine;
+	sprite = game->render->sprites[SPRITE_RUPEE];
 	lst = engine->coins;
 	while (lst)
 	{
