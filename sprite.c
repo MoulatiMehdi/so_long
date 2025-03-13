@@ -6,7 +6,7 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:32:45 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:45 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:10:03 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_sprites_clear(t_sprite ***sprites)
 	if (!*sprites)
 		return ;
 	i = 0;
-	while ((*sprites)[i])
+	while (i < SPRITE_TOTAL)
 	{
 		ft_sprite_destroy(&(*sprites)[i]);
 		i++;

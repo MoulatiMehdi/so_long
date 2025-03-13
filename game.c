@@ -6,16 +6,17 @@
 /*   By: mmoulati <mmoulati@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:52:16 by mmoulati          #+#    #+#             */
-/*   Updated: 2025/03/08 14:07:30 by mmoulati         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:14:34 by mmoulati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "map.h"
 #include "player.h"
 #include "so_long.h"
 
-int			ft_handler_key_press(int keycode, t_game *game);
-int			ft_handler_key_release(int keycode, t_engine *engine);
+int		ft_handler_key_press(int keycode, t_game *game);
+int		ft_handler_key_release(int keycode, t_engine *engine);
 
 t_game	*ft_game_new(t_map *map)
 {
@@ -34,6 +35,7 @@ t_game	*ft_game_new(t_map *map)
 	{
 		ft_render_clear(&game->render);
 		ft_engine_destroy(&game->engine);
+		ft_map_destroy(&map);
 		free(game);
 		return (NULL);
 	}
