@@ -13,15 +13,19 @@
 #ifndef SO_LONG_H
 
 # define SO_LONG_H
+
+#define RENDER_FPS 30
 # define KEYS_TOTAL 256
 # define WINDOW_HEIGHT 576
 # define WINDOW_WIDTH 704
 # define WINDOW_TITLE "The Legend Of Zelda"
 # define PLAYER_HEARTS_TOTAL 10
 # define PLAYER_STATUS_X 208
+
 # define KEY_TRACK "dwascx"
 # define KEY_DEBUG_X 528
 # define KEY_DEBUG_Y 544
+
 # define ERR_SPRITE_MISSING "Error\n\t\033[91m⚠️  Missing Sprite!\033[0m\n"
 # define ERR_ALLOC_FAILED "Error\n\t\033[91m⚠️  Malloc Failed!\033[0m\n"
 # define ERR_MLX_FAILED "Error\n\t\033[91m⚠️  MLX Failed!\033[0m\n"
@@ -290,4 +294,5 @@ void				ft_rect_spin(t_rect *rect, t_player *player);
 bool				ft_rect_iscollide(t_rect *a, t_rect *b);
 t_point				*ft_point_new(int x, int y);
 bool				ft_point_isvalid(t_map *map, t_point *p);
+long	ft_timeval_ms(struct timeval *time);
 #endif

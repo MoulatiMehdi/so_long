@@ -13,7 +13,7 @@
 #include "so_long.h"
 
 #define SPRITE_SRC "./textures/"
-#define FRAME_REPETE 3
+#define FRAME_REPETE 1
 
 static void	ft_render_sprites_player(t_render *render)
 {
@@ -92,22 +92,22 @@ static void	ft_render_sprites_loop(t_render *render)
 
 	sprites = render->sprites;
 	sprites[SPRITE_LINK_SPIN]->loop = 1 * FRAME_REPETE;
-	sprites[SPRITE_LINK_LOADING]->loop = 3 * FRAME_REPETE;
+	sprites[SPRITE_LINK_LOADING]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_LINK_ATTACKING]->loop = 1 * FRAME_REPETE;
-	sprites[SPRITE_LINK_DYING]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_LINK_VICTORY]->loop = 2 * FRAME_REPETE;
-	sprites[SPRITE_LINK_WALKING]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_LINK_DYING]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_VICTORY]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_WALKING]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_LINK_HURT]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_RUPEE]->loop = 2 * FRAME_REPETE;
+	sprites[SPRITE_EXIT]->loop = 1 * FRAME_REPETE;
+	sprites[SPRITE_SOLDIER]->loop = 1 * FRAME_REPETE;
 	sprites[SPRITE_SWORD_SPIN]->loop = sprites[SPRITE_LINK_SPIN]->loop;
 	sprites[SPRITE_SWORD_ATTACK]->loop = sprites[SPRITE_LINK_ATTACKING]->loop;
 	sprites[SPRITE_SWORD_LOADING]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_SWORD_VICTORY]->loop = sprites[SPRITE_LINK_VICTORY]->loop;
 	sprites[SPRITE_STAR_LOADING_H]->loop = sprites[SPRITE_LINK_LOADING]->loop;
 	sprites[SPRITE_STAR_LOADING_V]->loop = sprites[SPRITE_LINK_LOADING]->loop;
-	sprites[SPRITE_RUPEE]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_EXIT]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_SOLDIER]->loop = 4 * FRAME_REPETE;
-	sprites[SPRITE_SMOKE]->loop = 3 * FRAME_REPETE;
-	sprites[SPRITE_LINK_HURT]->loop = 4 * FRAME_REPETE;
+	sprites[SPRITE_SMOKE]->loop = sprites[SPRITE_SOLDIER]->loop;
 }
 
 void	ft_render_sprites_init(t_render *render)

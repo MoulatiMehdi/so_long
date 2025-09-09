@@ -14,6 +14,8 @@
 #include "map.h"
 #include "player.h"
 #include "so_long.h"
+#include <sys/time.h>
+
 
 int		ft_handler_key_press(int keycode, t_game *game);
 int		ft_handler_key_release(int keycode, t_engine *engine);
@@ -59,17 +61,26 @@ int	ft_game_update(t_game *game)
 {
 	t_engine	*engine;
 	t_render	*render;
+	struct timeval	time_curr;
+    static struct timeval	time_frame;
 
 	engine = game->engine;
 	render = game->render;
-	if (render->stop)
-		return (0);
-	if (!engine->paused)
-		ft_engine_update(game);
-	ft_render_update(game);
-	ft_render_display(render);
-	if (game->exit)
-		ft_game_destroy(game);
+
+	gettimeofday(&time_curr, NULL);
+	if (ft_timeval_ms(&time_curr) - ft_timeval_ms(&time_frame) > 1000
+		/ RENDER_FPS)
+	{
+        time_frame = time_curr;
+        if (render->stop)
+            return (0);
+        if (!engine->paused)
+            ft_engine_update(game);
+        ft_render_update(game);
+        ft_render_display(render);
+        if (game->exit)
+            ft_game_destroy(game);
+    }
 	return (0);
 }
 

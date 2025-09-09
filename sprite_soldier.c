@@ -23,8 +23,9 @@ void	ft_soldier_walk(t_render *render, t_enemy *enemy)
 	p.y = enemy->y - render->camera.y;
 	p.x = enemy->x - render->camera.x;
 	ft_render_sprite(render, sprite, &p);
-	enemy->frame_on_loop = (enemy->frame_on_loop + 1) % (sprite->loop
-			* (sprite->col - 4));
+
+    enemy->frame_on_loop = (enemy->frame_on_loop + 1) % (sprite->loop
+            * (sprite->col - 4));
 }
 
 void	ft_soldier_look(t_render *render, t_enemy *enemy)

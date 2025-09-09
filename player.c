@@ -42,7 +42,7 @@ t_player	*ft_player_new(void)
 	player->charge = 0;
 	player->moves = 0;
 	player->hearts = 1;
-	player->speed = 2;
+	player->speed = 180 / RENDER_FPS;
 	player->width = 24;
 	player->height = 16;
 	player->is_moving = false;
