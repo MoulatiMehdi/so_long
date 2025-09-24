@@ -14,7 +14,7 @@
 
 # define SO_LONG_H
 
-#define RENDER_FPS 30
+#define RENDER_FPS 60
 # define KEYS_TOTAL 256
 # define WINDOW_HEIGHT 576
 # define WINDOW_WIDTH 704
