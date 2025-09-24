@@ -36,7 +36,7 @@ $(DIR_OBJS) :
 $(LIBFT) : 
 	make -C libft --no-print-directory
 clean : 
-	$(RM) $(RMFLAGS) $(OBJS)
+	$(RM) $(RMFLAGS) $(DIR_OBJS)
 
 fclean : clean 
 	make fclean -C libft --no-print-directory
